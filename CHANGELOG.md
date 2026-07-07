@@ -645,3 +645,199 @@ from src.questions import generate_question, list_all_dimensions, select_next_di
 1. **图片生成功能**：当前是占位实现，需根据智谱 CogView API 文档完善
 2. **运行预处理脚本**：需手动运行脚本生成人物数据
 3. **添加更多人物**：可在人物名单文件中添加更多人物
+
+---
+
+## 2026-07-04
+
+### 开发 Agent 调度模块
+
+完成了 [Agent 调度模块](file:///d:/Hylog/src/agent/) 的全部代码编写，这是项目的"控制中心"，负责协调人格建模、问题生成、人物匹配、LLM 调用四大模块，将单轮对话串联成完整的人格建模闭环。
+
+### 关键技术决策
+
+#### 决策 1：放弃 LangGraph，采用纯 Python 状态类
+
+原 README 和 PROJECT_STATUS 中规划使用 LangGraph 实现 Agent 流程引擎。经过详细对比（依赖复杂度、Web 多会话适配、流式输出支持、调试难度、与现有代码契合度等），决定改用**纯 Python 状态类**方案（`AgentState` + `ConversationAgent`），不引入 LangGraph 依赖。
+
+理由：
+- Hylog 是面向 Web 的多会话系统（FastAPI + Streamlit），LangGraph 对多会话场景适配麻烦
+- 现有 4 个模块都是普通函数，纯 Python 方案调用更直接、零摩擦
+- 纯 Python 方案流式输出原生友好（`yield`），调试简单，永不被框架绑定
+- LangGraph 的优势（可视化、checkpointer）在本项目场景下用不上
+
+#### 决策 2：收敛即输出，取消双重验证
+
+原设计中收敛后还有"双重验证"环节（OCEAN 相似度 ≥ 0.85 且 11 维相似度 ≥ 0.80）。讨论后确认：**11 维只是探测手段，不参与人物匹配**，匹配只用 OCEAN 五维。因此取消双重验证，收敛后直接匹配输出。人物库足够大时 OCEAN 相似度自然就高，不会出现"匹配不到像的人"的情况。
+
+#### 决策 3：其他确认的决策
+
+- **收敛阈值**：采用 README 默认值（最小 15 轮、每维 ≥ 2 次、不确定性 < 0.3；最大 30 轮兜底）
+- **兜底策略**：达 30 轮强制输出当前最佳匹配，标记 `forced=True`
+- **无效回答**：跳过，返回引导语，不增加 turn_count
+- **LLM 失败处理**：问题生成失败用备用问题；人格分析失败跳过本轮，不弹"重试"
+- **人物库依赖**：Agent 开发期间用 Mock 人物测试，不依赖真实数据库
+
+### 编写 Agent 模块代码
+
+编写了 [src/agent/](file:///d:/Hylog/src/agent/) 下的 4 个文件：
+
+#### state.py（约 290 行）
+
+定义 [AgentState](file:///d:/Hylog/src/agent/state.py) 状态类，作为会话的"记忆"，贯穿一次完整对话：
+- 持有 OCEAN 向量、11 维向量、对话历史、轮次、收敛状态、匹配结果
+- 提供维度不确定性/探索次数的便捷访问方法
+- 支持 `to_dict()` / `from_dict()` 序列化，用于持久化到数据库或断点恢复
+- `get_summary()` 生成前端展示用的状态摘要
+- 定义阈值常量（MIN_ROUNDS=15、MAX_ROUNDS=30 等）和开场白文案
+
+#### nodes.py（约 350 行）
+
+定义 [8 个流程节点函数](file:///d:/Hylog/src/agent/nodes.py)，每个职责单一：
+1. `start_node` - 输出固定开场白，首维度固定为 social
+2. `select_dimension_node` - 调用维度选择策略选下一个维度
+3. `generate_question_node` - 生成问题，LLM 失败时 fallback 到备用问题
+4. `process_answer_node` - 记录用户回答
+5. `update_personality_node` - LLM 分析回答 + 更新人格（核心节点），处理无效回答跳过
+6. `check_convergence_node` - 收敛判断
+7. `match_character_node` - 用 OCEAN 匹配人物（不涉及 11 维）
+8. `build_result_node` - 构建最终结果
+
+另外内置 5 个 Mock 人物数据（诸葛亮、曹操、李白、林黛玉、苏轼），便于开发测试。
+
+#### graph.py（约 430 行）
+
+定义 [ConversationAgent](file:///d:/Hylog/src/agent/graph.py) 主控制器类：
+- `create()` 工厂方法：创建新会话，支持 Mock 模式和真实模式
+- `start()`：输出开场白 + 第一个问题
+- `reply()`：核心方法，处理用户回答并推进流程（记录→更新人格→收敛判断→路由决策）
+- 路由决策：已收敛→匹配输出；未收敛→继续问；达 30 轮→强制输出
+- 完整的持久化方法：Message / PersonalitySnapshot / Result 入库，会话状态更新，人物匹配次数自增
+
+#### __init__.py（约 80 行）
+
+模块导出，提供便捷导入接口。
+
+### 自测验证
+
+运行 Mock 模式测试，验证结果：
+- ✅ 模块导入正常
+- ✅ Agent 创建、状态初始化正常
+- ✅ `start()` 输出开场白正常
+- ✅ 序列化/反序列化正常
+- ✅ 维度数据访问正常
+- ✅ LLM 失败降级机制有效（智谱账户余额不足时自动 fallback 到备用问题，对话不中断）
+- ⚠️ 完整端到端测试（AI 动态生成问题→人格分析→收敛→匹配）待智谱账户充值后进行
+
+### 发现并解决的问题
+
+#### 模型版本升级：glm-4 → glm-5.2
+
+发现 `.env` 中 `ZHIPU_MODEL=glm-4`，与当前智谱账户使用的 GLM-5.2 不一致，已更新为 `glm-5.2`。
+
+注：智谱返回的 `1113 余额不足` 错误经确认是账户额度问题（与模型名无关），需充值后才能完成完整测试。
+
+### 更新项目文档
+
+- 更新 [README.md](file:///d:/Hylog/README.md)：将 LangGraph 相关描述改为纯 Python 状态类方案；移除已取消的双重验证机制；更新工作流程、系统特点、技术栈等内容
+
+### 代码特点
+
+- 零新增依赖（不引入 LangGraph，只用项目现有依赖）
+- 节点函数为纯函数，职责单一，便于测试和复用
+- 完善的降级机制（LLM 失败、无效回答、空人物库等边界情况）
+- Mock 模式支持独立测试，不依赖数据库和真实 API 额度
+- 与现有 4 个模块（personality/questions/matching/llm）零摩擦集成
+
+---
+
+## 2026-07-07
+
+### 开发 API 路由模块（FastAPI）
+
+完成了 [API 路由模块](file:///d:/Hylog/src/api/) 的开发，把 `ConversationAgent` 的能力通过 HTTP 接口暴露出来，跑通「创建会话 → 多轮对话 → 出匹配结果」的主链路。四大核心模块（人格建模、问题系统、人物匹配、Agent 调度）至此全部具备对外服务能力。
+
+### 范围与决策
+
+本轮聚焦 **MVP 主链路**，明确以下范围（其余延后）：
+- ✅ 做：会话/对话/状态/结果/历史接口、会话状态持久化与恢复、FastAPI 骨架（CORS + 异常处理）、根目录启动入口、种子人物脚本
+- ⏸️ 延后：用户认证/JWT、手机号登录、微信QQ第三方登录、用户管理接口、流式输出（SSE）、前端 app.py
+
+关键决策（经与用户确认）：
+- **数据模式**：默认真实模式（真实调智谱 + 真实 SQLite），但保留 `USE_MOCK_AGENT` 开关，智谱余额不足时可切 Mock 验证 API 链路
+- **流式输出**：本轮不做（非流式接口已能跑通主链路，后续加 SSE 不破坏现有接口）
+- **会话状态恢复**：采用"每次从数据库恢复"方案（HTTP 无状态架构的标准做法）
+- **认证**：本轮不校验身份，用请求体里的 `user_id`（或默认假用户），后续加 JWT 只需加一层中间件
+
+### 解决三个底层适配问题
+
+开发前发现三个必须解决的底层问题（不改业务逻辑，但不修 API 跑不起来）：
+
+1. **Session 表缺状态存储字段**：原表只有 `round_count`/`current_module`/`status`，存不下完整 AgentState。给 [Session 表](file:///d:/Hylog/src/data/models.py) 新增 `state_json` 字段（JSON 类型），存 `AgentState.to_dict()` 完整快照。与 Message/Snapshot 表职责分离：后者用于历史查询和人格演化展示，`state_json` 专门用于运行时恢复。
+
+2. **ConversationAgent 没有"恢复会话"入口**：只有 `create()` 建新会话。给 [ConversationAgent](file:///d:/Hylog/src/agent/graph.py) 新增 `restore()` 类方法（从 `session_id` 读 `state_json` → `AgentState.from_dict()` → 加载人物库 → 构造实例）和 `_persist_state()` 方法（在 start/reply/_finish 的所有返回点调用，写入完整状态快照）。
+
+3. **SQLite 多线程配置**：`init_database()` 没配 `check_same_thread=False`，FastAPI 多线程访问 SQLite 会报错。修改 [src/data/__init__.py](file:///d:/Hylog/src/data/__init__.py) 对 SQLite 自动加 `connect_args={"check_same_thread": False}`，并新增全局 engine 单例（`init_global_database`/`get_session_local`），避免每次请求新建 engine。
+
+### 新建文件
+
+| 文件 | 说明 |
+|------|------|
+| [src/api/schemas.py](file:///d:/Hylog/src/api/schemas.py) | Pydantic 请求/响应模型（含 answer 长度校验 1~100 字符） |
+| [src/api/deps.py](file:///d:/Hylog/src/api/deps.py) | FastAPI 依赖注入（get_db / get_mock_flag / load_session_or_404） |
+| [src/api/routes.py](file:///d:/Hylog/src/api/routes.py) | 5 个核心接口（创建会话/对话/查状态/查结果/查历史） |
+| [src/api/main.py](file:///d:/Hylog/src/api/main.py) | FastAPI 应用（CORS + 启动初始化数据库 + 全局异常处理 + 健康检查） |
+| [src/api/__init__.py](file:///d:/Hylog/src/api/__init__.py) | 模块导出 |
+| [main.py](file:///d:/Hylog/main.py) | 根目录启动入口（uvicorn，读 .env 配置） |
+| [scripts/seed_characters.py](file:///d:/Hylog/scripts/seed_characters.py) | 种子人物脚本（不调智谱，写 5 个固定 OCEAN 分数的人物，让人物库非空可端到端跑通） |
+
+### 修改文件
+
+| 文件 | 改动 |
+|------|------|
+| [src/data/models.py](file:///d:/Hylog/src/data/models.py) | Session 表新增 `state_json` 字段 |
+| [src/data/__init__.py](file:///d:/Hylog/src/data/__init__.py) | SQLite 多线程配置 + 全局 engine 单例 |
+| [src/agent/graph.py](file:///d:/Hylog/src/agent/graph.py) | 新增 `restore()`/`_persist_state()`，create 复用全局 engine，所有返回点持久化状态 |
+| [requirements.txt](file:///d:/Hylog/requirements.txt) | 新增 fastapi、uvicorn[standard]、python-multipart |
+| [.env.example](file:///d:/Hylog/.env.example) | 新增 API_HOST/API_PORT/CORS_ORIGINS/DB_PATH/USE_MOCK_AGENT 配置项 |
+
+### 核心接口
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/sessions` | 创建会话，返回开场白+第一个问题 |
+| POST | `/api/sessions/{id}/reply` | 提交回答，返回下一个问题或匹配结果 |
+| GET | `/api/sessions/{id}/state` | 查询人格状态和进度 |
+| GET | `/api/sessions/{id}/result` | 查询匹配结果（未完成返回 409） |
+| GET | `/api/sessions/{id}/messages` | 查询对话历史 |
+| GET | `/` | 健康检查 |
+| GET | `/docs` | Swagger API 文档（自动生成） |
+
+### 验证结果
+
+通过 TestClient 和直接调用 ConversationAgent 进行了分层验证：
+
+- ✅ 模块导入正常，FastAPI 应用创建正常
+- ✅ `ConversationAgent.create()` → `_persist_state()` → `restore()` 状态持久化与恢复机制完全正确（turn_count、current_dimension、人物库均能正确恢复）
+- ✅ `GET /state` 正确返回进度（含维度覆盖率统计）
+- ✅ `GET /messages` 返回对话历史
+- ✅ `GET /result` 未完成时返回 409
+- ✅ 不存在的会话返回 404
+- ✅ 空/超长回答返回 422 校验错误
+- ✅ 健康检查和 Swagger 文档可访问
+- ✅ uvicorn 服务能正常启动
+- ⏳ **真实模式下的 `POST /reply` 端到端测试待用户核实智谱余额后进行**（验证中确认：真实模式下每次 reply 都会调智谱，余额不足或网络问题会导致请求卡住至超时，这是预期行为；AI 智能效果需充值后才能完整验证）
+
+### 发现并修复的问题
+
+1. **deps.py 导入错误**：误导入不存在的 `SessionLocal`，已修复为只导入 `get_session_local`
+2. **get_db 未初始化兜底**：Mock 模式创建会话不初始化全局数据库，导致后续查询接口报错。给 `get_db` 加了按需自动初始化逻辑
+3. **维度覆盖率统计类型错误**：`explore_count` 实际是 dict（`{'social_explore_count': 0, ...}`）而非列表，原代码按列表处理报错。已修复为兼容 dict 和 list 两种结构
+
+### 代码特点
+
+- 零破坏性改动：底层三个适配问题都不改业务逻辑，只补齐 Web 场景所需的基础设施
+- 状态恢复机制干净：state_json 完整快照，与历史表职责分离
+- 完善的错误处理：404（会话不存在）、409（测试未完成）、422（参数校验）、503（AI 服务不可用）、500（兜底）
+- USE_MOCK_AGENT 开关让 API 链路验证不依赖智谱余额
+- 种子脚本让端到端测试不依赖真实人物库构建

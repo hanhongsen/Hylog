@@ -8,6 +8,11 @@ sqlalchemy==2.0.51
 tiktoken==0.13.0
 requests==2.32.5
 
+# API 后端（FastAPI）
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+
 # 前端
 streamlit>=1.0.0
 

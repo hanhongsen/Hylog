@@ -92,7 +92,13 @@ class Session(Base):
     status = Column(String(20), default="in_progress")   # 状态（in_progress/completed/interrupted）
     round_count = Column(Integer, default=0)             # 对话轮次
     current_module = Column(String(50), nullable=True)   # 当前探索的问题维度
-    
+
+    # ---------- 完整状态快照（用于运行时恢复） ----------
+    # 存储 AgentState.to_dict() 的完整快照（OCEAN 向量、不确定性、对话历史、收敛详情等）
+    # 每次 start/reply 后更新，下一次请求时通过 AgentState.from_dict() 恢复
+    # 与 Message/PersonalitySnapshot 表职责分离：后者用于历史查询和人格演化展示
+    state_json = Column(JSON, nullable=True)             # 完整 AgentState 序列化 JSON
+
     # ---------- 时间 ----------
     started_at = Column(DateTime, default=datetime.now)  # 开始时间
     ended_at = Column(DateTime, nullable=True)           # 结束时间
