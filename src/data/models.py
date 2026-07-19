@@ -282,24 +282,22 @@ class VerificationCode(Base):
 class Character(Base):
     """
     人物库表
-    
-    存储所有可用于匹配的人物信息，包括：
-    - 历史人物（清朝或之前）
-    - 文学人物
-    - 影视角色
-    
-    注意：不包含神话人物和现代历史人物
+
+    存储所有可用于匹配的人物信息。
+
+    注意：当前人物库只包含中国历史上的真实人物（清朝或之前），
+    不包含文学虚构人物、影视角色、神话人物、近现代人物。
     """
-    
+
     __tablename__ = "characters"
-    
+
     # ---------- 主键 ----------
     character_id = Column(String(36), primary_key=True)  # 人物唯一标识（UUID）
-    
+
     # ---------- 基本信息 ----------
     name = Column(String(100), nullable=False)           # 人物名称
-    source = Column(String(50), nullable=False)          # 来源（历史/文学/影视）
-    era = Column(String(50), nullable=True)              # 年代/时期（历史人物必填）
+    source = Column(String(50), nullable=False)          # 来源（历史）
+    era = Column(String(50), nullable=True)              # 年代/时期（历史人物必填，如"唐朝"、"三国"）
     description = Column(Text, nullable=True)            # 人物简介生平（100-200字）
     
     # ---------- 人格向量 ----------

@@ -32,8 +32,8 @@ HEAT_LEVELS = {
     5: {"name": "最冷门", "range": (80, 100)},    # 后20%
 }
 
-# 来源类型定义
-SOURCE_TYPES = ["历史", "文学", "影视"]
+# 来源类型定义（当前只支持历史人物，清朝或之前）
+SOURCE_TYPES = ["历史"]
 
 # 基础展示字段（免费可见）
 FREE_FIELDS = ["name", "source", "era", "image_path", "description", "match_count"]
@@ -57,7 +57,7 @@ class CharacterData:
     # ---------- 基本信息 ----------
     character_id: str                              # 人物唯一标识
     name: str                                      # 人物名称
-    source: str                                    # 来源（历史/文学/影视）
+    source: str                                    # 来源（历史）
     era: str = ""                                  # 年代/时期（历史人物必填）
     description: str = ""                          # 人物简介生平
     
@@ -444,41 +444,37 @@ def validate_source(source: str) -> bool:
 def validate_era_for_history(source: str, era: str) -> bool:
     """
     验证历史人物的时代是否有效
-    
-    历史人物必须是清朝或之前的人物。
-    
+
+    历史人物必须是清朝或之前的人物（不含近现代）。
+    注：source 参数保留是为了向后兼容调用方式，当前人物库只有历史人物。
+
     参数:
-        source: 来源类型
+        source: 来源类型（保留参数，当前始终为"历史"）
         era: 时代
-    
+
     返回:
         是否有效
     """
-    # 如果不是历史人物，不需要验证时代
-    if source != "历史":
-        return True
-    
     # 历史人物必须有时代
     if not era:
         return False
-    
-    # 检查是否是清朝或之前的时代
-    # 这里简单判断，实际可能需要更复杂的逻辑
-    valid_eras = [
-        "先秦", "秦朝", "汉朝", "三国", "晋朝", "南北朝",
-        "隋朝", "唐朝", "五代", "宋朝", "元朝", "明朝", "清朝"
-    ]
-    
-    # 检查时代是否在有效列表中
-    for valid_era in valid_eras:
-        if valid_era in era:
-            return True
-    
-    # 如果时代包含"现代"、"民国"等，则无效
+
+    # 如果时代包含"现代"、"民国"等近现代关键词，则无效
     invalid_keywords = ["现代", "民国", "近代", "当代", "20世纪", "21世纪"]
     for keyword in invalid_keywords:
         if keyword in era:
             return False
-    
-    # 默认返回 True（允许其他古代时代）
+
+    # 检查是否是清朝或之前的时代（含各朝代常见写法）
+    valid_eras = [
+        "先秦", "春秋", "战国", "秦朝", "秦代", "汉朝", "汉代", "楚汉",
+        "三国", "魏晋", "晋朝", "晋代", "南北朝",
+        "隋朝", "隋代", "唐朝", "唐代", "五代",
+        "宋朝", "宋代", "元朝", "元代", "明朝", "明代", "清朝", "清代"
+    ]
+    for valid_era in valid_eras:
+        if valid_era in era:
+            return True
+
+    # 默认返回 True（允许其他未列举的古代时代写法）
     return True

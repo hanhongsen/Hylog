@@ -148,7 +148,7 @@ def process_character(
     
     # 验证来源类型
     if not validate_source(source):
-        print(f"  [{index}] ❌ 来源类型无效：{source}（有效值：历史、文学、影视）")
+        print(f"  [{index}] ❌ 来源类型无效：{source}（有效值：历史）")
         return None
     
     # 验证历史人物时代

@@ -841,3 +841,63 @@ from src.questions import generate_question, list_all_dimensions, select_next_di
 - 完善的错误处理：404（会话不存在）、409（测试未完成）、422（参数校验）、503（AI 服务不可用）、500（兜底）
 - USE_MOCK_AGENT 开关让 API 链路验证不依赖智谱余额
 - 种子脚本让端到端测试不依赖真实人物库构建
+
+---
+
+## 2026-07-19
+
+### 人物库改为"只有历史人物"
+
+经讨论决定，将人物库来源从"历史/文学/影视"三类**改为只有历史人物**（清朝或之前），并扩充人物名单到 24 个。理由：聚焦真实历史人物的深度分析，避免虚构人物 OCEAN 评分主观性过强的问题。
+
+### 改动内容
+
+#### 核心校验逻辑
+- [matcher.py](file:///d:/Hylog/src/matching/matcher.py)：`SOURCE_TYPES` 从 `["历史", "文学", "影视"]` 改为 `["历史"]`
+- `validate_era_for_history` 简化：去掉 `if source != "历史": return True` 分支（因现在只有历史人物），扩充 valid_eras 兼容更多朝代写法（春秋/战国/魏晋/楚汉等）
+- [build_character_db.py](file:///d:/Hylog/scripts/build_character_db.py)：错误提示文案"有效值：历史、文学、影视"改为"有效值：历史"
+
+#### 人物名单扩充（4 个 → 24 个）
+- [character_list.json](file:///d:/Hylog/data/characters/character_list.json)：删除 3 个文学人物（林黛玉、贾宝玉、孙悟空），扩充到 24 个历史人物，覆盖先秦~清朝：
+  - 先秦：孔子、老子、庄子、屈原、孙武
+  - 秦汉：秦始皇、项羽、刘邦、张良、司马迁
+  - 三国两晋：诸葛亮、曹操、嵇康、陶渊明
+  - 隋唐：唐太宗、武则天、李白、杜甫
+  - 宋朝：苏轼、李清照、岳飞、辛弃疾
+  - 明清：王阳明、纳兰性德
+- 选取标准：OCEAN 分布多样（含帝王/文人/武将/思想家/女性/改革者），朝代覆盖均衡
+
+#### MOCK 数据同步扩充
+- [nodes.py](file:///d:/Hylog/src/agent/nodes.py)：MOCK_CHARACTERS 从 5 个扩充到与 character_list.json **完全相同的 24 个历史人物**
+- 每个人物手工填写 OCEAN 分数（基于历史特质，如孔子 O=0.85/C=0.90/A=0.88；项羽 E=0.90/N=0.70 等）
+- 配齐 description（简介）、tags（标签）、quote（语录）、personality_keyword（性格关键词）
+- seed_characters.py 复用 MOCK_CHARACTERS，自动跟随
+
+#### Prompt 强化
+- [llm.py](file:///d:/Hylog/src/utils/llm.py)：`analyze_character` 的 system_prompt 明确"只分析中国历史上真实存在的人物（清朝或之前），不要分析虚构人物、神话人物、文学角色、影视角色"
+- 4 处 docstring 同步更新（2 个方法 + 2 个便捷函数）
+
+#### UI 文案与文档
+- [state.py](file:///d:/Hylog/src/agent/state.py) 开场白："也许是小说里的某个角色" → "也许是一位帝王、也许是一位诗人、也许是一位将军"
+- [main.py](file:///d:/Hylog/src/api/main.py) FastAPI description："历史、文学、影视" → "中国历史上的著名人物（清朝或之前）"
+- [models.py](file:///d:/Hylog/src/data/models.py) Character 表 docstring 更新
+- [README.md](file:///d:/Hylog/README.md)、[PROJECT_STATUS.md](file:///d:/Hylog/PROJECT_STATUS.md) 同步更新来源类型说明
+
+### 验证
+
+- ✅ MOCK_CHARACTERS 24 个人物全部 source=="历史"，OCEAN 分数 0~1 范围合法
+- ✅ character_list.json 24 个人物全部 source=="历史"
+- ✅ SOURCE_TYPES == ["历史"]
+- ✅ validate_source("文学") == False，validate_source("历史") == True
+- ✅ validate_era_for_history 对各朝代写法（春秋/三国/唐朝/清朝等）返回 True，对"民国/现代"返回 False
+
+### 不变的地方
+
+- Character 表的 `source` 字段保留（数据库兼容，值自动变为"历史"）
+- 所有 `source=c.source` 的数据流透传代码不变
+- seed_characters.py、schemas.py 不变（透传）
+- "清朝或之前"的时代限制保留（孙中山、鲁迅等近现代人物不收录）
+
+### 后续
+
+下一步：联调测试（需智谱余额），验证完整流程：创建会话 → AI 生成问题 → 人格分析 → 收敛 → 匹配 24 个历史人物之一。
