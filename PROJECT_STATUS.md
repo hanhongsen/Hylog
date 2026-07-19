@@ -609,3 +609,404 @@ elif st.session_state.stage == "result":
 | 展示分层 | 基础免费 + 完整付费 | 商业变现模式 |
 | 历史人物限制 | 清朝或之前 | 避免现代人物，保持文化底蕴 |
 | 来源类型 | 只有历史人物 | 简化匹配范围，专注真实历史人物的深度分析 |
+
+---
+
+# 📌 项目交接说明（2026-07-19 更新）
+
+> **本章节是给"接手开发的新对话/开发者"看的交接文档。**
+> 阅读本章节后，你应当能理解项目当前状态、已完成什么、下一步要做什么、以及踩过的坑。
+
+---
+
+## 🎯 一句话总结当前状态
+
+**后端核心架构 100% 完成，代码全部写好并通过单元验证；但因智谱 AI 余额不足（错误码 429 / 1113），真实 AI 联调尚未进行。下一步是开发前端界面（Streamlit）。**
+
+---
+
+## 📊 整体进度
+
+```
+设计  ▓▓▓▓▓▓▓▓▓▓ 100%  架构/维度/算法/表结构
+后端  ▓▓▓▓▓▓▓▓▓░  90%  差真实AI联调验证
+前端  ░░░░░░░░░░   0%  app.py 还是空的（下一步要做的）
+上线  ░░░░░░░░░░   0%  未启动
+```
+
+---
+
+## ✅ 已完成的模块（后端全部就绪）
+
+### 1. 数据层 & 模型
+- **人格建模** (`src/personality/`)：OCEAN 五维 + 11 维问题维度，EWMA 更新算法
+- **数据库** (`src/data/`)：7 张表（User/Session/Message/PersonalitySnapshot/Result/VerificationCode/Character），Session 表新增 `state_json` 字段支持状态恢复
+- **人物库**：24 个中国历史人物（先秦~清朝），见 `src/agent/nodes.py` 的 `MOCK_CHARACTERS` 和 `data/characters/character_list.json`
+
+### 2. 核心业务层
+- **问题系统** (`src/questions/`)：11 个维度模块 + 问题生成器
+- **人物匹配** (`src/matching/`)：OCEAN 余弦相似度匹配，`SOURCE_TYPES = ["历史"]`（只有历史人物）
+- **LLM 调用** (`src/utils/llm.py`)：智谱 AI 封装，含成本控制、日志、重试、流式输出
+- **Agent 调度** (`src/agent/`)：`ConversationAgent` 主控制器，8 个节点函数
+
+### 3. API 层（FastAPI 后端）
+- **入口** (`main.py`)：`uvicorn src.api.main:app`，读 `.env` 的 `API_HOST`/`API_PORT`
+- **应用** (`src/api/main.py`)：FastAPI 实例 + CORS + 异常处理 + 健康检查
+- **5 个核心接口** (`src/api/routes.py`)：
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/sessions` | 创建会话，返回开场白+第一个问题 |
+| POST | `/api/sessions/{session_id}/reply` | 提交回答，返回下一个问题或匹配结果 |
+| GET | `/api/sessions/{session_id}/state` | 查询人格状态和进度 |
+| GET | `/api/sessions/{session_id}/result` | 查询匹配结果（未完成返回 409） |
+| GET | `/api/sessions/{session_id}/messages` | 查询对话历史 |
+
+- **数据模型** (`src/api/schemas.py`)：Pydantic 请求/响应模型，answer 长度校验 1~100 字符
+- **依赖注入** (`src/api/deps.py`)：`get_db` / `get_mock_flag` / `load_session_or_404`
+
+### 4. 辅助脚本
+- **种子脚本** (`scripts/seed_characters.py`)：把 MOCK_CHARACTERS 写入数据库（不调智谱，免费让人物库非空）
+- **人物库构建** (`scripts/build_character_db.py`)：调智谱联网分析真实人物（需余额）
+
+---
+
+## 🔌 API 接口规格（前端开发必须看这个）
+
+### 启动后端服务
+
+```bash
+# 在项目根目录 D:\Hylog
+python main.py
+# 服务跑在 http://127.0.0.1:8000
+# Swagger 文档 http://127.0.0.1:8000/docs
+```
+
+### 核心接口请求/响应示例
+
+#### 1. 创建会话 `POST /api/sessions`
+
+**请求**（body 可选）：
+```json
+{ "user_id": "test-user-001" }
+```
+不传 user_id 则用默认假用户（认证功能未上线）。
+
+**响应**：
+```json
+{
+  "session_id": "uuid-...",
+  "question": "嗨，我是 Hylog～...（开场白）\n\n---\n\n（AI生成的第一个问题）",
+  "message": "...",
+  "personality_state": {"O": 0.5, "C": 0.5, "E": 0.5, "A": 0.5, "N": 0.5},
+  "progress": {
+    "turn": 0,
+    "min_rounds": 15,
+    "max_rounds": 30,
+    "dimension_coverage": "0/11",
+    "converged": false
+  },
+  "is_finished": false,
+  "forced_finish": false,
+  "result": null
+}
+```
+
+#### 2. 提交回答 `POST /api/sessions/{session_id}/reply`
+
+**请求**：
+```json
+{ "answer": "我喜欢一个人安静地看书（1~100字符）" }
+```
+
+**响应（对话进行中）**：
+```json
+{
+  "session_id": "uuid-...",
+  "question": "（AI生成的下一个问题）",
+  "message": "...",
+  "personality_state": {"O": 0.62, "C": 0.55, "E": 0.32, "A": 0.58, "N": 0.32},
+  "progress": {"turn": 1, "min_rounds": 15, "max_rounds": 30, "dimension_coverage": "1/11", "converged": false},
+  "is_finished": false,
+  "forced_finish": false,
+  "result": null
+}
+```
+
+**响应（对话完成，匹配到人物）**：
+```json
+{
+  "session_id": "uuid-...",
+  "question": "经过 16 轮对话...和你最像的人物是：**苏轼**...相似度 87%。",
+  "is_finished": true,
+  "forced_finish": false,
+  "result": {
+    "character": {
+      "character_id": "seed-sushi",
+      "name": "苏轼",
+      "source": "历史",
+      "era": "宋朝",
+      "description": "北宋文学家...",
+      "image_path": "",
+      "ocean_vector": {"O": 0.92, "C": 0.65, "E": 0.78, "A": 0.78, "N": 0.30},
+      "tags": ["豁达乐观", "旷达超脱", "热爱生活"],
+      "quote": "竹杖芒鞋轻胜马，谁怕？...",
+      "personality_keyword": "豁达乐观型",
+      "classic_events": "", "fun_facts": "", "advice": "", "related_books": ""
+    },
+    "similarity": 0.87,
+    "similarity_percent": 87,
+    "heat_level": "热门",
+    "heat_percent": 35,
+    "is_paid_locked": false
+  }
+}
+```
+
+#### 3. 查状态 `GET /api/sessions/{session_id}/state` / 查结果 `GET /result` / 查历史 `GET /messages`
+
+返回结构与上述响应中的对应部分一致。完整 schema 见 `src/api/schemas.py`。
+
+### 错误码
+
+| 状态码 | 含义 |
+|--------|------|
+| 200 | 成功 |
+| 404 | 会话不存在 |
+| 409 | 测试未完成（查 result 时） |
+| 422 | 参数校验失败（answer 空/超100字） |
+| 503 | AI 服务不可用（智谱失败） |
+| 500 | 服务器内部错误 |
+
+---
+
+## 🚧 下一步：开发前端界面（Streamlit）
+
+### 目标文件
+`app.py`（项目根目录，目前是空文件）
+
+### 技术选型
+**Streamlit**（纯 Python，快速搭建 MVP）。理由：之前已与用户确认先用 Streamlit 验证核心流程，后续再考虑用 React 重构。
+
+### 前端要实现的功能
+
+#### 必做功能（MVP 主链路）
+1. **对话界面**：聊天式 UI，用户输入回答 → 调 `POST /reply` → 显示 AI 生成的问题
+2. **进度展示**：显示当前轮次（X/30）、维度覆盖率（Y/11）、人格雷达图（OCEAN 五维）
+3. **开场白**：调 `POST /sessions` 后展示开场白和第一个问题
+4. **结果展示**：测试完成后（`is_finished=true`）展示匹配人物卡片（姓名/朝代/相似度/简介/语录/标签/性格关键词）
+5. **会话管理**：用 `session_id` 串联整个对话（存 sessionStorage 或 st.session_state）
+
+#### 建议的 UI 布局
+```
+┌─────────────────────────────────────────┐
+│  Hylog - 认识自己的旅程                    │
+├─────────────────────────────────────────┤
+│  [对话区域 - 聊天气泡式]                  │
+│  AI: 嗨，我是 Hylog～...                  │
+│  用户: 我喜欢一个人看书                    │
+│  AI: 在朋友聚会中...？                     │
+│                                          │
+│  [输入框] ___________________________    │
+│  [发送按钮]                               │
+├─────────────────────────────────────────┤
+│  侧边栏：                                 │
+│  📊 人格雷达图（OCEAN）                   │
+│  📈 进度：第 5/30 轮                      │
+│  🎯 维度覆盖：3/11                        │
+│  🔄 重新开始                              │
+└─────────────────────────────────────────┘
+```
+
+#### 调用后端的 Python 代码片段（参考）
+```python
+import requests
+
+API_BASE = "http://127.0.0.1:8000"
+
+# 创建会话
+r = requests.post(f"{API_BASE}/api/sessions", json={"user_id": "test-user"})
+data = r.json()
+session_id = data["session_id"]
+current_question = data["question"]
+
+# 循环对话
+while True:
+    user_answer = get_user_input()  # 前端获取
+    r = requests.post(
+        f"{API_BASE}/api/sessions/{session_id}/reply",
+        json={"answer": user_answer}
+    )
+    data = r.json()
+
+    display(data["question"])              # 显示下一个问题
+    update_radar(data["personality_state"]) # 更新雷达图
+    update_progress(data["progress"])       # 更新进度
+
+    if data["is_finished"]:
+        display_result(data["result"])      # 显示匹配结果
+        break
+```
+
+### 前端开发注意事项
+- **前端只通过 HTTP 调后端 API**，不要直接 import `src/` 的模块（前后端解耦）
+- **CORS 已配置**：`.env` 的 `CORS_ORIGINS` 默认含 `http://localhost:8501`（Streamlit 默认端口）
+- **会话状态管理**：用 Streamlit 的 `st.session_state` 存 `session_id`、对话历史、人格状态
+- **输入校验**：前端也应限制 answer 长度 1~100 字符（后端已有 422 兜底）
+- **加载状态**：调 `/reply` 时智谱响应慢（可能 5~30 秒），要有 loading 动画
+
+---
+
+## ⚠️ 关键限制：Mock 模式 vs 真实模式
+
+**这是前端开发期间最大的坑，必须看懂：**
+
+### `.env` 的 `USE_MOCK_AGENT` 开关
+- `false`（默认）：真实模式，调智谱（**当前余额不足，调不通**）
+- `true`：Mock 模式，用假数据，不花钱
+
+### 前端开发期间的建议策略
+**前端开发期间建议用 Mock 模式（`USE_MOCK_AGENT=true`）**，原因：
+1. 不消耗智谱额度
+2. 响应快（不走网络）
+3. 能验证 UI 布局和交互逻辑
+
+**但 Mock 模式有一个已知限制**：
+- ✅ Mock 模式下 `POST /sessions`（创建会话）能成功
+- ❌ Mock 模式下 `POST /reply` 会返回 **404**（因为 Mock 创建会话不写数据库，而 reply 依赖数据库恢复状态）
+
+**所以 Mock 模式下前端能验证**：
+- 创建会话的请求/响应流程
+- 查询类接口（state/messages/result）
+- UI 布局、雷达图、进度条展示
+
+**Mock 模式下前端无法验证**：
+- 完整的多轮对话（reply 链路）
+- 真实的 AI 问题生成和人格分析
+
+### 待智谱充值后的完整联调
+等用户充值智谱后（或改用 `glm-4-flash` 等便宜模型），设 `USE_MOCK_AGENT=false`，就能跑完整流程。
+
+---
+
+## 🧪 已验证的功能（无需重复测试）
+
+这些在本次开发周期已经验证通过，新对话可以信任：
+
+| 验证项 | 验证方式 | 结果 |
+|--------|---------|------|
+| 所有模块导入 | `python -c "from src.api import app"` | ✅ 无报错 |
+| FastAPI 应用启动 | uvicorn 启动 | ✅ 正常监听 |
+| 5 个路由注册 | `app.routes` 检查 | ✅ 全部注册 |
+| ConversationAgent 状态持久化+恢复 | `create()` → `_persist_state()` → `restore()` | ✅ turn_count/dimension 精确恢复 |
+| 只读接口（state/messages/result） | TestClient 调用 | ✅ 返回正确数据 |
+| 错误处理（404/409/422） | TestClient 调用 | ✅ 状态码正确 |
+| SOURCE_TYPES 校验 | 单元测试 | ✅ 只接受"历史" |
+| validate_era_for_history | 各朝代测试 | ✅ 春秋~清朝 True，民国/现代 False |
+| MOCK_CHARACTERS 数据 | 24 个人物检查 | ✅ source 全为"历史"，OCEAN 0~1 合法 |
+| character_list.json | 与 MOCK 对比 | ✅ 24 个人物名单完全一致 |
+| 种子脚本 | 写入数据库 | ✅ 24 个人物入库 |
+
+---
+
+## 🚫 尚未验证的功能（需充值智谱后验证）
+
+| 功能 | 原因 | 验证方法 |
+|------|------|---------|
+| AI 问题生成质量 | 余额不足 | 充值后 POST /sessions 看 question 字段 |
+| AI 人格分析准确性 | 余额不足 | 充值后多轮 reply 看 personality_state 变化 |
+| 完整收敛流程（15~30轮） | 余额不足 | 充值后跑完整对话看 is_finished |
+| Fallback 降级效果 | 余额不足 | 充值后观察 LLM 失败时的备用问题 |
+| 真实人物库 OCEAN 分析 | 余额不足 | 跑 `scripts/build_character_db.py` |
+
+---
+
+## 📁 关键文件索引（接手必读）
+
+### 项目结构
+```
+D:\Hylog\
+├── main.py                    # 根目录启动入口（uvicorn）
+├── app.py                     # 【空的】前端入口，下一步要开发
+├── .env                       # 环境变量（含智谱API Key，已被 gitignore）
+├── .env.example               # 配置模板（可提交）
+├── requirements.txt           # 依赖清单
+├── README.md                  # 项目简介
+├── PROJECT_STATUS.md          # 本文件
+├── CHANGELOG.md               # 开发日志（按时间记录所有决策和改动）
+├── data/characters/
+│   ├── character_list.json    # 24 个历史人物名单
+│   └── images/                # 人物图片目录（空，待生成）
+├── scripts/
+│   ├── seed_characters.py     # 种子脚本（免费写 24 个人物到数据库）
+│   └── build_character_db.py  # 真实人物库构建（调智谱，需余额）
+└── src/
+    ├── api/                   # FastAPI 后端（5个接口）
+    ├── agent/                 # Agent 调度（ConversationAgent）
+    ├── personality/           # 人格建模（OCEAN + 更新算法）
+    ├── questions/             # 问题系统（11个维度）
+    ├── matching/              # 人物匹配（余弦相似度）
+    ├── data/                  # 数据库模型（7张表）
+    └── utils/llm.py           # LLM 调用封装（智谱）
+```
+
+### 接手必读的 5 个文件（按重要性排序）
+1. **本文件**（PROJECT_STATUS.md）—— 全局进度和交接说明
+2. **`CHANGELOG.md` 末尾的 2026-07-07 和 2026-07-19 两条** —— 最近两次开发记录
+3. **`src/api/routes.py`** —— API 接口实现（前端对接的依据）
+4. **`src/api/schemas.py`** —— 请求/响应数据结构（前端类型定义的依据）
+5. **`src/agent/graph.py`** —— ConversationAgent 的 `create()`/`start()`/`reply()`/`restore()` 方法
+
+---
+
+## 🎯 关键决策记录（不要推翻，除非用户明确要求）
+
+| 决策 | 选择 | 理由 |
+|------|------|------|
+| Agent 框架 | 纯 Python 状态类（非 LangGraph） | Web 多会话友好、流式输出原生支持 |
+| 收敛机制 | 收敛即输出，取消双重验证 | 11 维只用于探索，匹配只用 OCEAN |
+| 人物来源 | 只有历史人物（清朝或之前） | 用户 2026-07-19 决定，专注真实人物 |
+| 状态恢复 | Session 表 state_json 字段 | HTTP 无状态架构的标准做法 |
+| 前端技术 | Streamlit（先用 MVP） | 用户确认，后续可升级 React |
+| 认证 | 延后，接口预留 user_id | 主链路优先，认证加中间件即可 |
+| 流式输出 | 暂不做（非流式先跑通） | 后续加 SSE 不破坏现有接口 |
+| 付费分层 | 当前全部返回（is_paid_locked=false） | 上线前再实现分层 |
+| 收敛阈值 | 最小15轮/最大30轮/不确定性<0.3 | README 默认值 |
+
+---
+
+## 🐛 已知问题 & 待办
+
+### 待用户处理
+- [ ] **智谱充值**：当前余额不足（429/1113），无法进行真实 AI 联调。用户需到 https://open.bigmodel.cn/usercenter/proj-mgr/apikeys 核实并充值（建议 ¥10~20）
+- [ ] **或改用便宜模型**：可把 `.env` 的 `ZHIPU_MODEL` 改成 `glm-4-flash` 试试（免费/低价）
+
+### 待开发
+- [ ] **前端 app.py**（下一步，见上文"开发前端界面"章节）
+- [ ] 用户认证（JWT + 手机号登录）
+- [ ] 流式输出（SSE）
+- [ ] 人物图片生成（CogView API）
+- [ ] 真实人物库 OCEAN 分析（跑 build_character_db.py）
+
+### 已知技术限制
+- **Mock 模式下 reply 接口 404**：因 Mock 不落库。前端开发期间只能验证 create 和只读接口
+- **Python 3.14.5 + 无虚拟环境**：全局环境，建议后续建 venv 隔离
+- **智谱调用超时 60 秒**：`.env` 的 `LLM_TIMEOUT=60`，单次 reply 最长等 60 秒
+
+---
+
+## 💡 给新对话的建议
+
+1. **接手第一步**：先把 `.env` 设为 `USE_MOCK_AGENT=true`，启动后端 `python main.py`，访问 http://127.0.0.1:8000/docs 看 Swagger 文档熟悉接口
+2. **前端开发**：在 `app.py` 用 Streamlit 实现，参考上文的 UI 布局和代码片段
+3. **遇到智谱调用**：当前余额不足，所有真实 AI 调用会失败并走 fallback。开发前端时用 Mock 模式
+4. **改后端代码前**：先读 CHANGELOG.md 的 2026-07-07 条目，理解 API 模块的设计决策
+5. **不要重构**：现有代码经过验证，除非有明确 bug 或用户要求，不要推翻已有设计
+6. **提问前**：本文件应该已经回答了大部分问题。如果仍有疑问，再问用户
+
+---
+
+**最后更新**：2026-07-19
+**当前分支**：main
+**最近提交**：d4cad7c（refactor: 人物库改为只有历史人物，扩充到 24 个）
+**下一步**：开发前端界面（Streamlit）—— 目标文件 `app.py`
