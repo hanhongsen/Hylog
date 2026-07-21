@@ -23,6 +23,7 @@ from pathlib import Path  # 路径处理
 # ----------------------------------------
 from dotenv import load_dotenv  # 从 .env 文件加载环境变量
 from openai import OpenAI  # OpenAI 官方 Python 库（兼容 DeepSeek）
+from zhipuai import ZhipuAI  # 智谱 AI 官方 SDK（走套餐额度，不走余额）
 import tiktoken  # Token 计数工具
 import zhipuai  # 智谱 AI 官方 SDK（用于联网搜索和图片生成）
 
@@ -777,10 +778,10 @@ class LLMClient:
         config.validate()
         self.config = config
         
-        # 初始化 OpenAI 客户端（兼容 DeepSeek）
-        self.client = OpenAI(
+        # 初始化智谱官方 SDK 客户端（走套餐额度）
+        # 注：ZhipuAI 默认 base_url 即智谱官方地址，无需显式传 base_url
+        self.client = ZhipuAI(
             api_key=config.api_key,
-            base_url=config.base_url,
             timeout=config.timeout,
         )
         
@@ -1562,10 +1563,9 @@ guidance 应该是友好的引导语，帮助用户继续对话，如"没关系�
         self.config.load_from_env(provider)
         self.config.validate()
         
-        # 重新初始化客户端
-        self.client = OpenAI(
+        # 重新初始化智谱 SDK 客户端
+        self.client = ZhipuAI(
             api_key=self.config.api_key,
-            base_url=self.config.base_url,
             timeout=self.config.timeout,
         )
         
