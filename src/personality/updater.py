@@ -28,13 +28,20 @@ from .model import OCEANVector, Dimension11Vector, DIMENSION11_TO_OCEAN_MAPPING
 EWMA_LEARNING_RATE = 0.2
 
 # 单次最大变化幅度（限制单次更新的最大变化）
-MAX_CHANGE_PER_UPDATE = 0.05
+# 调整为 0.08：原值 0.05 对单一维度信号响应偏弱，
+# 但过大会导致分数快速冲到 0/1 边缘而饱和（如 N 维度）。
+# 0.08 在"灵敏"和"不饱和"之间取得平衡。
+MAX_CHANGE_PER_UPDATE = 0.08
 
 # 最小更新阈值（小于此值的变化不更新）
 MIN_UPDATE_THRESHOLD = 0.01
 
 # 不确定性减少量（每次更新减少的不确定性）
-UNCERTAINTY_REDUCTION = 0.1
+# 调整为 0.12：原值 0.1 太大，OCEAN 不确定度 5 轮就降到 0，
+# 但 dim11（11 维）每轮只更新 1 个维度，平均不确定度下降极慢，
+# 两者不同步会导致收敛判断永远不满足。
+# 0.12 让 OCEAN 在 ~8 轮收敛，配合 MIN_ROUNDS=15 更合理。
+UNCERTAINTY_REDUCTION = 0.12
 
 # 贝叶斯先验方差（初始不确定性）
 BAYESIAN_PRIOR_VARIANCE = 0.25
@@ -148,29 +155,47 @@ class PersonalityUpdater:
         delta: float
     ) -> float:
         """
-        平滑更新，限制变化幅度
-        
+        平滑更新，限制变化幅度，并在接近 0/1 边缘时自然减速
+
+        边缘减速：当分数已经接近 0 或 1 时，继续往同方向推动的 delta
+        会被按比例衰减。这样既能收敛到明显的极值，又不会饱和卡死
+        在 0/1（饱和后所有用户在该维度的分数都一样，会丢失区分度）。
+
         参数:
             current_value: 当前值
             delta: 变化量
-        
+
         返回:
             更新后的值
         """
         # 如果变化量太小，不更新
         if abs(delta) < self.min_threshold:
             return current_value
-        
+
         # 限制变化幅度
         if delta > self.max_change:
             delta = self.max_change
         elif delta < -self.max_change:
             delta = -self.max_change
-        
+
+        # 边缘减速：距离边缘越近，同向 delta 衰减越多
+        # 仅当 delta 方向指向较近的边缘时才衰减
+        if delta > 0:
+            # 距离上沿 1.0 的空间
+            headroom = 1.0 - current_value
+            if headroom < 0.2:
+                # headroom 越小衰减越强，headroom=0.2 时不衰减，headroom→0 时衰减到 ~0
+                delta *= max(0.0, headroom / 0.2)
+        elif delta < 0:
+            # 距离下沿 0.0 的空间
+            headroom = current_value
+            if headroom < 0.2:
+                delta *= max(0.0, headroom / 0.2)
+
         # 计算新值，限制在 0.0 ~ 1.0 范围内
         new_value = current_value + delta
         new_value = max(0.0, min(1.0, new_value))
-        
+
         return new_value
     
     # ============================================================
@@ -373,51 +398,55 @@ class PersonalityUpdater:
     ) -> Tuple[bool, Dict]:
         """
         检查人格向量是否收敛
-        
+
         收敛条件：
         1. 最小对话轮次 ≥ min_rounds
-        2. 每个维度至少被探索 min_explore_per_dimension 次
-        3. 所有维度不确定性 < max_uncertainty
-        
+        2. OCEAN 平均不确定性 < max_uncertainty
+
+        设计说明（2026-07-28 调整）：
+        早期版本同时要求"11 维平均不确定性 < max_uncertainty"，但 11 维有 11 个
+        子维度、每轮只探索 1 个，平均不确定性每轮仅降 ~0.01，从 1.0 降到 0.3
+        需要每维探索 7+ 次（共 77 次），远超对话上限 30 轮。这导致会话永远无法
+        自然收敛，只能靠 MAX_ROUNDS 强制结束。
+
+        由于最终人物匹配只用 OCEAN 5 维（11 维仅用于问题探索），收敛判断也只
+        看 OCEAN 不确定性即可。11 维的探索次数仍用于维度选择策略（优先探索
+        高不确定性/低探索次数的维度），不影响收敛。
+
         参数:
             ocean_vector: OCEAN 向量
-            dim11_vector: 11 维向量
+            dim11_vector: 11 维向量（仍传入，用于轮次统计和详情展示）
             min_rounds: 最小对话轮次
-            min_explore_per_dimension: 每个维度最小探索次数
-            max_uncertainty: 最大允许的不确定性
-        
+            min_explore_per_dimension: 每个维度最小探索次数（已废弃，保留参数兼容）
+            max_uncertainty: 最大允许的 OCEAN 平均不确定性
+
         返回:
             (是否收敛, 详细信息字典)
         """
         # 初始化检查结果
         checks = {
             "min_rounds": False,
-            "dimension_coverage": False,
             "uncertainty": False,
             "details": {}
         }
-        
+
         # 检查 1：最小对话轮次
         total_explores = sum(dim11_vector.to_explore_count_vector())
         checks["min_rounds"] = total_explores >= min_rounds
         checks["details"]["total_rounds"] = total_explores
-        
-        # 检查 2：维度覆盖率
-        min_explore = dim11_vector.get_min_explore_count()
-        checks["dimension_coverage"] = min_explore >= min_explore_per_dimension
-        checks["details"]["min_explore_count"] = min_explore
-        checks["details"]["unexplored_dimensions"] = dim11_vector.get_unexplored_dimensions(min_explore_per_dimension)
-        
-        # 检查 3：不确定性
+
+        # 检查 2：OCEAN 平均不确定性（收敛的核心依据）
         avg_ocean_uncertainty = ocean_vector.get_average_uncertainty()
-        avg_dim11_uncertainty = dim11_vector.get_average_uncertainty()
-        checks["uncertainty"] = (avg_ocean_uncertainty < max_uncertainty and 
-                                  avg_dim11_uncertainty < max_uncertainty)
+        checks["uncertainty"] = avg_ocean_uncertainty < max_uncertainty
         checks["details"]["ocean_uncertainty"] = avg_ocean_uncertainty
+
+        # 附带 11 维信息（仅供参考，不参与收敛判断）
+        avg_dim11_uncertainty = dim11_vector.get_average_uncertainty()
         checks["details"]["dim11_uncertainty"] = avg_dim11_uncertainty
+        checks["details"]["min_explore_count"] = dim11_vector.get_min_explore_count()
         checks["details"]["high_uncertainty_dimensions"] = dim11_vector.get_high_uncertainty_dimensions(max_uncertainty)
-        
-        # 综合判断
-        is_converged = checks["min_rounds"] and checks["dimension_coverage"] and checks["uncertainty"]
-        
+
+        # 综合判断：轮次达标 + OCEAN 不确定性达标
+        is_converged = checks["min_rounds"] and checks["uncertainty"]
+
         return is_converged, checks

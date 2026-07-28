@@ -528,22 +528,16 @@ def update_personality_node(
     if getattr(state, "use_mock", False):
         ocean_delta = _generate_mock_ocean_delta(current_ocean, state)
 
-        # 计算 11 维的变化量（取该维度映射的 OCEAN 维度 deltas 的平均值）
+        # 更新 11 维向量（记录分数变化和探索次数，与真实模式保持一致的更新路径）
         from src.personality.model import DIMENSION11_TO_OCEAN_MAPPING
         mapped_dims = DIMENSION11_TO_OCEAN_MAPPING.get(dimension, [])
         if mapped_dims:
             dim11_delta = sum(ocean_delta.get(d, 0.0) for d in mapped_dims) / len(mapped_dims)
         else:
             dim11_delta = 0.0
+        updater.update_dimension11(state.dim11_vector, dimension, dim11_delta)
 
-        # 更新 11 维和 OCEAN（与真实模式保持一致的更新路径）
-        updater.update_ocean_from_dimension11(
-            ocean_vector=state.ocean_vector,
-            dim11_vector=state.dim11_vector,
-            dimension=dimension,
-            delta=dim11_delta,
-        )
-        # 直接用合成 deltas 覆盖更新一次（覆盖全部 5 维，确保不确定性均匀下降）
+        # 用合成 deltas 更新 OCEAN（覆盖全部 5 维，确保不确定性均匀下降）
         updater.update_ocean(state.ocean_vector, ocean_delta)
 
         # 有效回答，轮次 + 1
@@ -600,25 +594,18 @@ def update_personality_node(
         for dim in ["O", "C", "E", "A", "N"]
     }
 
-    # 计算 11 维的变化量（取该维度映射的 OCEAN 维度 deltas 的平均值）
+    # 更新 11 维向量（仅记录该维度的分数变化和探索次数，用于维度选择策略）
+    # 取该维度映射的 OCEAN 维度 deltas 的平均值作为 dim11 分数的变化量
     from src.personality.model import DIMENSION11_TO_OCEAN_MAPPING
     mapped_dims = DIMENSION11_TO_OCEAN_MAPPING.get(dimension, [])
     if mapped_dims:
         dim11_delta = sum(ocean_delta.get(d, 0.0) for d in mapped_dims) / len(mapped_dims)
     else:
         dim11_delta = 0.0
+    updater.update_dimension11(state.dim11_vector, dimension, dim11_delta)
 
-    # 更新 OCEAN 和 11 维（就地修改）
-    # update_ocean_from_dimension11 内部会按映射把 delta 分配到 OCEAN 各维
-    updater.update_ocean_from_dimension11(
-        ocean_vector=state.ocean_vector,
-        dim11_vector=state.dim11_vector,
-        dimension=dimension,
-        delta=dim11_delta,
-    )
-
-    # 直接用 LLM 给出的 OCEAN deltas 覆盖更新一次
-    # （因为 update_ocean_from_dimension11 会均分 delta，而 LLM 已给出更精准的判断）
+    # 用 LLM 给出的 OCEAN deltas 更新 OCEAN 向量（只更新一次）
+    # update_ocean 内部会应用 smooth_update（边缘减速）并降低 OCEAN 不确定性
     updater.update_ocean(state.ocean_vector, ocean_delta)
 
     # 有效回答，轮次 + 1
