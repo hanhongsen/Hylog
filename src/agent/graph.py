@@ -118,25 +118,21 @@ class ConversationAgent:
         参数:
             user_id: 用户 ID（Mock 模式下使用匿名用户）
             use_mock: 是否使用 Mock 模式（推荐开发阶段使用）
-            db_path: 数据库路径（仅真实模式使用）
+            db_path: 数据库路径（Mock 和真实模式都用于状态持久化）
 
         返回:
             新的 ConversationAgent 实例
+
+        说明:
+            Mock 模式也会创建数据库 Session 记录并持久化状态，
+            这样 /reply 接口才能通过 restore() 恢复状态。
+            Mock 和真实模式的区别仅在于：
+              - Mock：人物库用内存 MOCK_CHARACTERS，nodes 跳过 LLM 调用
+              - 真实：人物库从 DB 加载，nodes 调智谱分析
         """
         session_id = str(uuid.uuid4())
 
-        if use_mock:
-            # Mock 模式：不连数据库，使用内置人物
-            state = AgentState(session_id=session_id, user_id=user_id)
-            return cls(
-                state=state,
-                characters=MOCK_CHARACTERS,
-                use_mock=True,
-                db_session=None,
-            )
-
-        # 真实模式：连接数据库
-        # 优先复用全局单例（FastAPI 等 Web 场景），避免每次请求都新建 engine
+        # 真实模式和 Mock 模式都需要数据库会话（用于状态持久化）
         from src.data import (
             init_database, init_global_database, get_session_local,
             Session as SessionModel, User
@@ -174,11 +170,18 @@ class ConversationAgent:
             db.commit()
 
             # 初始化状态快照并写入 state_json（start() 之前是初始状态）
-            initial_state = AgentState(session_id=session_id, user_id=user_id)
+            initial_state = AgentState(session_id=session_id, user_id=user_id, use_mock=use_mock)
             session_record.state_json = initial_state.to_dict()
             db.commit()
 
-            # 从数据库加载人物库
+        except Exception as e:
+            db.close()
+            raise RuntimeError(f"创建会话失败: {e}")
+
+        # 加载人物库：Mock 用内置，真实从数据库
+        if use_mock:
+            characters = MOCK_CHARACTERS
+        else:
             from src.data import Character
             char_records = db.query(Character).filter(Character.is_active == True).all()
             characters = [
@@ -208,15 +211,11 @@ class ConversationAgent:
                     f"数据库人物库为空！请先运行 scripts/build_character_db.py 构建人物库。"
                 )
 
-        except Exception as e:
-            db.close()
-            raise RuntimeError(f"创建会话失败: {e}")
-
-        state = AgentState(session_id=session_id, user_id=user_id)
+        state = AgentState(session_id=session_id, user_id=user_id, use_mock=use_mock)
         agent = cls(
             state=state,
             characters=characters,
-            use_mock=False,
+            use_mock=use_mock,
             db_session=db,
         )
         return agent
@@ -232,8 +231,10 @@ class ConversationAgent:
 
         流程：
         1. 从 Session 表读取 state_json 字段
-        2. 用 AgentState.from_dict() 反序列化
-        3. 加载人物库
+        2. 用 AgentState.from_dict() 反序列化（含 use_mock 标志）
+        3. 根据 use_mock 决定加载哪个人物库：
+           - True：内存 MOCK_CHARACTERS
+           - False：从 DB 加载
         4. 构造 ConversationAgent 实例
 
         参数:
@@ -278,29 +279,34 @@ class ConversationAgent:
 
             state = AgentState.from_dict(session_record.state_json)
 
-            # 加载人物库（与 create() 保持一致）
-            char_records = db.query(Character).filter(Character.is_active == True).all()
-            characters = [
-                CharacterData(
-                    character_id=c.character_id,
-                    name=c.name,
-                    source=c.source,
-                    era=c.era or "",
-                    description=c.description or "",
-                    ocean_vector=c.ocean_vector or {"O": 0.5, "C": 0.5, "E": 0.5, "A": 0.5, "N": 0.5},
-                    image_path=c.image_path or "",
-                    tags=c.tags or [],
-                    quote=c.quote or "",
-                    personality_keyword=c.personality_keyword or "",
-                    classic_events=c.classic_events or "",
-                    fun_facts=c.fun_facts or "",
-                    advice=c.advice or "",
-                    related_books=c.related_books or "",
-                    match_count=c.match_count or 0,
-                    is_active=c.is_active,
-                )
-                for c in char_records
-            ]
+            # 根据 use_mock 决定人物库来源
+            if state.use_mock:
+                # Mock 会话：用内置人物
+                characters = MOCK_CHARACTERS
+            else:
+                # 真实会话：从数据库加载人物库（与 create() 保持一致）
+                char_records = db.query(Character).filter(Character.is_active == True).all()
+                characters = [
+                    CharacterData(
+                        character_id=c.character_id,
+                        name=c.name,
+                        source=c.source,
+                        era=c.era or "",
+                        description=c.description or "",
+                        ocean_vector=c.ocean_vector or {"O": 0.5, "C": 0.5, "E": 0.5, "A": 0.5, "N": 0.5},
+                        image_path=c.image_path or "",
+                        tags=c.tags or [],
+                        quote=c.quote or "",
+                        personality_keyword=c.personality_keyword or "",
+                        classic_events=c.classic_events or "",
+                        fun_facts=c.fun_facts or "",
+                        advice=c.advice or "",
+                        related_books=c.related_books or "",
+                        match_count=c.match_count or 0,
+                        is_active=c.is_active,
+                    )
+                    for c in char_records
+                ]
 
         except (ValueError, RuntimeError):
             raise
@@ -311,7 +317,7 @@ class ConversationAgent:
         return cls(
             state=state,
             characters=characters,
-            use_mock=False,
+            use_mock=state.use_mock,
             db_session=db,
         )
 
@@ -405,8 +411,8 @@ class ConversationAgent:
         if update_result["success"]:
             self._persist_snapshot()
 
-        # 持久化 ocean_delta 到用户消息（真实模式）
-        if update_result.get("ocean_delta") and not self.use_mock:
+        # 持久化 ocean_delta 到用户消息
+        if update_result.get("ocean_delta"):
             self._update_message_delta(user_answer, update_result["ocean_delta"])
 
         # 无效回答被跳过：返回引导语 + 重新生成问题（同一维度）
@@ -554,7 +560,9 @@ class ConversationAgent:
             "progress": summary["progress"],
             "is_finished": self.state.is_finished,
             "forced_finish": self.state.forced_finish,
-            "result": self.state.result.to_dict(include_paid=False) if self.state.result else None,
+            # 开发阶段全开放付费字段（tags/quote/advice 等）。
+            # 上线前再实现付费分层（PROJECT_STATUS 决策表 "付费分层 当前全部返回"）
+            "result": self.state.result.to_dict(include_paid=True) if self.state.result else None,
         }
 
     # ============================================================
@@ -586,8 +594,11 @@ class ConversationAgent:
         - state_json：完整状态快照，用于运行时恢复（高频读写）
         - Message 表：对话历史归档（用于前端历史展示）
         - PersonalitySnapshot 表：人格演化轨迹（用于可视化）
+
+        Mock 模式下也会持久化，因为 Mock 会话需要靠 state_json 才能在
+        /reply 请求间恢复状态（HTTP 无状态架构的标准做法）。
         """
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Session as SessionModel
@@ -608,7 +619,7 @@ class ConversationAgent:
 
     def _persist_message(self, role: str, content: str, dimension: Optional[str] = None):
         """持久化对话消息到数据库"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Message
@@ -627,7 +638,7 @@ class ConversationAgent:
 
     def _persist_snapshot(self):
         """持久化人格快照到数据库"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import PersonalitySnapshot
@@ -656,7 +667,7 @@ class ConversationAgent:
 
     def _update_message_delta(self, user_answer: str, ocean_delta: Dict[str, float]):
         """更新最近一条用户消息的 ocean_delta"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Message
@@ -676,7 +687,7 @@ class ConversationAgent:
 
     def _persist_result(self, result: MatchResult):
         """持久化最终结果到数据库"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Result
@@ -699,7 +710,7 @@ class ConversationAgent:
 
     def _increment_character_match_count(self, character_id: str):
         """增加人物的匹配次数（用于热度计算）"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Character
@@ -713,7 +724,7 @@ class ConversationAgent:
 
     def _update_session_record(self):
         """更新会话表的轮次和当前维度"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from src.data import Session as SessionModel
@@ -730,7 +741,7 @@ class ConversationAgent:
 
     def _complete_session_record(self):
         """标记会话为已完成"""
-        if self.use_mock or self.db_session is None:
+        if self.db_session is None:
             return
         try:
             from datetime import datetime

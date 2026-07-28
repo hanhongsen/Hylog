@@ -87,6 +87,8 @@ class AgentState:
         result: Optional[MatchResult] = None,
         is_finished: bool = False,
         forced_finish: bool = False,
+        use_mock: bool = False,
+        mock_ocean_signs: Optional[Dict[str, int]] = None,
     ):
         # 身份
         self.session_id = session_id
@@ -107,6 +109,15 @@ class AgentState:
         self.convergence_details = convergence_details
         self.is_finished = is_finished
         self.forced_finish = forced_finish
+
+        # 运行模式（True=不调智谱，用合成数据；False=真实调智谱）
+        # 用于 nodes.py 判断是否跳过 LLM 调用
+        self.use_mock = use_mock
+
+        # Mock 模式下每个 OCEAN 维度的演化方向签名（+1 / -1 / 0）
+        # 仅 use_mock=True 时使用，保证跨 HTTP 请求稳定演化，画像不漂移
+        # 例：{"O": 1, "C": -1, "E": 1, "A": -1, "N": 1}
+        self.mock_ocean_signs: Dict[str, int] = mock_ocean_signs if mock_ocean_signs is not None else {}
 
         # 结果
         self.result = result
@@ -184,6 +195,8 @@ class AgentState:
             "convergence_details": self.convergence_details,
             "is_finished": self.is_finished,
             "forced_finish": self.forced_finish,
+            "use_mock": self.use_mock,
+            "mock_ocean_signs": self.mock_ocean_signs,
             "result": self.result.to_dict(include_paid=True) if self.result else None,
         }
 
@@ -219,6 +232,8 @@ class AgentState:
             convergence_details=data.get("convergence_details"),
             is_finished=data.get("is_finished", False),
             forced_finish=data.get("forced_finish", False),
+            use_mock=data.get("use_mock", False),
+            mock_ocean_signs=data.get("mock_ocean_signs", {}),
             result=result,
         )
 
@@ -244,7 +259,8 @@ class AgentState:
                 "converged": self.converged,
             },
             "is_finished": self.is_finished,
-            "result": self.result.to_dict(include_paid=False) if self.result else None,
+            # 开发阶段全开放付费字段（与 graph._build_response 保持一致）
+            "result": self.result.to_dict(include_paid=True) if self.result else None,
         }
 
     def __repr__(self):

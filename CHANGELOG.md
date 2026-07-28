@@ -901,3 +901,94 @@ from src.questions import generate_question, list_all_dimensions, select_next_di
 ### 后续
 
 下一步：联调测试（需智谱余额），验证完整流程：创建会话 → AI 生成问题 → 人格分析 → 收敛 → 匹配 24 个历史人物之一。
+
+---
+
+## 2026-07-28
+
+### 第一阶段：修复 Mock 模式 + 跑通 API 主链路
+
+#### 问题背景
+
+尝试启动前端开发时发现 Mock 模式下 API 404 —— `ConversationAgent.create(use_mock=True)` 直接 return 未创建数据库 Session 记录，导致后续 `reply()` 恢复时找不到会话。
+
+#### Mock 模式修复（核心链路）
+
+- [state.py](src/agent/state.py)
+  - 新增 `use_mock: bool = False` 字段（序列化到 `to_dict/from_dict`），使 `restore()` 能正确识别并加载 `MOCK_CHARACTERS`
+  - 新增 `mock_ocean_signs: Optional[Dict[str, int]] = None` 字段，持久化每个 OCEAN 维度的演化方向，保证跨 HTTP 请求的稳定性
+  - `get_summary()` 改用 `include_paid=True`，修复 tags/quote 等字段被隐藏的真实 bug
+- [nodes.py](src/agent/nodes.py)
+  - `generate_question_node()` 新增 Mock 分支：调用 `dim.get_random_question()` 而非 LLM
+  - `update_personality_node()` 新增 Mock 分支：调用 `_generate_mock_ocean_delta()` 生成合成人格变化量
+  - 新增 `_generate_mock_ocean_delta(current_ocean, state)` 函数：基于 `state.mock_ocean_signs` 生成稳定方向的合成增量，含边缘自然减速（0.15/0.85）和 ±0.015 噪声
+- [graph.py](src/agent/graph.py)
+  - `create()`：移除 Mock 模式的 early-return，统一创建 DB Session 记录（Mock 模式用 `MOCK_CHARACTERS`，真实模式用 DB 数据）
+  - `restore()`：读取 `use_mock` 字段，按模式加载对应人物库
+  - 7 个 `_persist_*` 方法：守卫条件从 `if self.use_mock or self.db_session is None` 改为 `if self.db_session is None`
+  - `_build_response()` 改用 `include_paid=True`
+- [matcher.py](src/matching/matcher.py)
+  - `CharacterData.to_dict()` 新增 `"ocean_vector"` 字段（之前完全缺失，影响 Mock 和真实模式）
+- [.env](.env)
+  - 新增 `USE_MOCK_AGENT=true`、`API_HOST`、`API_PORT`、`DB_PATH` 配置项
+- [.env.example](.env.example)
+  - `CORS_ORIGINS` 新增 Vite 端口（5173）
+
+#### 验证脚本
+
+- [verify_mock_flow.py](scripts/verify_mock_flow.py)：使用 FastAPI TestClient 验证完整 Mock 流程（创建会话 → 30 轮对话 → 验证结果），确认零 LLM 调用
+
+### 第二阶段：React 前端搭建（进行中）
+
+#### 技术栈决策
+
+- 选择 **React 19 + Vite 8 + TypeScript 6 + Tailwind CSS v3**（专业前后端分离方案）
+- 状态管理：zustand@5
+- 图表：recharts@3（OCEAN 雷达图）
+- 路由：react-router-dom@6
+- 视觉风格：中国古典水墨/宣纸风格（自定义色板：宣纸 #F5EFE0、墨 #2C2826、朱 #B22222 等）
+- 开发时通过 Vite proxy 转发 `/api/*` 和 `/images/*` 到后端 8000 端口
+
+#### 项目初始化
+
+- [package.json](frontend/package.json) — React 19、Vite 8、TypeScript 6、react-router-dom@6、zustand@5、recharts@3、tailwindcss@3
+- [vite.config.ts](frontend/vite.config.ts) — Vite 配置，含 `/api` 和 `/images` 代理到 `http://127.0.0.1:8000`
+- [tailwind.config.js](frontend/tailwind.config.js) — 自定义中国古典主题：色板（xuanzhi/mo/zhu/zhuqing/cha/jin）、字体（serif/sans/kai）、动画（ink-drop/stamp-down/fade-up）
+- [postcss.config.js](frontend/postcss.config.js) — tailwindcss + autoprefixer
+- [index.html](frontend/index.html) — 中文 lang、Google Fonts 链接、标题"嗨，老己 · 认识真实的自己"
+- [favicon.svg](frontend/public/favicon.svg) — 红色印章 SVG（"嗨"字）
+
+#### 样式与 UI 基础
+
+- [index.css](frontend/src/index.css) — Tailwind 指令 + 自定义组件类（card-ink、btn-zhu、btn-outline、section-title、seal、scrollbar-ink）
+
+#### API 层
+
+- [types.ts](frontend/src/api/types.ts) — TypeScript 类型定义，与后端 schema 对齐：OceanVector、ProgressInfo、CharacterBrief、MatchResultInfo、ConversationResponse、SessionStateResponse、MessageItem、MessageListResponse、ApiError
+- [client.ts](frontend/src/api/client.ts) — 统一 fetch 封装 + 错误处理，5 个 API 函数（createSession、sendReply、getSessionState、getMessages、listSessions）
+
+#### 业务逻辑
+
+- [constants.ts](frontend/src/lib/constants.ts) — 品牌名、OCEAN 标签/颜色、MAX_ANSWER_LENGTH=100、STORAGE_KEYS
+- [parseMessage.ts](frontend/src/lib/parseMessage.ts) — 拆分开场白（以 `\n\n---\n\n` 为分隔符）
+- [session.ts](frontend/src/store/session.ts) — Zustand store：管理 sessionId（localStorage 持久化）、messages、ocean、progress、result、loading、error； Actions：startSession、sendAnswer、resumeSession、resetSession
+
+#### 已完成的 UI 组件
+
+- [Seal.tsx](frontend/src/components/layout/Seal.tsx) — 印章 logo 组件（可配置大小、文字、动画）
+- [Header.tsx](frontend/src/components/layout/Header.tsx) — 顶部导航（印章 + 品牌名）
+- [TypingDots.tsx](frontend/src/components/chat/TypingDots.tsx) — 三颗红色圆点水墨动画
+- [MessageBubble.tsx](frontend/src/components/chat/MessageBubble.tsx) — 对话气泡（用户：右侧朱色；助手：左侧宣纸卡片，支持 opening/question/result/normal 四种变体）
+- [ChatInput.tsx](frontend/src/components/chat/ChatInput.tsx) — 输入框（100 字限制、Enter 发送、错误展示）
+- [OceanRadar.tsx](frontend/src/components/insight/OceanRadar.tsx) — Recharts 雷达图（支持单模式和双模式对比）
+- [Landing.tsx](frontend/src/pages/Landing.tsx) — 落地页：印章英雄动画、品牌标题、介绍卡片、开始测试 CTA、继续测试选项
+
+#### 待完成
+
+- Chat.tsx（对话主页面，组装 ChatWindow + 侧边栏）
+- 侧边栏（ProgressPanel 进度面板）
+- Result.tsx（结果页：人物卡片、头像占位、双雷达对比、全字段展示）
+- App.tsx（React Router 路由配置）
+- main.tsx（入口文件）
+- 移动端适配
+- 最终清理：更新 PROJECT_STATUS.md、清理 app.py 和 requirements.txt 的 Streamlit 入口

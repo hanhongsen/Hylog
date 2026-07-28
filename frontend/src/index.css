@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   全局基础样式
+   ======================================== */
+@layer base {
+  html {
+    /* 字体渲染优化 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans text-mo;
+    /* 宣纸纹理：radial-gradient 微噪点 + 纸张感 */
+    background-color: #f5efe0;
+    background-image:
+      radial-gradient(at 20% 30%, rgba(201, 169, 97, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 70%, rgba(139, 111, 71, 0.04) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(178, 34, 34, 0.02) 0px, transparent 70%);
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  /* 标题统一用宋体 */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+/* ========================================
+   复用组件类
+   ======================================== */
+@layer components {
+  /* 卡片（带宣纸纹理和茶褐边框） */
+  .card-ink {
+    @apply bg-xuanzhi-card rounded-card border border-cha/30;
+    box-shadow:
+      0 1px 2px rgba(60, 50, 40, 0.04),
+      0 4px 12px rgba(60, 50, 40, 0.06),
+      inset 0 0 32px rgba(201, 169, 97, 0.03);
+  }
+
+  /* 朱红色主按钮 */
+  .btn-zhu {
+    @apply bg-zhu text-xuanzhi px-6 py-2.5 rounded-card font-serif tracking-wider
+           transition-all duration-200 hover:bg-zhu-dark hover:shadow-md
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
+           disabled:hover:bg-zhu disabled:hover:shadow-none;
+  }
+
+  /* 次要按钮（描边） */
+  .btn-outline {
+    @apply border border-cha text-mo px-6 py-2.5 rounded-card font-serif tracking-wider
+           transition-all duration-200 hover:bg-cha/10 active:scale-95;
+  }
+
+  /* 章节标题（带水墨分割线） */
+  .section-title {
+    @apply font-serif text-mo text-lg tracking-wide flex items-center gap-3 my-6;
+  }
+  .section-title::before,
+  .section-title::after {
+    content: "";
+    @apply flex-1 h-px;
+    background: linear-gradient(to right, transparent, rgba(139, 111, 71, 0.4), transparent);
+  }
+
+  /* 印章（朱红方框，略带倾斜） */
+  .seal {
+    @apply inline-flex items-center justify-center bg-zhu text-xuanzhi font-serif font-bold
+           rounded-sm shadow-sm;
+    transform: rotate(-2deg);
+  }
+}
+
+/* ========================================
+   工具类
+   ======================================== */
+@layer utilities {
+  /* 竖排文字（结果页人物名） */
+  .text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.2em;
+  }
+
+  /* 自定义滚动条（古典风） */
+  .scrollbar-ink::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-ink::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-ink::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 111, 71, 0.3);
+    border-radius: 3px;
+  }
+  .scrollbar-ink::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(139, 111, 71, 0.5);
+  }
+}

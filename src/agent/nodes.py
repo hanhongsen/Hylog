@@ -395,6 +395,14 @@ def generate_question_node(state: AgentState) -> str:
     """
     dimension_id = state.current_dimension
 
+    # Mock 模式：跳过 LLM 调用，直接用该维度的备用问题池
+    # 开发阶段节省智谱额度，且响应快
+    if getattr(state, "use_mock", False):
+        dim = get_dimension_by_id(dimension_id)
+        question = dim.get_random_question()
+        logger.info(f"[{state.session_id}] [Mock] 问题取自备用池(维度:{dimension_id})")
+        return question
+
     # 构建历史（generate_question 内部会截取最近2轮）
     # history 格式要求 [{"question": "...", "answer": "..."}]
     history_for_generation = _build_history_for_question(state.history)
@@ -490,6 +498,13 @@ def update_personality_node(
        - 若有效：用 deltas 更新 OCEAN 和 11 维向量，turn_count + 1
     3. LLM 调用失败时：跳过本轮更新，不增加 turn_count，正常继续下一轮
 
+    Mock 模式（state.use_mock=True）：
+       跳过 LLM 调用，生成合成 deltas 推进人格演化。
+       合成策略：以当前 OCEAN 向量为基准，向随机方向施加大幅 delta
+       （±0.08~0.12，远大于真实模式的上限），并在全部 5 维都给非零值。
+       这样 15 轮内不确定性会均匀降到 0.1 以下，能触发真实收敛。
+       目标是让 Mock 模式跑通完整闭环，便于前端开发验证。
+
     参数:
         state: 当前会话状态（会被更新 ocean_vector / dim11_vector）
         user_answer: 用户的回答文本
@@ -507,6 +522,48 @@ def update_personality_node(
     dimension = state.current_dimension
     current_ocean = state.get_ocean_dict()
 
+    # ============================================================
+    # Mock 模式：生成合成 OCEAN deltas，不调 LLM
+    # ============================================================
+    if getattr(state, "use_mock", False):
+        ocean_delta = _generate_mock_ocean_delta(current_ocean, state)
+
+        # 计算 11 维的变化量（取该维度映射的 OCEAN 维度 deltas 的平均值）
+        from src.personality.model import DIMENSION11_TO_OCEAN_MAPPING
+        mapped_dims = DIMENSION11_TO_OCEAN_MAPPING.get(dimension, [])
+        if mapped_dims:
+            dim11_delta = sum(ocean_delta.get(d, 0.0) for d in mapped_dims) / len(mapped_dims)
+        else:
+            dim11_delta = 0.0
+
+        # 更新 11 维和 OCEAN（与真实模式保持一致的更新路径）
+        updater.update_ocean_from_dimension11(
+            ocean_vector=state.ocean_vector,
+            dim11_vector=state.dim11_vector,
+            dimension=dimension,
+            delta=dim11_delta,
+        )
+        # 直接用合成 deltas 覆盖更新一次（覆盖全部 5 维，确保不确定性均匀下降）
+        updater.update_ocean(state.ocean_vector, ocean_delta)
+
+        # 有效回答，轮次 + 1
+        state.turn_count += 1
+
+        logger.info(
+            f"[{state.session_id}] [Mock] 人格更新成功(维度:{dimension}, 轮次:{state.turn_count}), "
+            f"delta={ocean_delta}"
+        )
+
+        return {
+            "success": True,
+            "skipped": False,
+            "guidance": None,
+            "ocean_delta": ocean_delta,
+        }
+
+    # ============================================================
+    # 真实模式：调 LLM 分析
+    # ============================================================
     try:
         # 调用 LLM 分析
         analysis = analyze_personality(
@@ -578,6 +635,65 @@ def update_personality_node(
         "guidance": None,
         "ocean_delta": ocean_delta,
     }
+
+
+def _generate_mock_ocean_delta(
+    current_ocean: Dict[str, float],
+    state: "AgentState",
+) -> Dict[str, float]:
+    """
+    生成 Mock 模式下的合成 OCEAN deltas（不调 LLM）
+
+    策略：
+    - 每个维度在首次更新时随机选定一个稳定的方向签名（+1 / -1），
+      存到 state.mock_ocean_signs 里并随 state_json 一起持久化，
+      保证跨 HTTP 请求稳定演化、画像不漂移。
+    - 已接近边缘（距 0/1 < 0.15）时把签名清零，停止推动，避免饱和到 0/1。
+    - 加入 ±0.015 的小噪声，让演化曲线有真实感。
+
+    设计目标：15~20 轮内 OCEAN 向量演化到一个稳定的"用户画像"
+    （分数分散在 0.15~0.85 区间），不确定性均匀降到 0.1 以下，
+    触发真实收敛并匹配到一个有区分度的人物。
+
+    参数:
+        current_ocean: 当前 OCEAN 分数，如 {"O": 0.55, ...}
+        state: AgentState 实例（用于存取 mock_ocean_signs）
+
+    返回:
+        合成的 OCEAN deltas，如 {"O": 0.06, "C": -0.03, ...}
+    """
+    import random
+
+    signs = state.mock_ocean_signs  # 由 AgentState 持有，跨请求持久化
+
+    delta = {}
+    for dim in ["O", "C", "E", "A", "N"]:
+        current = current_ocean.get(dim, 0.5)
+
+        # 首次：随机选定一个方向签名
+        if dim not in signs or signs[dim] == 0 and 0.15 < current < 0.85:
+            # 重新激活（如果之前停推但现在又回到中段，重新给个方向）
+            if dim not in signs:
+                signs[dim] = random.choice([1, -1])
+        sign = signs.get(dim, 1)
+
+        # 已接近边缘，停止推动，避免饱和到 0/1
+        if (sign > 0 and current >= 0.85) or (sign < 0 and current <= 0.15):
+            signs[dim] = 0
+            delta[dim] = round(random.uniform(-0.01, 0.01), 3)  # 微抖
+            continue
+
+        # 推动幅度：剩余距离越大推得越多，越接近边缘推得越少（自然减速）
+        if sign > 0:
+            remaining = 0.85 - current
+        else:
+            remaining = current - 0.15
+
+        magnitude = min(random.uniform(0.03, 0.06), remaining * 0.6 + 0.01)
+        noise = random.uniform(-0.015, 0.015)
+        delta[dim] = round(sign * magnitude + noise, 3)
+
+    return delta
 
 
 # ============================================================

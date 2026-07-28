@@ -104,12 +104,16 @@ class CharacterData:
     def to_dict(self, include_paid: bool = False) -> Dict[str, Any]:
         """
         转换为字典格式
-        
+
         参数:
             include_paid: 是否包含付费字段
-        
+
         返回:
             人物信息的字典
+
+        说明:
+            ocean_vector 始终返回（属于基础展示层，供前端画双雷达图对比），
+            付费字段（tags/quote/advice 等）仅在 include_paid=True 时返回。
         """
         # 基础字段（始终返回）
         result = {
@@ -119,10 +123,11 @@ class CharacterData:
             "era": self.era,
             "image_path": self.image_path,
             "description": self.description,
+            "ocean_vector": dict(self.ocean_vector),
             "match_count": self.match_count,
             "is_paid_locked": True,  # 标记付费字段是否锁定
         }
-        
+
         # 付费字段（根据参数决定是否返回）
         if include_paid:
             result["is_paid_locked"] = False
@@ -133,7 +138,7 @@ class CharacterData:
             result["fun_facts"] = self.fun_facts
             result["advice"] = self.advice
             result["related_books"] = self.related_books
-        
+
         return result
 
 
