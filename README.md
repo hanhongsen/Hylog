@@ -10,6 +10,93 @@ Hylog 这个名字来源于 "Hi + Log（记录）"，寓意"记录真实的自�
 
 ---
 
+## 🚀 快速开始（Quick Start）
+
+### 环境要求
+
+- **Python** ≥ 3.10（开发环境为 3.14.5）
+- **Node.js** ≥ 18（开发环境为 v24.15.0，含 npm）
+- **智谱 AI API Key**：到 https://open.bigmodel.cn/usercenter/proj-mgr/apikeys 注册获取（免费模型 `glm-4-flash` 不消耗余额）
+
+### 第一步：克隆项目
+
+```bash
+git clone https://github.com/hanhongsen/Hylog.git
+cd Hylog
+```
+
+### 第二步：配置环境变量
+
+项目根目录的 `.env` 文件包含 API Key 等敏感信息，**不会上传到 Git**（已被 `.gitignore` 忽略）。你需要基于模板手动创建：
+
+```bash
+cp .env.example .env      # Windows 用: copy .env.example .env
+```
+
+然后用编辑器打开 `.env`，至少填写以下两项：
+
+```ini
+# 智谱 API Key（必填，填你自己的 Key）
+ZHIPU_API_KEY=你的智谱API Key
+# 使用免费模型（不消耗余额，推荐）
+ZHIPU_MODEL=glm-4-flash
+
+# 是否使用 Mock 模式：false=真实调智谱（推荐），true=不调智谱用合成数据
+USE_MOCK_AGENT=false
+```
+
+> 💡 `.env.example` 里有所有配置项的详细注释，可按需调整。
+
+### 第三步：启动后端（FastAPI）
+
+```bash
+# 安装 Python 依赖（建议先建虚拟环境）
+pip install -r requirements.txt
+
+# 启动后端服务
+python main.py
+```
+
+启动成功后会看到：
+```
+Uvicorn running on http://127.0.0.1:8000
+```
+后端 API 文档：http://127.0.0.1:8000/docs
+
+### 第四步：启动前端（React + Vite）
+
+> ⚠️ **重要**：前端的 `node_modules` 目录**不会上传到 Git**（体积大且平台相关），克隆后必须先安装依赖。
+
+```bash
+cd frontend
+npm install        # 安装前端依赖（首次必做，会生成 node_modules）
+npm run dev        # 启动前端开发服务器
+```
+
+启动成功后会看到：
+```
+VITE v8.x  ready in xxx ms
+➜  Local:   http://localhost:5173/
+```
+
+### 第五步：访问应用
+
+浏览器打开 **http://localhost:5173** 即可使用。
+
+> 前端通过 Vite 的 proxy 把 `/api/*` 请求转发到后端 `127.0.0.1:8000`，所以**两个服务都要运行**，且后端要在 8000 端口。
+
+### 常见问题
+
+| 问题 | 解决方案 |
+|------|---------|
+| `npm run dev` 报模块找不到 | 没运行 `npm install`，在 `frontend/` 目录下执行一次 |
+| 后端报 `ZHIPU_API_KEY 未配置` | 没创建 `.env` 或 Key 没填，回到第二步 |
+| 后端报 `1113 余额不足` | 把 `.env` 的 `ZHIPU_MODEL` 改成免费的 `glm-4-flash` |
+| 前端能打开但对话无响应 | 后端没启动，或不在 8000 端口 |
+| 端口被占用 | 改 `.env` 的 `API_PORT`，或结束占用进程 |
+
+---
+
 ## 核心架构设计
 
 ### 架构概览
