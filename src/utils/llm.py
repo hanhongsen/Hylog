@@ -1133,17 +1133,21 @@ OCEAN 五维人格：
 
 特殊情况包括：
 1. 回答与问题完全无关（如答非所问、转移话题）
-2. 拒绝回答（如"不想说"、"跳过"、"不知道"）
-3. 回答过于简短或无意义（如"嗯"、"随便"、"不知道"）
-4. 表达困惑或不适（如"不太理解"、"这个问题让我不舒服"）
-5. 情绪负面或抵触
+2. 明确拒绝回答（如"不想说"、"跳过"、"不知道"）
+3. 回答完全无意义或无信息量（如纯语气词"嗯"、"哦"、单个标点）
+4. 表达对提问本身的困惑或不适（如"不太理解这个问题"、"这个问题让我不舒服"）
 
-reason 可选值：irrelevant（无关）、refused（拒绝）、unclear（不明确）、uncomfortable（不适）、negative（负面）
+## 关键：区分"有效情绪表达"与"无效回答"
+- 用户**如实描述自己的情绪、反应或状态**（包括负面情绪，如"情绪激动"、"会很焦虑"、"容易暴躁"、"会紧张"）是**有效回答**，必须正常分析 OCEAN 影响，**绝不**判 skipped。
+- 只有当用户**针对提问本身**表达抵触、拒绝或答非所问时，才判 skipped。
+- 简短但与问题相关的回答（如"情绪激动"、"会冷静"、"先放一放"）是有效的，只要能从中读出人格倾向就应给出 delta，不要因为短就跳过。
+
+reason 可选值：irrelevant（无关）、refused（拒绝）、unclear（不明确）、uncomfortable（不适）
 guidance 应该是友好的引导语，帮助用户继续对话，如"没关系，我们换个话题聊聊..."
 
 注意：
 1. 只返回 JSON，不要有其他内容
-2. 仔细判断用户回答是否有效，不要过度解读简短回答"""
+2. 宁可分析也不要轻易跳过——只有确实无法从回答中读出任何人格信息时才判 skipped"""
         
         # 构建 user prompt
         user_prompt = f"""用户回答：{user_answer}
@@ -1166,9 +1170,12 @@ guidance 应该是友好的引导语，帮助用户继续对话，如"没关系�
         ]
         
         # 调用 API
+        # temperature 用低值：这是判定类任务（是否 skipped + 各维度 delta），
+        # 高温度会让相同输入偶发不同结论，导致有效回答被随机误判 skipped、轮次不推进。
         response = self.chat(
             messages=messages,
-            function=LLMFunction.PERSONALITY_ANALYSIS.value
+            function=LLMFunction.PERSONALITY_ANALYSIS.value,
+            temperature=0.2,
         )
         
         # 解析 JSON
@@ -1184,13 +1191,25 @@ guidance 应该是友好的引导语，帮助用户继续对话，如"没关系�
             
             # 检查是否为特殊情况（用户回答无效）
             if result.get("skipped") == True:
-                # 返回包含引导信息的结构
-                return {
-                    "skipped": True,
-                    "reason": result.get("reason", "unclear"),
-                    "guidance": result.get("guidance", "没关系，我们换个话题聊聊吧。"),
-                    "O": 0, "C": 0, "E": 0, "A": 0, "N": 0
-                }
+                # 兜底：LLM 偶尔会在标 skipped 的同时给出非零 OCEAN delta（自相矛盾），
+                # 此时它其实已做出有效分析。采信 delta、清掉 skipped 标记走正常路径，
+                # 避免有效回答被误判跳过、轮次不推进。
+                has_valid_delta = any(
+                    abs(float(result.get(dim, 0.0) or 0.0)) > 0.001
+                    for dim in ["O", "C", "E", "A", "N"]
+                )
+                if has_valid_delta:
+                    result.pop("skipped", None)
+                    result.pop("reason", None)
+                    result.pop("guidance", None)
+                else:
+                    # 返回包含引导信息的结构
+                    return {
+                        "skipped": True,
+                        "reason": result.get("reason", "unclear"),
+                        "guidance": result.get("guidance", "没关系，我们换个话题聊聊吧。"),
+                        "O": 0, "C": 0, "E": 0, "A": 0, "N": 0
+                    }
             
             # 验证并限制范围（与 prompt 中的 ±0.08 保持一致）
             for dim in ["O", "C", "E", "A", "N"]:
