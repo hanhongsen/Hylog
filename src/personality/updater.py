@@ -37,11 +37,11 @@ MAX_CHANGE_PER_UPDATE = 0.08
 MIN_UPDATE_THRESHOLD = 0.01
 
 # 不确定性减少量（每次更新减少的不确定性）
-# 调整为 0.12：原值 0.1 太大，OCEAN 不确定度 5 轮就降到 0，
-# 但 dim11（11 维）每轮只更新 1 个维度，平均不确定度下降极慢，
-# 两者不同步会导致收敛判断永远不满足。
-# 0.12 让 OCEAN 在 ~8 轮收敛，配合 MIN_ROUNDS=15 更合理。
-UNCERTAINTY_REDUCTION = 0.12
+# 调整为 0.2：配合"只对有信号的维度降不确定度"的逻辑（update_ocean 中）。
+# LLM 每轮平均只对 1~2 个 OCEAN 维度给出非零 delta，因此每轮只有 1~2 个
+# 维度的不确定度会下降。0.2 让每个维度在收到约 4~5 次信号后降到收敛阈值 0.3
+# 以下，整体约 16~18 轮自然收敛（落在 MIN_ROUNDS=15 到 MAX_ROUNDS=30 之间）。
+UNCERTAINTY_REDUCTION = 0.2
 
 # 贝叶斯先验方差（初始不确定性）
 BAYESIAN_PRIOR_VARIANCE = 0.25
@@ -280,11 +280,11 @@ class PersonalityUpdater:
         for dim, delta in delta_dict.items():
             # 获取属性名
             score_attr, uncertainty_attr = dimension_map[dim]
-            
+
             # 获取当前值
             current_score = getattr(ocean_vector, score_attr)
             current_uncertainty = getattr(ocean_vector, uncertainty_attr)
-            
+
             # 根据方法选择更新算法
             if method == "bayesian":
                 # 贝叶斯更新
@@ -296,8 +296,16 @@ class PersonalityUpdater:
             else:
                 # EWMA 更新（默认）
                 new_score = self.smooth_update(current_score, delta)
-                new_uncertainty = max(0.0, current_uncertainty - self.uncertainty_reduction)
-            
+                # 只有收到有效信号（delta 非零）的维度才降低不确定性。
+                # 原实现无论 delta 是否为 0 都降不确定度，导致不确定度下降过快
+                # （5 维每轮全降，8-9 轮就到 0），使收敛判断过早依赖轮数门槛而非
+                # 真实的信号积累。改为只降有信号的维度后，不确定性真实反映
+                # "我们对该维度了解多少"，收敛时机更合理。
+                if abs(delta) >= self.min_threshold:
+                    new_uncertainty = max(0.0, current_uncertainty - self.uncertainty_reduction)
+                else:
+                    new_uncertainty = current_uncertainty
+
             # 更新向量
             setattr(ocean_vector, score_attr, new_score)
             setattr(ocean_vector, uncertainty_attr, new_uncertainty)

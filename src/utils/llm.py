@@ -88,6 +88,12 @@ ZHIPU_PRICING = {
     "output": 100.0,  # 输出 token 价格：¥100/1M token
 }
 
+# 智谱 AI 免费模型（glm-4-flash 系列，不消耗余额，价格为 0）
+ZHIPU_FREE_PRICING = {
+    "input": 0.0,
+    "output": 0.0,
+}
+
 # DeepSeek 价格（2024年数据，可能需要更新）
 DEEPSEEK_PRICING = {
     "input": 1.0,  # 输入 token 价格：¥1/1M token
@@ -99,6 +105,31 @@ OPENAI_PRICING = {
     "input": 0.5,  # 输入 token 价格：$0.5/1M token（约 ¥3.5）
     "output": 1.5,  # 输出 token 价格：$1.5/1M token（约 ¥10.5）
 }
+
+
+def get_pricing_for_model(provider: "LLMProvider", model: str) -> Dict[str, float]:
+    """
+    根据提供商和模型名返回对应的价格配置
+
+    智谱的 glm-4-flash / glm-4.5-flash / glm-4.6-flash / glm-4.7-flash 系列
+    是免费模型（不消耗余额），价格为 0，避免成本控制器误触每日上限。
+
+    参数:
+        provider: LLM 提供商
+        model: 模型名称
+
+    返回:
+        {"input": 单价, "output": 单价}
+    """
+    if provider == LLMProvider.ZHIPU:
+        # flash 系列是免费模型
+        if "flash" in model.lower():
+            return ZHIPU_FREE_PRICING
+        return ZHIPU_PRICING
+    elif provider == LLMProvider.DEEPSEEK:
+        return DEEPSEEK_PRICING
+    else:
+        return OPENAI_PRICING
 
 
 # ========================================
@@ -262,13 +293,9 @@ class CostController:
         self.monthly_cost: float = 0.0  # 本月消费
         self.function_costs: Dict[str, float] = {}  # 按功能分类的成本
         
-        # 根据提供商选择价格配置
-        if config.provider == LLMProvider.ZHIPU:
-            self.pricing = ZHIPU_PRICING
-        elif config.provider == LLMProvider.DEEPSEEK:
-            self.pricing = DEEPSEEK_PRICING
-        else:
-            self.pricing = OPENAI_PRICING
+        # 根据提供商和模型名动态选择价格配置
+        # （flash 系列等免费模型价格为 0，避免成本控制器误触每日上限）
+        self.pricing = get_pricing_for_model(config.provider, config.model)
         
         # 从文件加载已有数据
         self._load_from_file()

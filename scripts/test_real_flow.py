@@ -81,20 +81,19 @@ def main():
 
     answer_idx = 0
     t0 = time.time()
-    for _ in range(MAX_ROUNDS + 2):
-        if answer_idx >= len(persona_answers):
-            log(">>> 预设回答用尽")
-            break
-        answer = persona_answers[answer_idx]
+    for _ in range(MAX_ROUNDS + 5):
+        # 预设回答用尽则循环复用（保证能跑满轮次）
+        answer = persona_answers[answer_idx % len(persona_answers)]
         answer_idx += 1
 
         process_answer_node(state, answer)
         result = update_personality_node(state, answer, updater)
 
         if result["skipped"]:
-            log(f"  [跳过] {result['guidance']}")
+            log(f"  [跳过] turn={state.turn_count} reason={result.get('guidance','')[:40]}")
             continue
         if not result["success"]:
+            log(f"  [失败] turn={state.turn_count} err={result.get('error','')[:60]}")
             select_dimension_node(state)
             generate_question_node(state)
             continue
