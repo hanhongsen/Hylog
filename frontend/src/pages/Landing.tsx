@@ -17,7 +17,7 @@ export default function Landing() {
   const startSession = useSessionStore((s) => s.startSession);
   const loading = useSessionStore((s) => s.loading);
   const error = useSessionStore((s) => s.error);
-  const [hasExistingSession, setHasExistingSession] = useState(
+  const [hasExistingSession] = useState(
     !!localStorage.getItem("hylog:session_id"),
   );
 

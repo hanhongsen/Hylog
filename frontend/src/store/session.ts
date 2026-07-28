@@ -71,7 +71,7 @@ type SessionStore = {
   resetSession: () => void;
 
   // ---------- 内部辅助 ----------
-  _consumeResponse: (resp: ConversationResponse, opts?: { isStart?: boolean }) => void;
+  _consumeResponse: (resp: ConversationResponse) => void;
 };
 
 // ============================================================
@@ -199,16 +199,41 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       ]);
 
       // 重建消息列表
-      const rebuilt: ChatMessage[] = (messageList?.messages || [])
-        .filter((m: MessageItem) => m.role === "assistant" || m.role === "user")
-        .map((m: MessageItem, idx: number) => ({
-          id: m.message_id || genId(),
-          role: m.role,
-          content: m.content,
-          kind: idx === 0 && m.role === "assistant" ? "opening" : "normal",
-          dimension: m.module,
-          createdAt: m.created_at || undefined,
-        }));
+      // 注意：后端把"开场白 + 第一个问题"作为一条 assistant 消息存储
+      // （content 用 "\n\n---\n\n" 分隔），恢复时需要拆成两条独立气泡，
+      // 否则会合并显示为一条超长消息。
+      const rawMessages: MessageItem[] = (messageList?.messages || []).filter(
+        (m: MessageItem) => m.role === "assistant" || m.role === "user",
+      );
+
+      const rebuilt: ChatMessage[] = [];
+      let isFirstAssistant = true;
+      for (const m of rawMessages) {
+        if (m.role === "assistant" && isFirstAssistant) {
+          // 首条 assistant 消息尝试拆为 [开场白, 第一个问题]
+          const parts = splitForStore(m.content);
+          parts.forEach((content) => {
+            rebuilt.push({
+              id: genId(),
+              role: "assistant",
+              content,
+              kind: parts.length > 1 && rebuilt.length === 0 ? "opening" : "normal",
+              dimension: m.module,
+              createdAt: m.created_at || undefined,
+            });
+          });
+          isFirstAssistant = false;
+        } else {
+          rebuilt.push({
+            id: m.message_id || genId(),
+            role: m.role,
+            content: m.content,
+            kind: "normal",
+            dimension: m.module,
+            createdAt: m.created_at || undefined,
+          });
+        }
+      }
 
       set({
         sessionId,
@@ -246,7 +271,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
   // ============================================================
   // 内部：把 reply/start 的响应消费到 state
   // ============================================================
-  _consumeResponse: (resp, opts = {}) => {
+  _consumeResponse: (resp) => {
     // 更新 OCEAN、进度、结果
     const updates: Partial<SessionStore> = {
       ocean: resp.personality_state,

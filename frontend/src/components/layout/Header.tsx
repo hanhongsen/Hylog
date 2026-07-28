@@ -20,13 +20,8 @@ export default function Header({ rightSlot, showHomeLink = false }: HeaderProps)
     <header className="border-b border-cha/20 bg-xuanzhi/80 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
         {/* 左：Logo + 品牌名 */}
-        <Link
-          to="/"
-          className="flex items-center gap-3 group"
-          onClick={(e) => {
-            // 如果是 showHomeLink 模式，允许跳转；否则点击 Logo 也回首页
-          }}
-        >
+        <Link to="/" className="flex items-center gap-3 group">
+          {/* 点击 Logo 回首页 */}
           <Seal size={36} text="嗨" />
           <div className="flex flex-col leading-tight">
             <span className="font-serif text-mo text-lg font-bold tracking-wider group-hover:text-zhu transition-colors">

@@ -992,3 +992,40 @@ from src.questions import generate_question, list_all_dimensions, select_next_di
 - main.tsx（入口文件）
 - 移动端适配
 - 最终清理：更新 PROJECT_STATUS.md、清理 app.py 和 requirements.txt 的 Streamlit 入口
+
+### 第三阶段：完成全部页面 + 浏览器 GUI 黑盒测试
+
+#### 新增组件与页面
+
+- [ChatWindow.tsx](frontend/src/components/chat/ChatWindow.tsx) — 聊天窗口：消息流渲染、自动滚动到底、loading 时显示 TypingDots、测试完成显示"查看画像"按钮
+- [ProgressPanel.tsx](frontend/src/components/insight/ProgressPanel.tsx) — 进度面板：轮次进度条（收敛后变竹青色）、维度覆盖率、智能解读文案
+- [Chat.tsx](frontend/src/pages/Chat.tsx) — 对话主页面：左聊天区 + 右侧栏（雷达图+进度），移动端侧栏折叠为抽屉
+- [Result.tsx](frontend/src/pages/Result.tsx) — 结果页：人物卡片（首字印章占位头像/相似度/关键词/标签/语录）、双 OCEAN 雷达对比、OCEAN 五维等级、详细字段分区（空字段自动隐藏）
+- [App.tsx](frontend/src/App.tsx) — React Router 路由（/ → /chat → /result，未匹配重定向首页）
+
+#### Mock 模式修复（第三阶段发现并修复）
+
+- 修复 **会话恢复时开场白与首题合并显示**：`resumeSession` 之前未拆分后端合并存储的"开场白+问题"消息。改为对首条 assistant 消息调用 `splitForStore` 拆分，并为开场白保留 `kind="opening"` 标记
+
+#### 浏览器 GUI 黑盒测试（Mock 模式，全流程通过）
+
+启动前后端，用浏览器自动化跑通完整链路并逐一验证：
+
+| 测试点 | 结果 |
+|---|---|
+| 落地页渲染（印章/标题/介绍/CTA） | ✅ |
+| 开始会话 → 跳转 /chat | ✅ |
+| 对话主链路（发答→收题，零 LLM） | ✅ |
+| OCEAN 实时演化（30轮后 O=0.158/E=0.13/N=0.16） | ✅ |
+| 进度面板（轮次 0→30、覆盖 0/11→11/11） | ✅ |
+| 雷达图（单/双模式） | ✅ |
+| 100 字超限边界（计数变红、发送禁用） | ✅ |
+| 30 轮强制结束 → 显示结果按钮 | ✅ |
+| 结果页完整渲染（陶渊明/81%/双雷达/全字段） | ✅ |
+
+#### 清理
+
+- 删除空的 `app.py`（Streamlit 入口，已弃用）
+- `requirements.txt` 移除 `streamlit` 依赖，注释说明前端改用 React（`frontend/` 目录独立管理 JS 依赖）
+- 对话页容器改用 `h-dvh`（动态视口高度，解决移动端地址栏遮挡），`h-screen` 兜底
+- [PROJECT_STATUS.md](PROJECT_STATUS.md) 更新：移除 Mock 404 限制说明、更新待办与接手建议、元信息更新到 2026-07-28

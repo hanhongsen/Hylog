@@ -982,31 +982,32 @@ D:\Hylog\
 - [ ] **或改用便宜模型**：可把 `.env` 的 `ZHIPU_MODEL` 改成 `glm-4-flash` 试试（免费/低价）
 
 ### 待开发
-- [ ] **前端 app.py**（下一步，见上文"开发前端界面"章节）
 - [ ] 用户认证（JWT + 手机号登录）
 - [ ] 流式输出（SSE）
-- [ ] 人物图片生成（CogView API）
+- [ ] 人物图片生成（CogView API，当前用首字印章占位）
 - [ ] 真实人物库 OCEAN 分析（跑 build_character_db.py）
+- [ ] 前端生产构建与部署（`npm run build` + Nginx 静态托管 / 后端 serve）
+- [ ] MOCK_CHARACTERS 补全 classic_events / fun_facts / advice / related_books 字段（当前为空，结果页会隐藏）
 
 ### 已知技术限制
-- **Mock 模式下 reply 接口 404**：因 Mock 不落库。前端开发期间只能验证 create 和只读接口
 - **Python 3.14.5 + 无虚拟环境**：全局环境，建议后续建 venv 隔离
 - **智谱调用超时 60 秒**：`.env` 的 `LLM_TIMEOUT=60`，单次 reply 最长等 60 秒
+- **Mock 模式收敛较慢**：dim11 不确定性每次仅降 0.1，自然收敛需每维探索 7+ 次（远超 30 轮上限），实际会走 MAX_ROUNDS=30 强制结束。这是预期行为，非 bug
 
 ---
 
 ## 💡 给新对话的建议
 
-1. **接手第一步**：先把 `.env` 设为 `USE_MOCK_AGENT=true`，启动后端 `python main.py`，访问 http://127.0.0.1:8000/docs 看 Swagger 文档熟悉接口
-2. **前端开发**：在 `app.py` 用 Streamlit 实现，参考上文的 UI 布局和代码片段
-3. **遇到智谱调用**：当前余额不足，所有真实 AI 调用会失败并走 fallback。开发前端时用 Mock 模式
-4. **改后端代码前**：先读 CHANGELOG.md 的 2026-07-07 条目，理解 API 模块的设计决策
+1. **接手第一步**：确认 `.env` 的 `USE_MOCK_AGENT=true`，启动后端 `python main.py`（或 `uvicorn src.api.main:app --port 8000 --reload`），另开终端在 `frontend/` 跑 `npm install && npm run dev`，访问 http://localhost:5173 即可看到完整前端
+2. **前端已用 React 19 + Vite + Tailwind 实现**（不再是 Streamlit）：落地页 / 对话页 / 结果页三条主链路均已通过浏览器 GUI 黑盒测试（Mock 模式）。代码在 `frontend/src/`
+3. **遇到智谱调用**：当前余额不足，所有真实 AI 调用会失败并走 fallback。开发/调试前端时务必用 Mock 模式
+4. **改后端代码前**：先读 CHANGELOG.md 的 2026-07-07（API 模块设计）和 2026-07-28（Mock 修复 + React 前端）条目
 5. **不要重构**：现有代码经过验证，除非有明确 bug 或用户要求，不要推翻已有设计
 6. **提问前**：本文件应该已经回答了大部分问题。如果仍有疑问，再问用户
 
 ---
 
-**最后更新**：2026-07-19
+**最后更新**：2026-07-28
 **当前分支**：main
-**最近提交**：d4cad7c（refactor: 人物库改为只有历史人物，扩充到 24 个）
-**下一步**：开发前端界面（Streamlit）—— 目标文件 `app.py`
+**最近提交**：6481832（feat: 修复 Mock 模式 404 + 搭建 React 前端基础架构）
+**下一步**：智谱充值后联调真实 AI 链路；MOCK 数据补全；前端生产构建与部署
