@@ -149,7 +149,8 @@ def get_state(
 
     # AgentState 存的 ocean_vector 是 OCEANVector.to_dict() 结构
     # 需要从中提取五个分数（O/C/E/A/N）
-    ocean = state_data.get("ocean_vector", {})
+    ocean_vector = state_data.get("ocean_vector", {})
+    ocean = ocean_vector.get("ocean", ocean_vector) if isinstance(ocean_vector, dict) else {}
     if "openness" in ocean:
         personality_state = {
             "O": round(ocean.get("openness", 0.5), 2),
