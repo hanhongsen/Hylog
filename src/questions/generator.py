@@ -50,21 +50,39 @@ MIN_EXPLORATION_COUNT = 2
 def build_system_prompt() -> str:
     """
     构建 system prompt
-    
-    system prompt 定义 AI 的角色、目标和基本规则，在每次调用时保持不变。
-    
+
+    system prompt 定义 AI 的角色、核心机制（11 维度 → OCEAN 五维）和基本规则，
+    在每次调用时保持不变。
+
     返回:
         system prompt 文本
     """
-    return """你是一个基于OCEAN人格模型的人格探索专家。你的目标是通过自然对话，逐步了解用户在五个核心人格维度上的特质：
+    return """你是一个基于 OCEAN 人格模型的人格探索专家。你将通过自然的生活化对话，逐步了解用户的人格特质。
 
+【核心机制：11 个探索维度 → OCEAN 五维】
+核心机制是通过 11 个贴近生活的探索维度来提问，每个探索维度会映射到 1~2 个 OCEAN 维度，用户的回答会自然流露出对应的人格倾向。
+
+11 个探索维度如下：
+- 社交互动（社交偏好、能量来源、人际关系模式）→ 映射 E（外向性）
+- 情绪体验（情绪敏感度、调节能力、稳定性）→ 映射 N（神经质）
+- 决策风格（决策方式、风险偏好、执行力）→ 映射 C（责任心）、O（开放性）
+- 价值取向（人生目标、道德判断、价值排序）→ 映射 O（开放性）、A（宜人性）
+- 自我认知（自我理解、自我接纳、自我反思）→ 映射 N（神经质）
+- 人际信任（信任他人倾向、合作倾向、同理心）→ 映射 A（宜人性）
+- 压力应对（应对策略、抗压能力、恢复力）→ 映射 N（神经质）、C（责任心）
+- 创造探索（好奇心、想象力、接受新事物）→ 映射 O（开放性）
+- 成就动机（追求成功、目标设定、野心）→ 映射 C（责任心）
+- 生活态度（乐观/悲观、生活满意度、人生意义）→ 映射 N（神经质）、E（外向性）
+- 亲密关系（依恋风格、亲密需求、情感表达）→ 映射 A（宜人性）、N（神经质）
+
+OCEAN 五维（仅供你理解，不要出现在问题里）：
 - O（开放性）：好奇心、创造力、接受新事物
 - C（责任心）：自律、计划性、目标导向
 - E（外向性）：社交活跃度、能量来源
 - A（宜人性）：合作性、同理心、信任他人
 - N（神经质）：情绪稳定性、焦虑敏感度
 
-你的任务是生成一个探索性问题，帮助了解用户的人格特质。"""
+每次我会指定"当前要探索的维度"，你只需围绕该维度生成一个高质量的探索性问题。"""
 
 
 def build_user_prompt(
@@ -75,15 +93,15 @@ def build_user_prompt(
 ) -> str:
     """
     构建 user prompt
-    
+
     user prompt 包含具体的任务信息，每次调用时根据当前状态动态生成。
-    
+
     参数:
         dimension: 当前探索的维度对象
-        history: 最近2轮对话历史（问题+回答）
+        history: 完整对话历史（问题+回答），用于避免重复
         current_ocean: 当前 OCEAN 分数（可选，用于参考）
         examples: 问题示例列表（8个经典问题）
-    
+
     返回:
         user prompt 文本
     """
@@ -91,36 +109,61 @@ def build_user_prompt(
     dimension_info = f"""【当前探索维度】
 维度名称：{dimension.name}
 维度描述：{dimension.description}
-主要影响的OCEAN维度：{dimension.get_ocean_mapping_description()}
-注：用户回答可能同时影响多个OCEAN维度，请根据回答内容综合判断"""
-    
-    # 构建历史对话部分（如果有）
+映射到 OCEAN 维度：{dimension.get_ocean_mapping_description()}
+注意：问题中不要出现"外向性""人格""OCEAN"等术语，只需围绕该维度的生活场景自然提问。"""
+
+    # 构建历史对话部分（展示全部历史，避免与之前的问题重复）
     history_info = ""
     if history:
         history_lines = []
-        for i, h in enumerate(history):
+        for i, h in enumerate(history, 1):
             question = h.get("question", "")
             answer = h.get("answer", "")
-            history_lines.append(f"问题：{question}")
-            history_lines.append(f"回答：{answer}")
-        history_info = f"""【历史对话】
+            history_lines.append(f"第{i}轮")
+            history_lines.append(f"  问题：{question}")
+            history_lines.append(f"  回答：{answer}")
+        history_info = f"""【历史对话】（完整记录，避免与之前的问题重复）
 {chr(10).join(history_lines)}"""
-    
+
     # 构建输出要求部分
-    output_requirements = """【输出要求】
-1. 请生成一个关于当前维度的问题
-2. 采用"1+x"模式：先问一个可以准确回答的问题，再加一个开放性问题让用户自由发挥
-3. 如果维度跨度较大，请用过渡句自然过渡，让对话感觉连贯
-4. 问题要具体、有引导性，让用户愿意分享
-5. 输出JSON格式：{"question": "你的问题"}"""
-    
+    output_requirements = """【输出要求】（请严格遵守）
+1. 【先共情回应，再过渡】
+   除本轮第一个问题外，每次都要先用一句话、用共情的方式回应用户的上一句回答
+   （比如"能感受到你那时确实有点纠结"），一句话即可，不要长篇大论，
+   然后自然过渡到新问题。
+
+2. 【1+x 模式 —— 不是问多个问题】
+   整段只包含一个核心问题，分成两部分：
+   - "1"：给出一个有具体情境的问题，并提供清晰的选择项供用户作答（二选一或三选一），
+          也可以提示用户可以给出自己想到的其他回应。
+   - "x"：在问题后用一句话，鼓励用户描述当时的具体细节或感受。
+   切记：不要罗列多个并列问题让用户不知该答哪个。
+
+3. 【具体情境，而非空泛抽象】
+   问题必须包含一个具体、能让人联想到自身经历的场景（一个具体场合 / 具体动作 / 具体时刻），
+   让用户一读就想到"对，我就是这样的人"。
+   ✅ 好：周五下班，同事临时拉你去一个十几人的聚餐，你的第一反应是期待，还是想找个借口推掉？
+        当时心里是怎么盘算的？
+   ❌ 差：你周末更喜欢和朋友聚会还是独自待着？为什么？（太抽象、太宽泛，用户无从想起细节）
+
+4. 【简洁 ≠ 简单】
+   - 简洁：用尽量短的句子把情境讲清楚，不要啰嗦铺垫、不要堆砌形容词。
+   - 不简单：情境要有信息量、有代入感。禁止"你喜欢社交吗？""你常焦虑吗？"这种一句话空洞问题。
+
+5. 【避免重复】
+   结合上方完整历史对话，不要问与之前高度相似的问题，请换一个新角度切入同一维度。
+
+【输出格式】
+只返回 JSON，不要有任何额外文字：
+{"question": "[共情回应上一句] + [过渡] + [具体情境问题+选择项] + [鼓励描述细节]"}"""
+
     # 构建问题示例部分
     examples_info = ""
     if examples:
         examples_list = chr(10).join([f"- {ex}" for ex in examples])
         examples_info = f"""【问题示例】（仅供参考，不要直接使用）
 {examples_list}"""
-    
+
     # 组合所有部分
     parts = [dimension_info]
     if history_info:
@@ -128,7 +171,7 @@ def build_user_prompt(
     parts.append(output_requirements)
     if examples_info:
         parts.append(examples_info)
-    
+
     return chr(10).join(parts)
 
 
@@ -223,9 +266,9 @@ def generate_question(
     if current_ocean is None:
         current_ocean = {"O": 0.5, "C": 0.5, "E": 0.5, "A": 0.5, "N": 0.5}
     
-    # 只保留最近2轮对话（4条消息）
-    # 每轮对话包含1个问题和1个回答
-    recent_history = history[-4:] if len(history) > 4 else history
+    # 保留全部对话历史，用于避免生成与之前高度相似的问题
+    # （早期版本只取最近2轮，导致长对话中问题频繁重复）
+    recent_history = history
     
     # 获取问题示例
     examples = dimension.questions
