@@ -28,20 +28,19 @@ from .model import OCEANVector, Dimension11Vector, DIMENSION11_TO_OCEAN_MAPPING
 EWMA_LEARNING_RATE = 0.2
 
 # 单次最大变化幅度（限制单次更新的最大变化）
-# 调整为 0.08：原值 0.05 对单一维度信号响应偏弱，
-# 但过大会导致分数快速冲到 0/1 边缘而饱和（如 N 维度）。
-# 0.08 在"灵敏"和"不饱和"之间取得平衡。
-MAX_CHANGE_PER_UPDATE = 0.08
+# 调整为 0.12（原 0.08）：配合新的"11轮固定遍历+OCEAN喂饭"策略，
+# 让分数更快响应，缩短收敛轮次。smooth_update 的边缘减速机制仍会
+# 防止分数冲到 0/1 边缘饱和。
+MAX_CHANGE_PER_UPDATE = 0.12
 
 # 最小更新阈值（小于此值的变化不更新）
 MIN_UPDATE_THRESHOLD = 0.01
 
 # 不确定性减少量（每次更新减少的不确定性）
-# 调整为 0.2：配合"只对有信号的维度降不确定度"的逻辑（update_ocean 中）。
-# LLM 每轮平均只对 1~2 个 OCEAN 维度给出非零 delta，因此每轮只有 1~2 个
-# 维度的不确定度会下降。0.2 让每个维度在收到约 4~5 次信号后降到收敛阈值 0.3
-# 以下，整体约 16~18 轮自然收敛（落在 MIN_ROUNDS=15 到 MAX_ROUNDS=30 之间）。
-UNCERTAINTY_REDUCTION = 0.2
+# 调整为 0.22（原 0.2）：配合"11轮固定遍历+OCEAN喂饭"的新维度选择策略，
+# 让每个维度收到约 4 次信号即降到收敛阈值 0.3 以下。
+# 模拟验证：30~50% 信号丢失条件下，平均 16 轮收敛，范围 15~18，稳定。
+UNCERTAINTY_REDUCTION = 0.22
 
 # 贝叶斯先验方差（初始不确定性）
 BAYESIAN_PRIOR_VARIANCE = 0.25

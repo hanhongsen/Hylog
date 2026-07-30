@@ -353,11 +353,8 @@ def select_dimension_node(state: AgentState) -> str:
     """
     选择下一个探索维度
 
-    根据当前各维度的不确定性和探索次数，选择下一个最该探索的维度。
-    策略（由 select_next_dimension 实现）：
-      1. 优先探索不确定性最高的维度
-      2. 其次探索次数不足的维度
-      3. 最后随机选择
+    新策略（11轮固定遍历 + 之后按 OCEAN 不确定性喂饭），详见
+    select_next_dimension 的文档字符串。
 
     参数:
         state: 当前会话状态
@@ -367,8 +364,21 @@ def select_dimension_node(state: AgentState) -> str:
     """
     dimension_uncertainty = state.get_dimension_uncertainty()
     exploration_counts = state.get_exploration_counts()
+    # OCEAN 五维不确定性 —— 阶段二喂饭的核心依据
+    ocean_uncertainty = {
+        "O": state.ocean_vector.openness_uncertainty,
+        "C": state.ocean_vector.conscientiousness_uncertainty,
+        "E": state.ocean_vector.extraversion_uncertainty,
+        "A": state.ocean_vector.agreeableness_uncertainty,
+        "N": state.ocean_vector.neuroticism_uncertainty,
+    }
 
-    next_dim = select_next_dimension(dimension_uncertainty, exploration_counts)
+    next_dim = select_next_dimension(
+        dimension_uncertainty=dimension_uncertainty,
+        exploration_counts=exploration_counts,
+        ocean_uncertainty=ocean_uncertainty,
+        total_rounds=state.turn_count,
+    )
     state.current_dimension = next_dim
 
     dim = get_dimension_by_id(next_dim)
