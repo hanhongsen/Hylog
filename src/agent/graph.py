@@ -415,10 +415,27 @@ class ConversationAgent:
         if update_result.get("ocean_delta"):
             self._update_message_delta(user_answer, update_result["ocean_delta"])
 
-        # 无效回答被跳过：返回引导语 + 重新生成问题（同一维度）
+        # 无效回答被跳过：根据 reason 区分处理
         if update_result["skipped"]:
             guidance = update_result["guidance"]
-            next_question = generate_question_node(self.state)
+            reason = update_result.get("reason", "unclear")
+
+            if reason in ("uncomfortable", "refused"):
+                # 话题敏感 / 用户拒绝：暂时换到另一个维度（不放弃，冷却几轮后自然回来）
+                # 给被跳过的维度打标记，重新探索时会用柔和化问法
+                current = self.state.current_dimension
+                if current:
+                    self.state.skipped_dimensions[current] = {
+                        "reason": reason,
+                        "skipped_at_turn": self.state.turn_count,
+                    }
+                # 切换维度（select_dimension_node 会按 OCEAN 不确定性选，自然避开刚被跳过的）
+                select_dimension_node(self.state)
+                next_question = generate_question_node(self.state)
+            else:
+                # unclear（没问好）/ irrelevant（走神）：当前维度立即换个问法重出
+                next_question = generate_question_node(self.state)
+
             full_message = f"{guidance}\n\n{next_question}"
 
             self.state.history.append({

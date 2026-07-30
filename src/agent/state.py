@@ -89,6 +89,7 @@ class AgentState:
         forced_finish: bool = False,
         use_mock: bool = False,
         mock_ocean_signs: Optional[Dict[str, int]] = None,
+        skipped_dimensions: Optional[Dict[str, Dict]] = None,
     ):
         # 身份
         self.session_id = session_id
@@ -118,6 +119,13 @@ class AgentState:
         # 仅 use_mock=True 时使用，保证跨 HTTP 请求稳定演化，画像不漂移
         # 例：{"O": 1, "C": -1, "E": 1, "A": -1, "N": 1}
         self.mock_ocean_signs: Dict[str, int] = mock_ocean_signs if mock_ocean_signs is not None else {}
+
+        # 因用户"不舒服/拒绝"而被跳过的维度记录，用于后续柔和化重新探索。
+        # 不放弃探索，只是换更轻松的问法再问一次。
+        # 结构：{"intimacy": {"reason": "uncomfortable", "skipped_at_turn": 5}, ...}
+        # 该维度被跳过后不会收到 delta，OCEAN 不确定性不降，会自然重新进入喂饭队列；
+        # 重新选中时，generate_question 会读取此标记，加柔和化提示词。
+        self.skipped_dimensions: Dict[str, Dict] = skipped_dimensions if skipped_dimensions is not None else {}
 
         # 结果
         self.result = result
@@ -197,6 +205,7 @@ class AgentState:
             "forced_finish": self.forced_finish,
             "use_mock": self.use_mock,
             "mock_ocean_signs": self.mock_ocean_signs,
+            "skipped_dimensions": self.skipped_dimensions,
             "result": self.result.to_dict(include_paid=True) if self.result else None,
         }
 
@@ -234,6 +243,7 @@ class AgentState:
             forced_finish=data.get("forced_finish", False),
             use_mock=data.get("use_mock", False),
             mock_ocean_signs=data.get("mock_ocean_signs", {}),
+            skipped_dimensions=data.get("skipped_dimensions", {}),
             result=result,
         )
 

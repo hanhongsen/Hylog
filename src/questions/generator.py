@@ -89,7 +89,8 @@ def build_user_prompt(
     dimension: QuestionDimension,
     history: List[Dict],
     current_ocean: Dict[str, float],
-    examples: List[str]
+    examples: List[str],
+    gentle_retry: bool = False
 ) -> str:
     """
     构建 user prompt
@@ -111,6 +112,18 @@ def build_user_prompt(
 维度描述：{dimension.description}
 映射到 OCEAN 维度：{dimension.get_ocean_mapping_description()}
 注意：问题中不要出现"外向性""人格""OCEAN"等术语，只需围绕该维度的生活场景自然提问。"""
+
+    # 柔和化重试提示（该维度之前因用户"不舒服/拒绝"被跳过，现在重新探索）
+    if gentle_retry:
+        dimension_info += """
+
+【特别提示：柔和化重试】
+这个维度在之前的对话中曾让用户感到不舒服或选择跳过，现在换一个角度重新探索。
+请务必：
+1. 用更轻松、更日常、更小的场景来切入（比如用一个第三人称的小故事、一个轻松的假设情境），
+   避开上次可能让用户不适的直接追问方式。
+2. 不触及敏感、隐私、创伤性的话题，话题分量要轻。
+3. 让用户感觉这只是随口一聊，而不是在被打探。"""
 
     # 构建历史对话部分（展示全部历史，避免与之前的问题重复）
     history_info = ""
@@ -228,23 +241,26 @@ def parse_question_response(response: str) -> Optional[str]:
 def generate_question(
     dimension_id: str,
     history: List[Dict] = None,
-    current_ocean: Dict[str, float] = None
+    current_ocean: Dict[str, float] = None,
+    gentle_retry: bool = False
 ) -> Dict[str, Any]:
     """
     生成探索性问题
-    
+
     这是问题生成器的核心函数，负责：
     1. 获取维度信息
     2. 构建 Prompt
     3. 调用 LLM
     4. 解析结果
     5. 处理错误和 fallback
-    
+
     参数:
         dimension_id: 维度ID（如 "social"）
-        history: 最近2轮对话历史，格式为 [{"question": "...", "answer": "..."}, ...]
+        history: 完整对话历史，格式为 [{"question": "...", "answer": "..."}, ...]
         current_ocean: 当前 OCEAN 分数，格式为 {"O": 0.5, "C": 0.5, ...}
-    
+        gentle_retry: 是否柔和化重试。True 表示该维度之前因用户"不舒服/拒绝"被跳过，
+                      现在重新探索，需用更轻松日常的问法，避开上次的敏感角度。
+
     返回:
         包含问题信息的字典，格式为：
         {
@@ -253,33 +269,34 @@ def generate_question(
             "dimension_name": "维度名称",
             "source": "ai" 或 "fallback"
         }
-    
+
     异常:
         KeyError: 如果维度ID不存在
     """
     # 获取维度对象
     dimension = get_dimension_by_id(dimension_id)
-    
+
     # 初始化默认值
     if history is None:
         history = []
     if current_ocean is None:
         current_ocean = {"O": 0.5, "C": 0.5, "E": 0.5, "A": 0.5, "N": 0.5}
-    
+
     # 保留全部对话历史，用于避免生成与之前高度相似的问题
     # （早期版本只取最近2轮，导致长对话中问题频繁重复）
     recent_history = history
-    
+
     # 获取问题示例
     examples = dimension.questions
-    
+
     # 构建 Prompt
     system_prompt = build_system_prompt()
     user_prompt = build_user_prompt(
         dimension=dimension,
         history=recent_history,
         current_ocean=current_ocean,
-        examples=examples
+        examples=examples,
+        gentle_retry=gentle_retry
     )
     
     # 构建消息列表

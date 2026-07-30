@@ -413,21 +413,25 @@ def generate_question_node(state: AgentState) -> str:
         logger.info(f"[{state.session_id}] [Mock] 问题取自备用池(维度:{dimension_id})")
         return question
 
-    # 构建历史（generate_question 内部会截取最近2轮）
+    # 构建历史（generate_question 内部保留全部历史避免重复）
     # history 格式要求 [{"question": "...", "answer": "..."}]
     history_for_generation = _build_history_for_question(state.history)
 
     # 当前 OCEAN 分数
     current_ocean = state.get_ocean_dict()
 
+    # 该维度是否曾被跳过（需柔和化重试）
+    gentle_retry = dimension_id in (getattr(state, "skipped_dimensions", {}) or {})
+
     try:
         result = _generate_question(
             dimension_id=dimension_id,
             history=history_for_generation,
             current_ocean=current_ocean,
+            gentle_retry=gentle_retry,
         )
         question = result["question"]
-        logger.info(f"[{state.session_id}] 问题生成成功(维度:{dimension_id})")
+        logger.info(f"[{state.session_id}] 问题生成成功(维度:{dimension_id}{'，柔和化重试' if gentle_retry else ''})")
     except Exception as e:
         # 生成失败，使用该维度的备用问题
         logger.warning(f"[{state.session_id}] 问题生成失败({e})，使用备用问题")
@@ -620,6 +624,11 @@ def update_personality_node(
 
     # 有效回答，轮次 + 1
     state.turn_count += 1
+
+    # 该维度成功探索后，清除"被跳过"标记（不再需要柔和化）
+    if dimension in (getattr(state, "skipped_dimensions", {}) or {}):
+        state.skipped_dimensions.pop(dimension, None)
+        logger.info(f"[{state.session_id}] 维度 {dimension} 柔和化重试成功，清除跳过标记")
 
     logger.info(
         f"[{state.session_id}] 人格更新成功(维度:{dimension}, 轮次:{state.turn_count}), "
