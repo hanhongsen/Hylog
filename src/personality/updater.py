@@ -406,19 +406,18 @@ class PersonalityUpdater:
         """
         检查人格向量是否收敛
 
-        收敛条件：
-        1. 最小对话轮次 ≥ min_rounds
-        2. OCEAN 平均不确定性 < max_uncertainty
+        收敛条件（满足任一即可）：
+        A. 主路径：轮次 ≥ 15 且 OCEAN 平均不确定性 < 0.3
+        B. 提前出口：轮次 ≥ 18 且 5 维中 ≥ 4 维不确定性 < 0.3（允许 1 维模糊）
+        C. 兜底出口：轮次 ≥ 20（无论不确定性如何，强制收敛，防止极端卡死）
 
-        设计说明（2026-07-28 调整）：
-        早期版本同时要求"11 维平均不确定性 < max_uncertainty"，但 11 维有 11 个
-        子维度、每轮只探索 1 个，平均不确定性每轮仅降 ~0.01，从 1.0 降到 0.3
-        需要每维探索 7+ 次（共 77 次），远超对话上限 30 轮。这导致会话永远无法
-        自然收敛，只能靠 MAX_ROUNDS 强制结束。
-
-        由于最终人物匹配只用 OCEAN 5 维（11 维仅用于问题探索），收敛判断也只
-        看 OCEAN 不确定性即可。11 维的探索次数仍用于维度选择策略（优先探索
-        高不确定性/低探索次数的维度），不影响收敛。
+        设计说明：
+        - 条件 A 是原有逻辑，确保整体画像质量
+        - 条件 B 新增：即使某 1 维降不到 0.3，只要另外 4 维已收敛且轮次充足，
+          也判定收敛，避免单维度被"卡脖子"
+        - 条件 C 新增：硬性兜底，防止在极端情况下（如 LLM 持续对某维度返回 0 delta）
+          对话永远无法收敛
+        - MAX_ROUNDS=30 作为最终兜底仍保留，上述条件是在 30 轮之前的主动收敛
 
         参数:
             ocean_vector: OCEAN 向量
@@ -434,6 +433,8 @@ class PersonalityUpdater:
         checks = {
             "min_rounds": False,
             "uncertainty": False,
+            "early_exit": False,
+            "force_exit": False,
             "details": {}
         }
 
@@ -447,13 +448,47 @@ class PersonalityUpdater:
         checks["uncertainty"] = avg_ocean_uncertainty < max_uncertainty
         checks["details"]["ocean_uncertainty"] = avg_ocean_uncertainty
 
+        # 获取各维度不确定性（用于条件 B）
+        uncertainties = ocean_vector.to_uncertainty_vector()
+        checks["details"]["per_dim_uncertainty"] = {
+            "O": uncertainties[0],
+            "C": uncertainties[1],
+            "E": uncertainties[2],
+            "A": uncertainties[3],
+            "N": uncertainties[4],
+        }
+        below_threshold_count = sum(1 for u in uncertainties if u < max_uncertainty)
+        checks["details"]["dimensions_below_threshold"] = below_threshold_count
+
+        # 条件 B：提前出口 — ≥4 维已收敛 且 轮次 ≥ 18
+        checks["early_exit"] = (
+            below_threshold_count >= 4 and total_explores >= 18
+        )
+
+        # 条件 C：兜底出口 — 轮次 ≥ 20，强制收敛
+        checks["force_exit"] = total_explores >= 20
+
         # 附带 11 维信息（仅供参考，不参与收敛判断）
         avg_dim11_uncertainty = dim11_vector.get_average_uncertainty()
         checks["details"]["dim11_uncertainty"] = avg_dim11_uncertainty
         checks["details"]["min_explore_count"] = dim11_vector.get_min_explore_count()
         checks["details"]["high_uncertainty_dimensions"] = dim11_vector.get_high_uncertainty_dimensions(max_uncertainty)
 
-        # 综合判断：轮次达标 + OCEAN 不确定性达标
-        is_converged = checks["min_rounds"] and checks["uncertainty"]
+        # 综合判断：A(主路径) or B(提前出口) or C(兜底出口)
+        is_converged = (
+            (checks["min_rounds"] and checks["uncertainty"])  # 条件 A
+            or checks["early_exit"]   # 条件 B
+            or checks["force_exit"]  # 条件 C
+        )
+
+        # 记录收敛路径（供日志和前端展示）
+        if checks["force_exit"]:
+            checks["convergence_path"] = "force"
+        elif checks["early_exit"]:
+            checks["convergence_path"] = "early"
+        elif checks["min_rounds"] and checks["uncertainty"]:
+            checks["convergence_path"] = "normal"
+        else:
+            checks["convergence_path"] = "none"
 
         return is_converged, checks

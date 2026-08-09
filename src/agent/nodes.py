@@ -356,6 +356,9 @@ def select_dimension_node(state: AgentState) -> str:
     新策略（11轮固定遍历 + 之后按 OCEAN 不确定性喂饭），详见
     select_next_dimension 的文档字符串。
 
+    支持跳过冷却机制：被标记为"不舒服/拒绝"的维度，在冷却期内（默认3轮）
+    暂时排除，冷却结束后若仍未探索过，会自动回来。
+
     参数:
         state: 当前会话状态
 
@@ -378,11 +381,19 @@ def select_dimension_node(state: AgentState) -> str:
         exploration_counts=exploration_counts,
         ocean_uncertainty=ocean_uncertainty,
         total_rounds=state.turn_count,
+        skipped_dimensions=getattr(state, "skipped_dimensions", None),
+        cooldown_rounds=3,
     )
     state.current_dimension = next_dim
 
+    # 判断是否为冷却回来的维度（需要柔和化提示）
+    skipped = getattr(state, "skipped_dimensions", {}) or {}
+    gentle = next_dim in skipped
     dim = get_dimension_by_id(next_dim)
-    logger.info(f"[{state.session_id}] 选定下一维度: {next_dim}({dim.name})")
+    logger.info(
+        f"[{state.session_id}] 选定下一维度: {next_dim}({dim.name})"
+        f"{' [柔和化重试]' if gentle else ''}"
+    )
     return next_dim
 
 
@@ -714,10 +725,10 @@ def check_convergence_node(
     收敛判断节点
 
     判断人格画像是否已收敛（信息量足够）。
-    收敛需同时满足：
-    1. 总探索次数 ≥ MIN_ROUNDS (15)
-    2. 每个维度探索次数 ≥ MIN_EXPLORE_PER_DIMENSION (2)
-    3. OCEAN 和 11 维的平均不确定性 < MAX_UNCERTAINTY (0.3)
+    收敛条件（满足任一即可）：
+    A. 主路径：轮次 ≥ 15 且 OCEAN 平均不确定性 < 0.3
+    B. 提前出口：轮次 ≥ 18 且 5 维中 ≥ 4 维不确定性 < 0.3
+    C. 兜底出口：轮次 ≥ 20（强制收敛）
 
     参数:
         state: 当前会话状态（会被更新 converged / convergence_details）
@@ -737,7 +748,20 @@ def check_convergence_node(
     state.converged = converged
     state.convergence_details = details
 
-    logger.info(f"[{state.session_id}] 收敛判断: {converged}, 详情: {details['details']}")
+    # 记录收敛路径（normal / early / force），供日志和前端展示
+    path = details.get("convergence_path", "none")
+    if converged:
+        logger.info(
+            f"[{state.session_id}] 收敛命中: path={path}, "
+            f"rounds={details['details']['total_rounds']}, "
+            f"avg_unc={details['details']['ocean_uncertainty']:.3f}, "
+            f"dim_below_thresh={details['details'].get('dimensions_below_threshold', 'N/A')}"
+        )
+    else:
+        logger.info(
+            f"[{state.session_id}] 未收敛: rounds={details['details']['total_rounds']}, "
+            f"avg_unc={details['details']['ocean_uncertainty']:.3f}"
+        )
     return converged, details
 
 

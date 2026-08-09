@@ -1,26 +1,9602 @@
 {
-  "1": {"name": "孔子", "source": "历史", "era": "春秋"},
-  "2": {"name": "老子", "source": "历史", "era": "春秋"},
-  "3": {"name": "庄子", "source": "历史", "era": "战国"},
-  "4": {"name": "屈原", "source": "历史", "era": "战国"},
-  "5": {"name": "孙武", "source": "历史", "era": "春秋"},
-  "6": {"name": "秦始皇", "source": "历史", "era": "秦朝"},
-  "7": {"name": "项羽", "source": "历史", "era": "秦朝"},
-  "8": {"name": "刘邦", "source": "历史", "era": "汉朝"},
-  "9": {"name": "张良", "source": "历史", "era": "汉朝"},
-  "10": {"name": "司马迁", "source": "历史", "era": "汉朝"},
-  "11": {"name": "诸葛亮", "source": "历史", "era": "三国"},
-  "12": {"name": "曹操", "source": "历史", "era": "三国"},
-  "13": {"name": "嵇康", "source": "历史", "era": "魏晋"},
-  "14": {"name": "陶渊明", "source": "历史", "era": "晋朝"},
-  "15": {"name": "唐太宗", "source": "历史", "era": "唐朝"},
-  "16": {"name": "武则天", "source": "历史", "era": "唐朝"},
-  "17": {"name": "李白", "source": "历史", "era": "唐朝"},
-  "18": {"name": "杜甫", "source": "历史", "era": "唐朝"},
-  "19": {"name": "苏轼", "source": "历史", "era": "宋朝"},
-  "20": {"name": "李清照", "source": "历史", "era": "宋朝"},
-  "21": {"name": "岳飞", "source": "历史", "era": "宋朝"},
-  "22": {"name": "辛弃疾", "source": "历史", "era": "宋朝"},
-  "23": {"name": "王阳明", "source": "历史", "era": "明朝"},
-  "24": {"name": "纳兰性德", "source": "历史", "era": "清朝"}
+  "1": {
+    "name": "夏禹",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "2": {
+    "name": "妹喜",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "3": {
+    "name": "伯益",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "4": {
+    "name": "皋陶",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "5": {
+    "name": "后羿",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "6": {
+    "name": "寒浞",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "7": {
+    "name": "有扈氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "8": {
+    "name": "关龙逄",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "9": {
+    "name": "伊尹",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "10": {
+    "name": "仪狄",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "11": {
+    "name": "女娇",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "12": {
+    "name": "纯狐",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "13": {
+    "name": "女艾",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "14": {
+    "name": "妇妥",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "15": {
+    "name": "洛嫔",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "16": {
+    "name": "羲和",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "17": {
+    "name": "昆吾",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "18": {
+    "name": "仓颉",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "19": {
+    "name": "敷淵",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "20": {
+    "name": "务成",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "21": {
+    "name": "史皇",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "22": {
+    "name": "伶伦",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "23": {
+    "name": "夏启",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "24": {
+    "name": "契",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "25": {
+    "name": "终古",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "26": {
+    "name": "涂山氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "27": {
+    "name": "嫘祖",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "28": {
+    "name": "方雷氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "29": {
+    "name": "歧母",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "30": {
+    "name": "羲和氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "31": {
+    "name": "王亥",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "32": {
+    "name": "垂",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "33": {
+    "name": "巫咸",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "34": {
+    "name": "展禽",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "35": {
+    "name": "务光",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "36": {
+    "name": "畴骑",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "37": {
+    "name": "有穷氏首领",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "38": {
+    "name": "无余",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "39": {
+    "name": "歧舌氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "40": {
+    "name": "攸女",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "41": {
+    "name": "巫彭",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "42": {
+    "name": "女岐",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "43": {
+    "name": "少康",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "44": {
+    "name": "杼",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "45": {
+    "name": "允常",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "46": {
+    "name": "彤城氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "47": {
+    "name": "嫘氏",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "48": {
+    "name": "曾参",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "49": {
+    "name": "杞梁妻",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "50": {
+    "name": "缇萦",
+    "source": "历史",
+    "era": "夏朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "51": {
+    "name": "商汤",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "52": {
+    "name": "妲己",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "53": {
+    "name": "比干",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "54": {
+    "name": "伊尹",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "55": {
+    "name": "箕子",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "56": {
+    "name": "妇好",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "57": {
+    "name": "飞廉",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "58": {
+    "name": "祖甲",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "59": {
+    "name": "甘盘",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "60": {
+    "name": "微子启",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "61": {
+    "name": "妇妌",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "62": {
+    "name": "妲己",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "63": {
+    "name": "南庚",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "64": {
+    "name": "巫贤",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "65": {
+    "name": "武丁",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "66": {
+    "name": "傅说",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "67": {
+    "name": "盘庚",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "68": {
+    "name": "祖乙",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "69": {
+    "name": "祖辛",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "70": {
+    "name": "恶来",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "71": {
+    "name": "妇妟",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "72": {
+    "name": "妇媒",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "73": {
+    "name": "妇庞",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "74": {
+    "name": "妇周",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "75": {
+    "name": "祖己",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "76": {
+    "name": "祖甲",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "77": {
+    "name": "庸",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "78": {
+    "name": "卜偃",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "79": {
+    "name": "史颂",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "80": {
+    "name": "作册般",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "81": {
+    "name": "闻喜",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "82": {
+    "name": "亳",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "83": {
+    "name": "巫妨",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "84": {
+    "name": "彭祖",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "85": {
+    "name": "师延",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "86": {
+    "name": "师涓",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "87": {
+    "name": "太颠",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "88": {
+    "name": "散宜生",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "89": {
+    "name": "辛甲",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "90": {
+    "name": "商容",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "91": {
+    "name": "太姜",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "92": {
+    "name": "太任",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "93": {
+    "name": "太姒",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "94": {
+    "name": "邑姜",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "95": {
+    "name": "胶鬲",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "96": {
+    "name": "鬻熊",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "97": {
+    "name": "鲁班",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "98": {
+    "name": "姜嫄",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "99": {
+    "name": "褒姒",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "100": {
+    "name": "伯夷",
+    "source": "历史",
+    "era": "商朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "101": {
+    "name": "周武王",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "102": {
+    "name": "申后",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "103": {
+    "name": "周公旦",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "104": {
+    "name": "召公奭",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "105": {
+    "name": "毕公高",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "106": {
+    "name": "姜太公",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "107": {
+    "name": "仲山甫",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "108": {
+    "name": "卫康叔",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "109": {
+    "name": "寺人孟子",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "110": {
+    "name": "闳夭",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "111": {
+    "name": "王姜",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "112": {
+    "name": "姜后",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "113": {
+    "name": "穆王姜后",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "114": {
+    "name": "王姞",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "115": {
+    "name": "叔妗",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "116": {
+    "name": "周文王",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "117": {
+    "name": "史伯",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "118": {
+    "name": "尹吉甫",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "119": {
+    "name": "召穆公",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "120": {
+    "name": "工倕",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "121": {
+    "name": "史籀",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "122": {
+    "name": "师挚",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "123": {
+    "name": "伯阳父",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "124": {
+    "name": "虢叔",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "125": {
+    "name": "史佚",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "126": {
+    "name": "西王母",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "127": {
+    "name": "仲姜",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "128": {
+    "name": "太妊",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "129": {
+    "name": "王妫",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "130": {
+    "name": "嬴氏",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "131": {
+    "name": "裘卫",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "132": {
+    "name": "考工氏",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "133": {
+    "name": "俞跗",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "134": {
+    "name": "广成子",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "135": {
+    "name": "许由",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "136": {
+    "name": "南宫适",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "137": {
+    "name": "犬戎主",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "138": {
+    "name": "季历",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "139": {
+    "name": "妇妿",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "140": {
+    "name": "女云",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "141": {
+    "name": "巫女",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "142": {
+    "name": "九天玄女",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "143": {
+    "name": "甫侯",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "144": {
+    "name": "奚仲",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "145": {
+    "name": "公刘",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "146": {
+    "name": "女史",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "147": {
+    "name": "姒氏",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "148": {
+    "name": "孝己",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "149": {
+    "name": "贞姜",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "150": {
+    "name": "鲁义姑",
+    "source": "历史",
+    "era": "西周",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "151": {
+    "name": "齐桓公",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "152": {
+    "name": "骊姬",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "153": {
+    "name": "晋文公",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "154": {
+    "name": "管仲",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "155": {
+    "name": "晏婴",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "156": {
+    "name": "孙武",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "157": {
+    "name": "子产",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "158": {
+    "name": "董狐",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "159": {
+    "name": "寺人披",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "160": {
+    "name": "烛之武",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "161": {
+    "name": "文姜",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "162": {
+    "name": "西施",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "163": {
+    "name": "许穆夫人",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "164": {
+    "name": "南子",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "165": {
+    "name": "敬姜",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "166": {
+    "name": "孔子",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "167": {
+    "name": "老子",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "168": {
+    "name": "左丘明",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "169": {
+    "name": "接舆",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "170": {
+    "name": "鲁班",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "171": {
+    "name": "史鱼",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "172": {
+    "name": "师旷",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "173": {
+    "name": "苌弘",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "174": {
+    "name": "子夏",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "175": {
+    "name": "公羊高",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "176": {
+    "name": "漆室女",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "177": {
+    "name": "鲁季母",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "178": {
+    "name": "庄姜",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "179": {
+    "name": "齐姜",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "180": {
+    "name": "鲁织女",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "181": {
+    "name": "弦高",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "182": {
+    "name": "匠石",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "183": {
+    "name": "扁鹊",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "184": {
+    "name": "长沮",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "185": {
+    "name": "桀溺",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "186": {
+    "name": "专诸",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "187": {
+    "name": "盗跖",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "188": {
+    "name": "范蠡",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "189": {
+    "name": "赵女",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "190": {
+    "name": "灵女",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "191": {
+    "name": "义妁",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "192": {
+    "name": "巫儿",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "193": {
+    "name": "墨子",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "194": {
+    "name": "偃师",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "195": {
+    "name": "伍子胥",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "196": {
+    "name": "鲁星女",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "197": {
+    "name": "鲁机娘",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "198": {
+    "name": "闵子骞",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "199": {
+    "name": "息妫",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "200": {
+    "name": "女娟",
+    "source": "历史",
+    "era": "东周春秋",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "201": {
+    "name": "秦王嬴政",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "202": {
+    "name": "宣太后",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "203": {
+    "name": "赵武灵王",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "204": {
+    "name": "商鞅",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "205": {
+    "name": "蔺相如",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "206": {
+    "name": "白起",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "207": {
+    "name": "李冰",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "208": {
+    "name": "西门豹",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "209": {
+    "name": "嫪毐",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "210": {
+    "name": "苏秦",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "211": {
+    "name": "君王后",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "212": {
+    "name": "赵姬",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "213": {
+    "name": "赵威后",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "214": {
+    "name": "华阳夫人",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "215": {
+    "name": "钟无艳",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "216": {
+    "name": "孟子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "217": {
+    "name": "庄子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "218": {
+    "name": "屈原",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "219": {
+    "name": "宋玉",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "220": {
+    "name": "漆雕开",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "221": {
+    "name": "申包胥",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "222": {
+    "name": "伯牙",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "223": {
+    "name": "荀子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "224": {
+    "name": "鬼谷子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "225": {
+    "name": "鲁仲连",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "226": {
+    "name": "孟母",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "227": {
+    "name": "虞姬",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "228": {
+    "name": "樊姬",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "229": {
+    "name": "何氏",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "230": {
+    "name": "漆女",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "231": {
+    "name": "吕不韦",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "232": {
+    "name": "郑国",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "233": {
+    "name": "文挚",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "234": {
+    "name": "列子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "235": {
+    "name": "颜斶",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "236": {
+    "name": "荆轲",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "237": {
+    "name": "庄蹻",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "238": {
+    "name": "魏无忌",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "239": {
+    "name": "卓氏",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "240": {
+    "name": "鲁冶女",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "241": {
+    "name": "女医",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "242": {
+    "name": "齐巫女",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "243": {
+    "name": "甘德",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "244": {
+    "name": "石申",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "245": {
+    "name": "史禄",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "246": {
+    "name": "鲁天女",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "247": {
+    "name": "鲁织娘",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "248": {
+    "name": "老莱子",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "249": {
+    "name": "共姜",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "250": {
+    "name": "缇萦",
+    "source": "历史",
+    "era": "东周战国",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "251": {
+    "name": "秦始皇",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "252": {
+    "name": "郑妃",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "253": {
+    "name": "扶苏",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "254": {
+    "name": "李斯",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "255": {
+    "name": "蒙恬",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "256": {
+    "name": "王翦",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "257": {
+    "name": "任嚣",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "258": {
+    "name": "赵佗",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "259": {
+    "name": "赵高",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "260": {
+    "name": "蒙毅",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "261": {
+    "name": "赢阴嫚",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "262": {
+    "name": "胡亥母",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "263": {
+    "name": "赢元",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "264": {
+    "name": "秦太后",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "265": {
+    "name": "巴寡妇清",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "266": {
+    "name": "尉缭",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "267": {
+    "name": "邹衍",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "268": {
+    "name": "程邈",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "269": {
+    "name": "秦嘉",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "270": {
+    "name": "始皇画工",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "271": {
+    "name": "胡毋敬",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "272": {
+    "name": "高渐离",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "273": {
+    "name": "伏生",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "274": {
+    "name": "叔孙通",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "275": {
+    "name": "秦史官",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "276": {
+    "name": "孟姜女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "277": {
+    "name": "秦慧女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "278": {
+    "name": "秦文女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "279": {
+    "name": "秦诗女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "280": {
+    "name": "秦画女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "281": {
+    "name": "乌氏倮",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "282": {
+    "name": "秦匠师",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "283": {
+    "name": "夏无且",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "284": {
+    "name": "徐福",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "285": {
+    "name": "卢生",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "286": {
+    "name": "项梁",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "287": {
+    "name": "陈胜",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "288": {
+    "name": "项伯",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "289": {
+    "name": "卓文君祖",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "290": {
+    "name": "秦陶女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "291": {
+    "name": "秦女医",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "292": {
+    "name": "秦巫女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "293": {
+    "name": "秦天文",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "294": {
+    "name": "秦度师",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "295": {
+    "name": "秦道师",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "296": {
+    "name": "秦星女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "297": {
+    "name": "秦织娘",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "298": {
+    "name": "秦孝",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "299": {
+    "name": "秦贞",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "300": {
+    "name": "秦孝女",
+    "source": "历史",
+    "era": "秦朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "301": {
+    "name": "项羽",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "302": {
+    "name": "子婴",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "303": {
+    "name": "田横",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "304": {
+    "name": "萧何",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "305": {
+    "name": "张良",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "306": {
+    "name": "韩信",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "307": {
+    "name": "英布",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "308": {
+    "name": "曹参",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "309": {
+    "name": "赵高",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "310": {
+    "name": "郦食其",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "311": {
+    "name": "吕雉",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "312": {
+    "name": "虞姬",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "313": {
+    "name": "鲁元公主",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "314": {
+    "name": "许负",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "315": {
+    "name": "刘嫖",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "316": {
+    "name": "陆贾",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "317": {
+    "name": "贾谊",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "318": {
+    "name": "宋玉",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "319": {
+    "name": "景差",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "320": {
+    "name": "毛延寿",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "321": {
+    "name": "李斯",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "322": {
+    "name": "李延年",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "323": {
+    "name": "叔孙通",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "324": {
+    "name": "伏生",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "325": {
+    "name": "公孙季功",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "326": {
+    "name": "孟姜",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "327": {
+    "name": "张嫣",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "328": {
+    "name": "卓文君",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "329": {
+    "name": "戚夫人",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "330": {
+    "name": "无盐",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "331": {
+    "name": "寡妇清",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "332": {
+    "name": "鲁班",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "333": {
+    "name": "淳于意",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "334": {
+    "name": "河上公",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "335": {
+    "name": "安世高",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "336": {
+    "name": "季布",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "337": {
+    "name": "陈胜",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "338": {
+    "name": "朱家",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "339": {
+    "name": "吕媭",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "340": {
+    "name": "赵飞燕",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "341": {
+    "name": "淳于缇萦",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "342": {
+    "name": "魏华存",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "343": {
+    "name": "张苍",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "344": {
+    "name": "丁缓",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "345": {
+    "name": "召信臣",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "346": {
+    "name": "班昭",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "347": {
+    "name": "嫘祖",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "348": {
+    "name": "姜诗",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "349": {
+    "name": "刘长",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "350": {
+    "name": "缇萦",
+    "source": "历史",
+    "era": "楚汉",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "351": {
+    "name": "刘彻",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "352": {
+    "name": "卫子夫",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "353": {
+    "name": "刘安",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "354": {
+    "name": "霍光",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "355": {
+    "name": "主父偃",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "356": {
+    "name": "霍去病",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "357": {
+    "name": "朱博",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "358": {
+    "name": "龚遂",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "359": {
+    "name": "石显",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "360": {
+    "name": "张骞",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "361": {
+    "name": "王政君",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "362": {
+    "name": "王昭君",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "363": {
+    "name": "平阳公主",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "364": {
+    "name": "上官太后",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "365": {
+    "name": "冯嫽",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "366": {
+    "name": "董仲舒",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "367": {
+    "name": "扬雄",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "368": {
+    "name": "司马相如",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "369": {
+    "name": "枚乘",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "370": {
+    "name": "毛亨",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "371": {
+    "name": "史游",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "372": {
+    "name": "桓谭",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "373": {
+    "name": "公孙弘",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "374": {
+    "name": "辕固生",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "375": {
+    "name": "司马迁",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "376": {
+    "name": "班婕妤",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "377": {
+    "name": "窦太后",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "378": {
+    "name": "刘细君",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "379": {
+    "name": "陈宝光妻",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "380": {
+    "name": "敬武公主",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "381": {
+    "name": "卜式",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "382": {
+    "name": "雷被",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "383": {
+    "name": "公乘阳庆",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "384": {
+    "name": "李少君",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "385": {
+    "name": "摄摩腾",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "386": {
+    "name": "郭解",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "387": {
+    "name": "樊崇",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "388": {
+    "name": "第五伦",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "389": {
+    "name": "陈阿娇",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "390": {
+    "name": "赵合德",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "391": {
+    "name": "义姁",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "392": {
+    "name": "钩弋夫人",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "393": {
+    "name": "落下闳",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "394": {
+    "name": "赵过",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "395": {
+    "name": "徐伯",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "396": {
+    "name": "义妁",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "397": {
+    "name": "淳于衍",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "398": {
+    "name": "黄香",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "399": {
+    "name": "宋弘",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "400": {
+    "name": "孝平王皇后",
+    "source": "历史",
+    "era": "西汉",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "401": {
+    "name": "刘秀",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "402": {
+    "name": "郭圣通",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "403": {
+    "name": "刘疆",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "404": {
+    "name": "邓禹",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "405": {
+    "name": "杨震",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "406": {
+    "name": "马援",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "407": {
+    "name": "杜诗",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "408": {
+    "name": "张堪",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "409": {
+    "name": "蔡伦",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "410": {
+    "name": "班超",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "411": {
+    "name": "阴丽华",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "412": {
+    "name": "马皇后",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "413": {
+    "name": "新野公主刘元",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "414": {
+    "name": "邓绥",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "415": {
+    "name": "荀采",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "416": {
+    "name": "王充",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "417": {
+    "name": "荀悦",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "418": {
+    "name": "班固",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "419": {
+    "name": "张衡",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "420": {
+    "name": "刘褒",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "421": {
+    "name": "张芝",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "422": {
+    "name": "蔡邕",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "423": {
+    "name": "郑玄",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "424": {
+    "name": "马融",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "425": {
+    "name": "郦炎",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "426": {
+    "name": "蔡文姬",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "427": {
+    "name": "徐淑",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "428": {
+    "name": "袁氏",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "429": {
+    "name": "窦妙",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "430": {
+    "name": "赵夫人",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "431": {
+    "name": "糜竺",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "432": {
+    "name": "毕岚",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "433": {
+    "name": "张仲景",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "434": {
+    "name": "张道陵",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "435": {
+    "name": "竺法兰",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "436": {
+    "name": "鲁肃",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "437": {
+    "name": "张角",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "438": {
+    "name": "孔融",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "439": {
+    "name": "何太后",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "440": {
+    "name": "孙鲁班",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "441": {
+    "name": "鲍姑",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "442": {
+    "name": "张玉兰",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "443": {
+    "name": "刘洪",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "444": {
+    "name": "韩暨",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "445": {
+    "name": "王景",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "446": {
+    "name": "华妙",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "447": {
+    "name": "孟光",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "448": {
+    "name": "董永",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "449": {
+    "name": "乐羊子妻",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "450": {
+    "name": "曹娥",
+    "source": "历史",
+    "era": "东汉",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "451": {
+    "name": "曹丕",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "452": {
+    "name": "甄宓",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "453": {
+    "name": "曹植",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "454": {
+    "name": "诸葛亮",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "455": {
+    "name": "荀彧",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "456": {
+    "name": "关羽",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "457": {
+    "name": "司马懿",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "458": {
+    "name": "满宠",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "459": {
+    "name": "张让",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "460": {
+    "name": "邓芝",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "461": {
+    "name": "王异",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "462": {
+    "name": "郭女王",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "463": {
+    "name": "孙尚香",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "464": {
+    "name": "伏寿",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "465": {
+    "name": "辛宪英",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "466": {
+    "name": "何晏",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "467": {
+    "name": "王弼",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "468": {
+    "name": "曹操",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "469": {
+    "name": "阮籍",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "470": {
+    "name": "曹不兴",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "471": {
+    "name": "钟繇",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "472": {
+    "name": "周瑜",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "473": {
+    "name": "王肃",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "474": {
+    "name": "卢植",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "475": {
+    "name": "谯周",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "476": {
+    "name": "左芬",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "477": {
+    "name": "王元姬",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "478": {
+    "name": "张春华",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "479": {
+    "name": "苏蕙",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "480": {
+    "name": "薛灵芸",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "481": {
+    "name": "张世平",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "482": {
+    "name": "马钧",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "483": {
+    "name": "华佗",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "484": {
+    "name": "于吉",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "485": {
+    "name": "康僧会",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "486": {
+    "name": "典韦",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "487": {
+    "name": "张鲁",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "488": {
+    "name": "张昭",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "489": {
+    "name": "大乔",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "490": {
+    "name": "小乔",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "491": {
+    "name": "张娘子",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "492": {
+    "name": "孙寒华",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "493": {
+    "name": "赵爽",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "494": {
+    "name": "黄月英",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "495": {
+    "name": "蒲元",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "496": {
+    "name": "诸葛果",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "497": {
+    "name": "薛夜来",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "498": {
+    "name": "孟宗",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "499": {
+    "name": "夏侯令女",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "500": {
+    "name": "庞娥亲",
+    "source": "历史",
+    "era": "三国",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "501": {
+    "name": "司马炎",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "502": {
+    "name": "贾谧",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "503": {
+    "name": "司马攸",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "504": {
+    "name": "张华",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "505": {
+    "name": "杜预",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "506": {
+    "name": "王濬",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "507": {
+    "name": "羊祜",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "508": {
+    "name": "鲁胜",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "509": {
+    "name": "董猛",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "510": {
+    "name": "唐彬",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "511": {
+    "name": "贾南风",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "512": {
+    "name": "杨艳",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "513": {
+    "name": "荀灌",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "514": {
+    "name": "羊献容",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "515": {
+    "name": "李秀",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "516": {
+    "name": "鲍敬言",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "517": {
+    "name": "郭象",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "518": {
+    "name": "左思",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "519": {
+    "name": "潘岳",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "520": {
+    "name": "卫协",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "521": {
+    "name": "卫瓘",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "522": {
+    "name": "阮咸",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "523": {
+    "name": "皇甫谧",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "524": {
+    "name": "刘寔",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "525": {
+    "name": "陈寿",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "526": {
+    "name": "钟琰",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "527": {
+    "name": "辛萧",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "528": {
+    "name": "左芬",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "529": {
+    "name": "苏蕙",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "530": {
+    "name": "卫铄",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "531": {
+    "name": "石崇",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "532": {
+    "name": "陈勋",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "533": {
+    "name": "王叔和",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "534": {
+    "name": "鲍靓",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "535": {
+    "name": "竺法护",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "536": {
+    "name": "祖逖",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "537": {
+    "name": "张昌",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "538": {
+    "name": "刘颂",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "539": {
+    "name": "郭槐",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "540": {
+    "name": "赵夫人",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "541": {
+    "name": "鲍姑",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "542": {
+    "name": "魏华存",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "543": {
+    "name": "刘徽",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "544": {
+    "name": "裴秀",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "545": {
+    "name": "荀勖",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "546": {
+    "name": "杨氏女",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "547": {
+    "name": "巧女",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "548": {
+    "name": "王祥",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "549": {
+    "name": "嵇绍",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "550": {
+    "name": "虞潭母孙氏",
+    "source": "历史",
+    "era": "西晋",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "551": {
+    "name": "司马睿",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "552": {
+    "name": "桓玄",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "553": {
+    "name": "司马道子",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "554": {
+    "name": "谢安",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "555": {
+    "name": "王导",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "556": {
+    "name": "谢玄",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "557": {
+    "name": "桓温",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "558": {
+    "name": "陶渊明",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "559": {
+    "name": "刘鹄",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "560": {
+    "name": "法显",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "561": {
+    "name": "褚蒜子",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "562": {
+    "name": "庾文君",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "563": {
+    "name": "李陵容",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "564": {
+    "name": "郑阿春",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "565": {
+    "name": "朱序母",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "566": {
+    "name": "葛洪",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "567": {
+    "name": "道安",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "568": {
+    "name": "干宝",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "569": {
+    "name": "孙绰",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "570": {
+    "name": "顾恺之",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "571": {
+    "name": "王羲之",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "572": {
+    "name": "桓伊",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "573": {
+    "name": "徐广",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "574": {
+    "name": "范宁",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "575": {
+    "name": "孙盛",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "576": {
+    "name": "谢道韫",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "577": {
+    "name": "祝英台",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "578": {
+    "name": "卫夫人",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "579": {
+    "name": "苏若兰",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "580": {
+    "name": "慕容氏",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "581": {
+    "name": "刁逵",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "582": {
+    "name": "陶侃",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "583": {
+    "name": "范汪",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "584": {
+    "name": "杨羲",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "585": {
+    "name": "慧远",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "586": {
+    "name": "刘牢之",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "587": {
+    "name": "孙恩",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "588": {
+    "name": "谢尚",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "589": {
+    "name": "胡贾女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "590": {
+    "name": "葛氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "591": {
+    "name": "樊氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "592": {
+    "name": "钱氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "593": {
+    "name": "虞喜",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "594": {
+    "name": "何承天",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "595": {
+    "name": "桓冲",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "596": {
+    "name": "何氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "597": {
+    "name": "孙氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "598": {
+    "name": "吴隐之",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "599": {
+    "name": "荀羡",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "600": {
+    "name": "谢氏女",
+    "source": "历史",
+    "era": "东晋",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "601": {
+    "name": "刘裕",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "602": {
+    "name": "韩子高",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "603": {
+    "name": "刘义康",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "604": {
+    "name": "王俭",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "605": {
+    "name": "沈约",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "606": {
+    "name": "陈庆之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "607": {
+    "name": "檀道济",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "608": {
+    "name": "何逊",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "609": {
+    "name": "刘腾",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "610": {
+    "name": "宋云",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "611": {
+    "name": "胡太后",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "612": {
+    "name": "徐昭佩",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "613": {
+    "name": "刘楚玉",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "614": {
+    "name": "冯太后",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "615": {
+    "name": "冼夫人",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "616": {
+    "name": "范缜",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "617": {
+    "name": "周颙",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "618": {
+    "name": "刘勰",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "619": {
+    "name": "鲍照",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "620": {
+    "name": "张僧繇",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "621": {
+    "name": "王僧虔",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "622": {
+    "name": "祖珽",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "623": {
+    "name": "颜之推",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "624": {
+    "name": "刘献之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "625": {
+    "name": "崔鸿",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "626": {
+    "name": "韩兰英",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "627": {
+    "name": "刘令娴",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "628": {
+    "name": "吴氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "629": {
+    "name": "袁大舍",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "630": {
+    "name": "李娥",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "631": {
+    "name": "刘宝",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "632": {
+    "name": "郭安兴",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "633": {
+    "name": "陶弘景",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "634": {
+    "name": "寇谦之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "635": {
+    "name": "达摩",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "636": {
+    "name": "高昂",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "637": {
+    "name": "葛荣",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "638": {
+    "name": "苏绰",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "639": {
+    "name": "胡氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "640": {
+    "name": "周氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "641": {
+    "name": "张氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "642": {
+    "name": "王氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "643": {
+    "name": "祖冲之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "644": {
+    "name": "贾思勰",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "645": {
+    "name": "祖暅之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "646": {
+    "name": "魏氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "647": {
+    "name": "朱氏女",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "648": {
+    "name": "吉翂",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "649": {
+    "name": "颜延之",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "650": {
+    "name": "花木兰",
+    "source": "历史",
+    "era": "南北朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "651": {
+    "name": "杨坚",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "652": {
+    "name": "张衡",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "653": {
+    "name": "杨勇",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "654": {
+    "name": "高颎",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "655": {
+    "name": "苏威",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "656": {
+    "name": "韩擒虎",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "657": {
+    "name": "史万岁",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "658": {
+    "name": "魏德深",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "659": {
+    "name": "王鹤",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "660": {
+    "name": "裴矩",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "661": {
+    "name": "独孤伽罗",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "662": {
+    "name": "萧皇后",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "663": {
+    "name": "义成公主",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "664": {
+    "name": "杨丽华",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "665": {
+    "name": "裴氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "666": {
+    "name": "王通",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "667": {
+    "name": "刘炫",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "668": {
+    "name": "薛道衡",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "669": {
+    "name": "卢思道",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "670": {
+    "name": "展子虔",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "671": {
+    "name": "智永",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "672": {
+    "name": "万宝常",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "673": {
+    "name": "刘焯",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "674": {
+    "name": "辛彦之",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "675": {
+    "name": "魏澹",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "676": {
+    "name": "苏氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "677": {
+    "name": "陈氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "678": {
+    "name": "蒋氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "679": {
+    "name": "李氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "680": {
+    "name": "秦氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "681": {
+    "name": "何妥",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "682": {
+    "name": "李春",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "683": {
+    "name": "巢元方",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "684": {
+    "name": "王远知",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "685": {
+    "name": "智顗",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "686": {
+    "name": "单雄信",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "687": {
+    "name": "翟让",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "688": {
+    "name": "刘旷",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "689": {
+    "name": "沈氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "690": {
+    "name": "郑氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "691": {
+    "name": "邹氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "692": {
+    "name": "曹氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "693": {
+    "name": "耿询",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "694": {
+    "name": "宇文恺",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "695": {
+    "name": "何稠",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "696": {
+    "name": "程氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "697": {
+    "name": "高氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "698": {
+    "name": "房彦谦",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "699": {
+    "name": "尧君素",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "700": {
+    "name": "钟氏女",
+    "source": "历史",
+    "era": "隋朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "701": {
+    "name": "李世民",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "702": {
+    "name": "张易之",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "703": {
+    "name": "李恪",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "704": {
+    "name": "房玄龄",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "705": {
+    "name": "狄仁杰",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "706": {
+    "name": "李靖",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "707": {
+    "name": "韦应物",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "708": {
+    "name": "元德秀",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "709": {
+    "name": "高力士",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "710": {
+    "name": "王玄策",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "711": {
+    "name": "武则天",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "712": {
+    "name": "杨贵妃",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "713": {
+    "name": "太平公主",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "714": {
+    "name": "上官婉儿",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "715": {
+    "name": "安乐公主",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "716": {
+    "name": "韩愈",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "717": {
+    "name": "柳宗元",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "718": {
+    "name": "白居易",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "719": {
+    "name": "李白",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "720": {
+    "name": "吴道子",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "721": {
+    "name": "颜真卿",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "722": {
+    "name": "李龟年",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "723": {
+    "name": "颜师古",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "724": {
+    "name": "孔颖达",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "725": {
+    "name": "刘知几",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "726": {
+    "name": "宋若昭",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "727": {
+    "name": "鱼玄机",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "728": {
+    "name": "薛涛",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "729": {
+    "name": "李冶",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "730": {
+    "name": "张夫人",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "731": {
+    "name": "王元宝",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "732": {
+    "name": "李春",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "733": {
+    "name": "孙思邈",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "734": {
+    "name": "司马承祯",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "735": {
+    "name": "玄奘",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "736": {
+    "name": "冯燕",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "737": {
+    "name": "黄巢",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "738": {
+    "name": "韦丹",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "739": {
+    "name": "俞大娘",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "740": {
+    "name": "卢眉娘",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "741": {
+    "name": "胡愔",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "742": {
+    "name": "玉真公主",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "743": {
+    "name": "一行",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "744": {
+    "name": "李畋",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "745": {
+    "name": "阎立德",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "746": {
+    "name": "蔡寻真",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "747": {
+    "name": "姚月华",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "748": {
+    "name": "陈子昂",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "749": {
+    "name": "颜杲卿",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "750": {
+    "name": "唐夫人",
+    "source": "历史",
+    "era": "唐朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "751": {
+    "name": "朱温",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "752": {
+    "name": "周宗",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "753": {
+    "name": "钱镠",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "754": {
+    "name": "冯道",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "755": {
+    "name": "王朴",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "756": {
+    "name": "郭崇韬",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "757": {
+    "name": "张全义",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "758": {
+    "name": "颜衎",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "759": {
+    "name": "张承业",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "760": {
+    "name": "胡峤",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "761": {
+    "name": "符太后",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "762": {
+    "name": "花蕊夫人",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "763": {
+    "name": "永宁公主",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "764": {
+    "name": "刘皇后",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "765": {
+    "name": "宋福金",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "766": {
+    "name": "陈抟",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "767": {
+    "name": "谭峭",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "768": {
+    "name": "韦庄",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "769": {
+    "name": "李煜",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "770": {
+    "name": "荆浩",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "771": {
+    "name": "杨凝式",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "772": {
+    "name": "王感化",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "773": {
+    "name": "张昭",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "774": {
+    "name": "和凝",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "775": {
+    "name": "刘煦",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "776": {
+    "name": "耿先生",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "777": {
+    "name": "周娥皇",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "778": {
+    "name": "黄崇嘏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "779": {
+    "name": "小徐妃",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "780": {
+    "name": "李夫人",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "781": {
+    "name": "窦禹钧",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "782": {
+    "name": "喻皓",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "783": {
+    "name": "陈仕良",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "784": {
+    "name": "彭晓",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "785": {
+    "name": "贯休",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "786": {
+    "name": "史弘肇",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "787": {
+    "name": "张遇贤",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "788": {
+    "name": "王延彬",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "789": {
+    "name": "刘氏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "790": {
+    "name": "童氏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "791": {
+    "name": "孙氏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "792": {
+    "name": "何仙姑",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "793": {
+    "name": "马重绩",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "794": {
+    "name": "冯继升",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "795": {
+    "name": "樊若水",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "796": {
+    "name": "周女英",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "797": {
+    "name": "萧氏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "798": {
+    "name": "窦仪",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "799": {
+    "name": "敬翔",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "800": {
+    "name": "张氏",
+    "source": "历史",
+    "era": "五代十国",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "801": {
+    "name": "赵匡胤",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "802": {
+    "name": "张耆",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "803": {
+    "name": "赵廷美",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "804": {
+    "name": "赵普",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "805": {
+    "name": "包拯",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "806": {
+    "name": "曹彬",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "807": {
+    "name": "陈希亮",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "808": {
+    "name": "程颢",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "809": {
+    "name": "童贯",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "810": {
+    "name": "富弼",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "811": {
+    "name": "刘太后",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "812": {
+    "name": "高太后",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "813": {
+    "name": "鲁国大长公主",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "814": {
+    "name": "向太后",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "815": {
+    "name": "孟皇后",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "816": {
+    "name": "张载",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "817": {
+    "name": "程颐",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "818": {
+    "name": "苏轼",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "819": {
+    "name": "黄庭坚",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "820": {
+    "name": "张择端",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "821": {
+    "name": "米芾",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "822": {
+    "name": "周邦彦",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "823": {
+    "name": "沈括",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "824": {
+    "name": "胡瑗",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "825": {
+    "name": "司马光",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "826": {
+    "name": "魏玩",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "827": {
+    "name": "王文淑",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "828": {
+    "name": "李清照",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "829": {
+    "name": "阮逸女",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "830": {
+    "name": "王端",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "831": {
+    "name": "朱冲",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "832": {
+    "name": "李诫",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "833": {
+    "name": "钱乙",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "834": {
+    "name": "张伯端",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "835": {
+    "name": "赞宁",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "836": {
+    "name": "周侗",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "837": {
+    "name": "方腊",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "838": {
+    "name": "范仲淹",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "839": {
+    "name": "丑婆婆",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "840": {
+    "name": "韩氏",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "841": {
+    "name": "张小娘子",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "842": {
+    "name": "曹文逸",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "843": {
+    "name": "苏颂",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "844": {
+    "name": "毕昇",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "845": {
+    "name": "燕肃",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "846": {
+    "name": "林默娘",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "847": {
+    "name": "黄氏",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "848": {
+    "name": "朱寿昌",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "849": {
+    "name": "崔氏",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "850": {
+    "name": "陈氏",
+    "source": "历史",
+    "era": "北宋",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "851": {
+    "name": "赵构",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "852": {
+    "name": "韩侂胄",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "853": {
+    "name": "赵汝愚",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "854": {
+    "name": "秦桧",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "855": {
+    "name": "文天祥",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "856": {
+    "name": "岳飞",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "857": {
+    "name": "范成大",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "858": {
+    "name": "陆游",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "859": {
+    "name": "董宋臣",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "860": {
+    "name": "洪皓",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "861": {
+    "name": "杨太后",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "862": {
+    "name": "李凤娘",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "863": {
+    "name": "赵氏",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "864": {
+    "name": "谢太后",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "865": {
+    "name": "全太后",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "866": {
+    "name": "朱熹",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "867": {
+    "name": "陆九渊",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "868": {
+    "name": "辛弃疾",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "869": {
+    "name": "刘克庄",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "870": {
+    "name": "李唐",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "871": {
+    "name": "张即之",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "872": {
+    "name": "姜夔",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "873": {
+    "name": "王应麟",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "874": {
+    "name": "吕祖谦",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "875": {
+    "name": "郑樵",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "876": {
+    "name": "张玉娘",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "877": {
+    "name": "唐琬",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "878": {
+    "name": "严蕊",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "879": {
+    "name": "朱淑真",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "880": {
+    "name": "宫素然",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "881": {
+    "name": "蒲寿庚",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "882": {
+    "name": "沈子蕃",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "883": {
+    "name": "许叔微",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "884": {
+    "name": "白玉蟾",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "885": {
+    "name": "道济",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "886": {
+    "name": "施全",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "887": {
+    "name": "钟相",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "888": {
+    "name": "刘宰",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "889": {
+    "name": "宋五嫂",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "890": {
+    "name": "舒娇",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "891": {
+    "name": "冯氏",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "892": {
+    "name": "王清惠",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "893": {
+    "name": "秦九韶",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "894": {
+    "name": "陈规",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "895": {
+    "name": "赵友钦",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "896": {
+    "name": "黄道婆",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "897": {
+    "name": "管道昇",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "898": {
+    "name": "郑绮",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "899": {
+    "name": "赵氏",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "900": {
+    "name": "王氏",
+    "source": "历史",
+    "era": "南宋",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "901": {
+    "name": "耶律阿保机",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "902": {
+    "name": "述律平",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "903": {
+    "name": "耶律倍",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "904": {
+    "name": "韩德让",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "905": {
+    "name": "萧思温",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "906": {
+    "name": "耶律休哥",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "907": {
+    "name": "耶律斜轸",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "908": {
+    "name": "马得臣",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "909": {
+    "name": "王继恩",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "910": {
+    "name": "耶律合住",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "911": {
+    "name": "萧太后",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "912": {
+    "name": "萧菩萨哥",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "913": {
+    "name": "耶律岩母菫",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "914": {
+    "name": "萧耨斤",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "915": {
+    "name": "萧观音",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "916": {
+    "name": "耶律庶成",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "917": {
+    "name": "萧罕嘉努",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "918": {
+    "name": "寺公大师",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "919": {
+    "name": "王鼎",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "920": {
+    "name": "胡瓌",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "921": {
+    "name": "耶律倍书法",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "922": {
+    "name": "赵惟一",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "923": {
+    "name": "室昉",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "924": {
+    "name": "邢抱朴",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "925": {
+    "name": "耶律俨",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "926": {
+    "name": "萧瑟瑟",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "927": {
+    "name": "秦晋国妃萧氏",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "928": {
+    "name": "耶律常哥",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "929": {
+    "name": "邢简妻陈氏",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "930": {
+    "name": "晋国夫人萧氏",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "931": {
+    "name": "马人望",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "932": {
+    "name": "窦景庸",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "933": {
+    "name": "直鲁古",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "934": {
+    "name": "海山大师",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "935": {
+    "name": "鲜演大师",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "936": {
+    "name": "耶律大石",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "937": {
+    "name": "大延琳",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "938": {
+    "name": "李仲禧",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "939": {
+    "name": "萧氏白妃",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "940": {
+    "name": "宣懿宫制绣女",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "941": {
+    "name": "义宗妾高氏",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "942": {
+    "name": "长春州钱帛太妃",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "943": {
+    "name": "耶律屋质",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "944": {
+    "name": "王白",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "945": {
+    "name": "魏璘",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "946": {
+    "name": "司天监李氏",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "947": {
+    "name": "萧氏绣娘",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "948": {
+    "name": "耶律宛",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "949": {
+    "name": "陈色",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "950": {
+    "name": "耶律常哥孝女",
+    "source": "历史",
+    "era": "辽朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "951": {
+    "name": "完颜阿骨打",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "952": {
+    "name": "裴满氏",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "953": {
+    "name": "完颜宗弼",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "954": {
+    "name": "完颜希尹",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "955": {
+    "name": "徒单克宁",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "956": {
+    "name": "完颜陈和尚",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "957": {
+    "name": "高汝砺",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "958": {
+    "name": "武都",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "959": {
+    "name": "梁珫",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "960": {
+    "name": "完颜思敬",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "961": {
+    "name": "李洪愿",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "962": {
+    "name": "徒单皇后",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "963": {
+    "name": "鲁国公主",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "964": {
+    "name": "海陵母徒单氏",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "965": {
+    "name": "完颜沙里质",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "966": {
+    "name": "赵秉文",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "967": {
+    "name": "李纯甫",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "968": {
+    "name": "元好问",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "969": {
+    "name": "王若虚",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "970": {
+    "name": "党怀英",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "971": {
+    "name": "王庭筠",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "972": {
+    "name": "张如",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "973": {
+    "name": "杨云翼",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "974": {
+    "name": "冯延登",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "975": {
+    "name": "韩玉",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "976": {
+    "name": "元严",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "977": {
+    "name": "张净琬",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "978": {
+    "name": "萧氏金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "979": {
+    "name": "李淑金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "980": {
+    "name": "阎氏金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "981": {
+    "name": "刘义金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "982": {
+    "name": "綦毋怀文",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "983": {
+    "name": "刘完素",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "984": {
+    "name": "丘处机",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "985": {
+    "name": "万松行秀",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "986": {
+    "name": "王瘸子",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "987": {
+    "name": "移剌窝斡",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "988": {
+    "name": "陈君金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "989": {
+    "name": "李师儿母王氏",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "990": {
+    "name": "张氏金瓷",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "991": {
+    "name": "张老娘",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "992": {
+    "name": "孙不二",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "993": {
+    "name": "张元素",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "994": {
+    "name": "马贵",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "995": {
+    "name": "孔彦舟",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "996": {
+    "name": "邢氏金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "997": {
+    "name": "段氏金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "998": {
+    "name": "赵质金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "999": {
+    "name": "聂孝女",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "1000": {
+    "name": "孟氏金",
+    "source": "历史",
+    "era": "金朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "1001": {
+    "name": "李元昊",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "1002": {
+    "name": "野利都兰氏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "1003": {
+    "name": "李谅祚",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "1004": {
+    "name": "野利仁荣",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "1005": {
+    "name": "张浦",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "1006": {
+    "name": "没藏讹庞",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "1007": {
+    "name": "任得敬",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "1008": {
+    "name": "斡道冲",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "1009": {
+    "name": "梁道乙埋",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "1010": {
+    "name": "李兴西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "1011": {
+    "name": "没藏太后",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "1012": {
+    "name": "梁太后",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "1013": {
+    "name": "晋王察哥",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "1014": {
+    "name": "任太后",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "1015": {
+    "name": "罗太后",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "1016": {
+    "name": "野利旺荣",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "1017": {
+    "name": "骨勒茂才",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "1018": {
+    "name": "高智耀",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "1019": {
+    "name": "杨惟中",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "1020": {
+    "name": "李遵顼",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "1021": {
+    "name": "李元直",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "1022": {
+    "name": "西夏王昭君",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "1023": {
+    "name": "景珣",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "1024": {
+    "name": "梁德懿",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "1025": {
+    "name": "夏贺宗",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "1026": {
+    "name": "真义",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "1027": {
+    "name": "金兰",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "1028": {
+    "name": "梁氏画",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "1029": {
+    "name": "李婉容",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "1030": {
+    "name": "西夏张氏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "1031": {
+    "name": "李崔西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "1032": {
+    "name": "西夏阿三",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "1033": {
+    "name": "华陀西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "1034": {
+    "name": "法显西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "1035": {
+    "name": "兰山云",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "1036": {
+    "name": "王富西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "1037": {
+    "name": "李合达",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "1038": {
+    "name": "赵琳西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "1039": {
+    "name": "何氏西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "1040": {
+    "name": "西夏织女",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "1041": {
+    "name": "李婆婆西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "1042": {
+    "name": "赤凤翔",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "1043": {
+    "name": "浑子仪",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "1044": {
+    "name": "安守亮",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "1045": {
+    "name": "嵬名继荣",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "1046": {
+    "name": "梁氏西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "1047": {
+    "name": "苏小霞",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "1048": {
+    "name": "李德旺孝子",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "1049": {
+    "name": "张氏西夏节妇",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "1050": {
+    "name": "李娥西夏",
+    "source": "历史",
+    "era": "西夏",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "1051": {
+    "name": "成吉思汗",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "1052": {
+    "name": "孛儿帖",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "1053": {
+    "name": "忽必烈",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "1054": {
+    "name": "耶律楚材",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "1055": {
+    "name": "伯颜",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "1056": {
+    "name": "阿术",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "1057": {
+    "name": "刘秉忠",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "1058": {
+    "name": "史天泽",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "1059": {
+    "name": "张弘范",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "1060": {
+    "name": "郝经",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "1061": {
+    "name": "察必皇后",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "1062": {
+    "name": "南必皇后",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "1063": {
+    "name": "阔阔真太子妃",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "1064": {
+    "name": "答己太后",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "1065": {
+    "name": "不答失里",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "1066": {
+    "name": "许衡",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "1067": {
+    "name": "吴澄",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "1068": {
+    "name": "关汉卿",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "1069": {
+    "name": "马致远",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "1070": {
+    "name": "赵孟頫",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "1071": {
+    "name": "王实甫",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "1072": {
+    "name": "白朴",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "1073": {
+    "name": "黄公望",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "1074": {
+    "name": "马端临",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "1075": {
+    "name": "郭守敬",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "1076": {
+    "name": "管道升",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "1077": {
+    "name": "郑光祖",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "1078": {
+    "name": "郭皇后",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "1079": {
+    "name": "曹妙清",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "1080": {
+    "name": "薛兰英",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "1081": {
+    "name": "沈万三",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "1082": {
+    "name": "阿尼哥",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "1083": {
+    "name": "危亦林",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "1084": {
+    "name": "丘处机元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "1085": {
+    "name": "八思巴",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "1086": {
+    "name": "王著元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "1087": {
+    "name": "杨镇龙",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "1088": {
+    "name": "李五",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "1089": {
+    "name": "朱帘秀",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "1090": {
+    "name": "黄道婆",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "1091": {
+    "name": "李妪元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "1092": {
+    "name": "元严元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "1093": {
+    "name": "扎马鲁丁",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "1094": {
+    "name": "王祯",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "1095": {
+    "name": "亦黑迷失",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "1096": {
+    "name": "阿诗玛",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "1097": {
+    "name": "朱氏元纱",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "1098": {
+    "name": "贺胜元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "1099": {
+    "name": "回回乔野烈氏",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "1100": {
+    "name": "窦妙善元",
+    "source": "历史",
+    "era": "元朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "1101": {
+    "name": "朱元璋",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "1102": {
+    "name": "马皇后",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "1103": {
+    "name": "朱棣",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "1104": {
+    "name": "刘伯温",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "1105": {
+    "name": "李善长",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "1106": {
+    "name": "蓝玉",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "1107": {
+    "name": "徐达",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "1108": {
+    "name": "海瑞",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "1109": {
+    "name": "况钟",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "1110": {
+    "name": "魏忠贤",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "1111": {
+    "name": "郑和",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "1112": {
+    "name": "徐皇后",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "1113": {
+    "name": "张太后",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "1114": {
+    "name": "万贵妃",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "1115": {
+    "name": "孝庄李太后",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "1116": {
+    "name": "王守仁",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "1117": {
+    "name": "张居正",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "1118": {
+    "name": "罗贯中",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "1119": {
+    "name": "施耐庵",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "1120": {
+    "name": "吴承恩",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "1121": {
+    "name": "李时珍",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "1122": {
+    "name": "董其昌",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "1123": {
+    "name": "徐光启",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "1124": {
+    "name": "归有光",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "1125": {
+    "name": "宋应星",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "1126": {
+    "name": "柳如是",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "1127": {
+    "name": "顾横波",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "1128": {
+    "name": "李香君",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "1129": {
+    "name": "徐霞客",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "1130": {
+    "name": "文俶",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "1131": {
+    "name": "沈万三明",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "1132": {
+    "name": "蒯祥",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "1133": {
+    "name": "陈实功",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "1134": {
+    "name": "张三丰",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "1135": {
+    "name": "姚广孝",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "1136": {
+    "name": "少林武僧抗倭",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "1137": {
+    "name": "邓茂七",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "1138": {
+    "name": "杨东明",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "1139": {
+    "name": "吴清",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "1140": {
+    "name": "黄道婆明",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "1141": {
+    "name": "谈允贤",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "1142": {
+    "name": "周金莲",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "1143": {
+    "name": "朱载堉",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "1144": {
+    "name": "毕懋康",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "1145": {
+    "name": "潘季驯",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "1146": {
+    "name": "沈宜修",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "1147": {
+    "name": "吴氏杭扇",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "1148": {
+    "name": "沈云英",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "1149": {
+    "name": "施氏节妇",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "1150": {
+    "name": "顺德女张氏",
+    "source": "历史",
+    "era": "明朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  },
+  "1151": {
+    "name": "努尔哈赤",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "皇帝"
+  },
+  "1152": {
+    "name": "皇太极",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "后妃"
+  },
+  "1153": {
+    "name": "孝庄太后",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "王侯"
+  },
+  "1154": {
+    "name": "多尔衮",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "宰相"
+  },
+  "1155": {
+    "name": "范文程",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "大臣"
+  },
+  "1156": {
+    "name": "鳌拜",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "将军"
+  },
+  "1157": {
+    "name": "于成龙",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "刺史"
+  },
+  "1158": {
+    "name": "纪大奎",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "县令"
+  },
+  "1159": {
+    "name": "李莲英",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "太监"
+  },
+  "1160": {
+    "name": "李鸿章",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "男性",
+    "character_type": "外交官"
+  },
+  "1161": {
+    "name": "慈禧太后",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "皇帝"
+  },
+  "1162": {
+    "name": "慈安太后",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "后妃"
+  },
+  "1163": {
+    "name": "婉贞公主",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "王侯"
+  },
+  "1164": {
+    "name": "隆裕太后",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "宰相"
+  },
+  "1165": {
+    "name": "珍妃",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "政治",
+    "gender": "女性",
+    "character_type": "大臣"
+  },
+  "1166": {
+    "name": "顾炎武",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "思想家"
+  },
+  "1167": {
+    "name": "王夫之",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "哲学家"
+  },
+  "1168": {
+    "name": "黄宗羲",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "文学家"
+  },
+  "1169": {
+    "name": "曹雪芹",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "诗人"
+  },
+  "1170": {
+    "name": "蒲松龄",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "画家"
+  },
+  "1171": {
+    "name": "吴敬梓",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "书法家"
+  },
+  "1172": {
+    "name": "郑板桥",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "音乐家"
+  },
+  "1173": {
+    "name": "纪晓岚",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "学者"
+  },
+  "1174": {
+    "name": "袁枚",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "教育家"
+  },
+  "1175": {
+    "name": "章学诚",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "男性",
+    "character_type": "史学家"
+  },
+  "1176": {
+    "name": "李清照式清",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "思想家"
+  },
+  "1177": {
+    "name": "吴藻",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "哲学家"
+  },
+  "1178": {
+    "name": "恽珠",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "文学家"
+  },
+  "1179": {
+    "name": "陈端生",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "诗人"
+  },
+  "1180": {
+    "name": "王贞仪",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "文化",
+    "gender": "女性",
+    "character_type": "画家"
+  },
+  "1181": {
+    "name": "和珅",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "商人"
+  },
+  "1182": {
+    "name": "样式雷",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "工匠"
+  },
+  "1183": {
+    "name": "叶天士",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "医生"
+  },
+  "1184": {
+    "name": "王常月",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "道士"
+  },
+  "1185": {
+    "name": "憨璞聪",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "僧侣"
+  },
+  "1186": {
+    "name": "窦尔敦",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "侠客"
+  },
+  "1187": {
+    "name": "王聪儿",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "农民领袖"
+  },
+  "1188": {
+    "name": "陶澍",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "男性",
+    "character_type": "慈善家"
+  },
+  "1189": {
+    "name": "周莹",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "商人"
+  },
+  "1190": {
+    "name": "沈寿",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "工匠"
+  },
+  "1191": {
+    "name": "曾懿",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "医生"
+  },
+  "1192": {
+    "name": "净尘师太",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "社会",
+    "gender": "女性",
+    "character_type": "道士"
+  },
+  "1193": {
+    "name": "戴震",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "科学家"
+  },
+  "1194": {
+    "name": "龚振麟",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "发明家"
+  },
+  "1195": {
+    "name": "詹天佑",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "科技",
+    "gender": "男性",
+    "character_type": "工程师"
+  },
+  "1196": {
+    "name": "王贞仪清",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "科学家"
+  },
+  "1197": {
+    "name": "薛素素",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "科技",
+    "gender": "女性",
+    "character_type": "发明家"
+  },
+  "1198": {
+    "name": "方观承",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "孝子"
+  },
+  "1199": {
+    "name": "吴周氏节妇",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "普通",
+    "gender": "男性",
+    "character_type": "节妇"
+  },
+  "1200": {
+    "name": "李月娥",
+    "source": "历史",
+    "era": "清朝",
+    "social_class": "普通",
+    "gender": "女性",
+    "character_type": "孝子"
+  }
 }

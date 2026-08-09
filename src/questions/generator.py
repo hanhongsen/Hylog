@@ -338,7 +338,9 @@ def select_next_dimension(
     dimension_uncertainty: Dict[str, float],
     exploration_counts: Dict[str, int],
     ocean_uncertainty: Dict[str, float] = None,
-    total_rounds: int = 0
+    total_rounds: int = 0,
+    skipped_dimensions: Dict[str, Dict] = None,
+    cooldown_rounds: int = 3
 ) -> str:
     """
     选择下一个要探索的维度
@@ -354,6 +356,8 @@ def select_next_dimension(
     新策略分两阶段：
     - 阶段一（前 11 轮）：按固定顺序遍历 11 个探索维度，每个至少问 1 次。
       保证覆盖广度，同时每个维度都自然喂一次信号给它映射的 OCEAN 维度。
+      **跳过冷却机制**：被标记为"不舒服/拒绝"的维度，在冷却期内（默认3轮）
+      暂时排除，冷却结束后若仍未探索过，会自动回来。
     - 阶段二（第 12 轮起）：找 OCEAN 不确定性最高的维度（最"饿"的），
       在映射到它的探索维度里选一个出题，精准喂饭。
       候选维度里优先选探索次数少的，避免反复问同一维度。
@@ -366,6 +370,8 @@ def select_next_dimension(
         ocean_uncertainty: OCEAN 五维的不确定性，格式为 {"O":0.8,"C":0.6,...}，
                            阶段二喂饭的核心依据。为 None 时回退到阶段一策略。
         total_rounds: 当前总探索轮次（≥11 后进入阶段二）
+        skipped_dimensions: 被跳过的维度标记，格式为 {维度ID: {"reason": ..., "skipped_at_turn": int}}
+        cooldown_rounds: 跳过冷却轮数，默认 3。被跳过的维度在此轮数内不会被选中。
 
     返回:
         选定的维度ID
@@ -375,24 +381,57 @@ def select_next_dimension(
     # 所有探索维度（固定顺序）
     all_dimensions = get_all_dimension_ids()
 
+    # 计算"冷却中"的维度集合（被跳过且未出冷却期）
+    skipped_set = set()
+    if skipped_dimensions:
+        for dim_id, info in skipped_dimensions.items():
+            skipped_at = info.get("skipped_at_turn", 0)
+            if total_rounds - skipped_at < cooldown_rounds:
+                skipped_set.add(dim_id)
+
     # ============================================================
     # 阶段一：前 11 轮固定遍历（保证 11 维全覆盖）
     # ============================================================
     if total_rounds < len(all_dimensions):
         # 取尚未探索过的维度（探索次数为 0）
         unexplored = [d for d in all_dimensions if exploration_counts.get(d, 0) == 0]
-        if unexplored:
-            return unexplored[0]
+        # 排除冷却中的维度（用户刚表达过不舒服/拒绝，先让开）
+        available = [d for d in unexplored if d not in skipped_set]
+        if available:
+            return available[0]
+        # 全部未探索维度都在冷却中 → 退化到选冷却中第一个（尊重冷却，但保证遍历）
+        if skipped_set & set(unexplored):
+            return next(iter(skipped_set & set(unexplored)))
 
     # ============================================================
-    # 阶段二：按 OCEAN 不确定性喂饭
+    # 阶段二：按 OCEAN 不确定性喂饭 + 未探索维度兜底
     # ============================================================
+    # 兜底策略：如果仍有未探索的维度（explore_count=0）且不在冷却期，
+    # 强制返回它——保证 11 维全覆盖，即使 OCEAN 已收敛
+    unexplored_available = [
+        d for d in all_dimensions
+        if exploration_counts.get(d, 0) == 0 and d not in skipped_set
+    ]
+    if unexplored_available:
+        # 优先选映射到 OCEAN 最高不确定性的那个（仍尊重喂饭逻辑）
+        if ocean_uncertainty:
+            ocean_keys = ["O", "C", "E", "A", "N"]
+            target_ocean = max(ocean_keys, key=lambda k: ocean_uncertainty.get(k, 1.0))
+            for d in unexplored_available:
+                dim = get_dimension_by_id(d)
+                if target_ocean in dim.ocean_mapping:
+                    return d
+        # 都不映射最高 OCEAN → 直接选第一个
+        return unexplored_available[0]
+
     # 没有 OCEAN 不确定性数据时，回退到"探索次数最少"的兜底策略
     if not ocean_uncertainty:
-        # 选探索次数最少的维度
-        min_count = min(exploration_counts.get(d, 0) for d in all_dimensions)
-        candidates = [d for d in all_dimensions if exploration_counts.get(d, 0) == min_count]
-        return random.choice(candidates)
+        candidates = [d for d in all_dimensions if d not in skipped_set]
+        if not candidates:
+            candidates = all_dimensions
+        min_count = min(exploration_counts.get(d, 0) for d in candidates)
+        least = [d for d in candidates if exploration_counts.get(d, 0) == min_count]
+        return random.choice(least)
 
     # 找 OCEAN 不确定性最高的维度（最"饿"的）
     ocean_keys = ["O", "C", "E", "A", "N"]
@@ -405,11 +444,16 @@ def select_next_dimension(
         if target_ocean in dim.ocean_mapping:
             candidates.append(dim_id)
 
+    # 排除冷却中的维度
+    available_candidates = [d for d in candidates if d not in skipped_set]
+    if not available_candidates:
+        available_candidates = candidates  # 全部冷却中 → 退化
+
     # 候选为空（理论不会发生，每个 OCEAN 都至少被 1 个维度映射），兜底随机
-    if not candidates:
+    if not available_candidates:
         return random.choice(all_dimensions)
 
     # 在候选里优先选探索次数少的，避免反复问同一维度
-    min_count = min(exploration_counts.get(d, 0) for d in candidates)
-    least_explored = [d for d in candidates if exploration_counts.get(d, 0) == min_count]
+    min_count = min(exploration_counts.get(d, 0) for d in available_candidates)
+    least_explored = [d for d in available_candidates if exploration_counts.get(d, 0) == min_count]
     return random.choice(least_explored)

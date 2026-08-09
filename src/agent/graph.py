@@ -382,11 +382,14 @@ class ConversationAgent:
         2. LLM 分析 + 更新人格（update_personality）
            - 若 skipped：返回引导语，不增加 turn_count，继续生成下一问题
            - 若 LLM 失败：跳过本轮，继续生成下一问题
-        3. 收敛判断（check_convergence）
+        3. 收敛判断（check_convergence）— 满足任一即收敛：
+           A. 主路径：平均不确定性 < 0.3 且轮次 ≥ 15
+           B. 提前出口：≥4 维不确定性 < 0.3 且轮次 ≥ 18
+           C. 兜底出口：轮次 ≥ 20（强制收敛）
         4. 路由决策：
            - 已收敛 → 匹配人物 → 输出结果
-           - 未收敛 且 turn < MAX_ROUNDS → 选维度 + 生成问题 → 返回问题
-           - 达 MAX_ROUNDS → 强制匹配人物 → 输出结果
+           - 未收敛 且 turn < MAX_ROUNDS(30) → 选维度 + 生成问题 → 返回问题
+           - 达 MAX_ROUNDS(30) → 强制匹配人物 → 输出结果（最终兜底）
 
         参数:
             user_answer: 用户的回答文本
