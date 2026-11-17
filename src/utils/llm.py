@@ -663,10 +663,12 @@ class LLMError(Exception):
             是否可重试
         """
         # 可重试的错误类型
+        # API_ERROR 可重试：glm-4-flash 偶尔返回空内容，重试通常能成功
         retryable_types = {
             LLMErrorType.NETWORK_ERROR,
             LLMErrorType.TIMEOUT_ERROR,
             LLMErrorType.RATE_LIMIT_ERROR,
+            LLMErrorType.API_ERROR,
         }
         return self.error_type in retryable_types
 

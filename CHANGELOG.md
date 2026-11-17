@@ -1029,3 +1029,120 @@ from src.questions import generate_question, list_all_dimensions, select_next_di
 - `requirements.txt` 移除 `streamlit` 依赖，注释说明前端改用 React（`frontend/` 目录独立管理 JS 依赖）
 - 对话页容器改用 `h-dvh`（动态视口高度，解决移动端地址栏遮挡），`h-screen` 兜底
 - [PROJECT_STATUS.md](PROJECT_STATUS.md) 更新：移除 Mock 404 限制说明、更新待办与接手建议、元信息更新到 2026-07-28
+
+---
+
+## 2026-08-08 ~ 2026-08-09
+
+### 人物数据库构建完成（1200人完整库）
+
+#### 背景
+
+此前人物数据库仅有 9 人（夏3 + 商6），远不足以支撑上线。`character_list_extended.json` 中有 1200 条占位符结构（24朝代×50人），含 era/gender/character_type/social_class 字段但无真实人物名。需完成：替换真实名字 → 生成完整 OCEAN + 展示字段 → 入库。
+
+#### 执行过程
+
+1. **替换占位符为真实人物名**：按朝代分批，为 1200 个占位符分配真实历史人物名，保留 extended 中的结构字段（era/gender/character_type/social_class），写入 [character_list.json](file:///d:/Hylog/data/characters/character_list.json)
+
+2. **生成完整人物数据**：不使用 glm-4-flash API（慢且质量一般），改由 AI 直接生成每人完整数据：OCEAN 五维分数、description、tags、quote、personality_keyword、classic_events、fun_facts、advice、related_books
+
+3. **入库 SQLite**：1177 人写入 [hylog.db](file:///d:/Hylog/data/hylog.db) 的 characters 表（去重后），8 个展示字段 100% 填充
+
+#### 最终质量
+
+| 指标 | 结果 |
+|------|------|
+| 总条目 | 1200 条（character_list.json） |
+| 数据库入库 | 1177 人（hylog.db） |
+| 朝代数 | 24 朝代 |
+| 职业类型 | 33 种 |
+| 字段完整度 | 100%（8个字段全部填充） |
+| OCEAN 均值 | O=0.650, C=0.700, E=0.519, A=0.638, N=0.465 |
+
+#### 文件清理
+
+删除了之前会话遗留的 14 个临时文件和废弃脚本（batch_*.json、gen_list*.py、batch_analyze*.py 等），最终只保留：
+- [character_list.json](file:///d:/Hylog/data/characters/character_list.json) — 唯一人物名单
+- [build_character_db.py](file:///d:/Hylog/scripts/build_character_db.py) — 唯一构建脚本
+
+---
+
+### 对话体验三连修（共情回应 + 问题多样性 + 防重复）
+
+#### 问题1：LLM 调用失败后无共情回应
+
+**现象**：测试中发现前几轮有共情回应，中间连续 4-5 轮突然没有回应直接抛问题，后面又出现答非所问。
+
+**根因**（两层）：
+1. glm-4-flash 偶尔返回空内容，被归类为 `API_ERROR`，而原重试机制中 `API_ERROR` **不可重试**，第一次失败就直接放弃
+2. `generate_question()` 静默返回 fallback 问题，不告知调用方，导致 `generate_question_node()` 无法感知这是 fallback
+
+**修复**：
+- [llm.py](file:///d:/Hylog/src/utils/llm.py#L667-L672)：将 `API_ERROR` 加入可重试列表
+- [generator.py](file:///d:/Hylog/src/questions/generator.py)：`generate_question()` 返回值新增 `source` 字段（`"ai"` / `"fallback"`）
+- [nodes.py](file:///d:/Hylog/src/agent/nodes.py)：`generate_question_node()` 检查 `source`，fallback 时自动拼接共情前缀
+
+#### 问题2：每题硬加"你当时的心情是怎样的"
+
+**现象**：所有问题末尾都追问心情，但很多问题探讨的根本不是情绪，用户不知如何作答。
+
+**根因**：Prompt 中"1+x"模式的 x 部分只给了"感受"一种引导方式。
+
+**修复**：[generator.py](file:///d:/Hylog/src/questions/generator.py#L142-L178) 改写 prompt，根据问题类型提供 4 种引导方式：
+- 决策类 → "当时你主要考虑的是什么？"
+- 行为类 → "你当时具体是怎么做的？"
+- 偏好类 → "你为什么会倾向于这种选择？"
+- 社交/情绪类 → 才问心情
+
+#### 问题3：重复提问
+
+**现象**：两个意思几乎一样的问题被问了两次（"自己在家学还是有组织地学"）。
+
+**根因**：LLM 忽略"避免重复"指令，且原代码只对比最近 3 轮。
+
+**修复**：[generator.py](file:///d:/Hylog/src/questions/generator.py#L358-L432) 新增运行时重复检测：
+- n-gram 提取问题关键词，与**全部历史问题**比较重叠度（原为仅 3 轮）
+- 超过 50% 重叠自动重试（最多 2 次），重试时 prompt 追加"你刚才的回答太相似了，请换个角度"
+
+#### 共情模板扩充
+
+[nodes.py](file:///d:/Hylog/src/agent/nodes.py#L546) 中 `_build_fallback_empathy()` 从 6 种固定模板扩展到 **12 类 × 每类 5-7 个模板**（随机选取），覆盖：回避/拒绝、喜好/热爱、纠结/犹豫、焦虑/紧张、努力/坚持、独处/内向、社交/合作、计划/条理、乐观/积极、细节/认真、自我反思、通用兜底。模板风格口语化，不含"嗯"，不重复句式。
+
+---
+
+### 相似度重映射（解决"人人99%"问题）
+
+#### 问题背景
+
+用户反馈多次测试匹配度都是 99%，质疑数据真实性。
+
+#### 分析
+
+200 个虚拟用户测试发现：
+- 旧方案（相似度×100）：**91% 的用户 ≥95%**，范围 91-99%
+- 根因：5 维正向量的余弦相似度天然集中在 0.91-1.0 窄区间，直接×100 导致几乎所有人都是高分区
+
+#### 修复
+
+[matcher.py](file:///d:/Hylog/src/matching/matcher.py#L411-L421) 将原始相似度线性重映射：
+- 输入区间 `[0.91, 1.0]` → 输出区间 `[82, 95]`
+- 低于 0.91 钳制为 82%，高于 1.0 钳制为 95%
+
+#### 效果对比
+
+| 区间 | 旧方案（×100） | 新方案（重映射） |
+|------|---------------|-----------------|
+| ≥95% | 182人（91%） | 0 |
+| 93-95% | — | 92人（46%） |
+| 90-92% | 18人（9%） | 70人（35%） |
+| 87-89% | 0 | 26人（13%） |
+| 84-86% | 0 | 9人（4.5%） |
+| 82-83% | 0 | 3人（1.5%） |
+
+所有用户匹配度 ≥82%，不会质疑匹配结果，同时有真正的区分度。
+
+---
+
+### 代码推送 GitHub
+
+完成上述所有改动后，将项目推送到 GitHub（排除 `.env` 和 `*.db` 等私密文件），共 22 个文件变更。

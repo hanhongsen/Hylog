@@ -139,24 +139,36 @@ def build_user_prompt(
 {chr(10).join(history_lines)}"""
 
     # 构建输出要求部分
-    output_requirements = """【输出要求】（请严格遵守）
-1. 【先共情回应，再过渡】
-   除本轮第一个问题外，每次都要先用一句话、用共情的方式回应用户的上一句回答
-   （比如"能感受到你那时确实有点纠结"），一句话即可，不要长篇大论，
-   然后自然过渡到新问题。
+    first_question = not history  # 首问题 = 没有历史对话（history是完整[Q&A]列表，空列表就意味着首轮）
+    first_question_clause = (
+        "本轮是第一个问题，用户还没有任何回答。"
+        "因此：直接输出【纯问题正文】（情境+选项+引导展开）即可，"
+        "绝对不要写任何共情回应/过渡/回应的话（不要有『能感受到』『原来』『确实』这类开头），"
+        "不要编造用户的情绪或经历。" if first_question else
+        "本轮不是第一个问题，请先用一句话共情回应用户的上一句回答，再自然过渡到新问题。"
+    )
+    output_requirements = f"""【输出要求】（请严格遵守）
+1. 【先共情回应，再过渡】——仅适用于非首问题
+   {first_question_clause}
 
 2. 【1+x 模式 —— 不是问多个问题】
    整段只包含一个核心问题，分成两部分：
    - "1"：给出一个有具体情境的问题，并提供清晰的选择项供用户作答（二选一或三选一），
           也可以提示用户可以给出自己想到的其他回应。
-   - "x"：在问题后用一句话，鼓励用户描述当时的具体细节或感受。
+   - "x"：在问题后用一句话引导用户展开，但不要固定追问"心情"。
+          根据问题内容灵活引导，例如：
+          - 问决策时 → "当时你主要考虑的是什么？" / "你更看重哪一点？"
+          - 问行为时 → "你当时具体是怎么做的？" / "能回忆下当时的情境吗？"
+          - 问偏好时 → "你为什么会倾向于这种选择？" / "这背后对你来说意味着什么？"
+          - 问社交时 → "当时你心里是怎么盘算的？"（只有涉及情绪感受的问题才问心情）
+          切记：不要所有问题都追问心情或感受，要根据问题性质灵活选择引导方式。
    切记：不要罗列多个并列问题让用户不知该答哪个。
 
 3. 【具体情境，而非空泛抽象】
    问题必须包含一个具体、能让人联想到自身经历的场景（一个具体场合 / 具体动作 / 具体时刻），
    让用户一读就想到"对，我就是这样的人"。
    ✅ 好：周五下班，同事临时拉你去一个十几人的聚餐，你的第一反应是期待，还是想找个借口推掉？
-        当时心里是怎么盘算的？
+        当时你主要考虑的是什么？
    ❌ 差：你周末更喜欢和朋友聚会还是独自待着？为什么？（太抽象、太宽泛，用户无从想起细节）
 
 4. 【简洁 ≠ 简单】
@@ -164,11 +176,12 @@ def build_user_prompt(
    - 不简单：情境要有信息量、有代入感。禁止"你喜欢社交吗？""你常焦虑吗？"这种一句话空洞问题。
 
 5. 【避免重复】
-   结合上方完整历史对话，不要问与之前高度相似的问题，请换一个新角度切入同一维度。
+   仔细查看上方完整历史对话（特别是最近3轮的问题），不要问与之前高度相似的问题。
+   换一个新角度切入同一维度，或选择该维度下尚未涉及的具体场景。
 
 【输出格式】
 只返回 JSON，不要有任何额外文字：
-{"question": "[共情回应上一句] + [过渡] + [具体情境问题+选择项] + [鼓励描述细节]"}"""
+{"question": "[共情回应上一句] + [过渡] + [具体情境问题+选择项] + [灵活引导展开]"}"""
 
     # 构建问题示例部分
     examples_info = ""
@@ -252,7 +265,8 @@ def generate_question(
     2. 构建 Prompt
     3. 调用 LLM
     4. 解析结果
-    5. 处理错误和 fallback
+    5. 重复检测（若生成问题与历史高度相似则重试）
+    6. 处理错误和 fallback
 
     参数:
         dimension_id: 维度ID（如 "social"）
@@ -305,29 +319,199 @@ def generate_question(
         {"role": "user", "content": user_prompt}
     ]
     
-    # 调用 LLM
-    try:
-        # 调用 chat 方法，指定功能类型为问题生成
-        response = chat(
-            messages=messages,
-            function="question_generation"
-        )
-        
-        # 解析结果
-        question = parse_question_response(response)
-        
-        # 如果解析成功，返回 AI 生成的问题
-        if question:
-            return {"question": question}
-        
-        # 解析失败，使用 fallback
-        fallback_question = dimension.get_random_question()
-        return {"question": fallback_question}
-        
-    except Exception as e:
-        # LLM 调用失败（网络错误、API错误等），使用 fallback
-        fallback_question = dimension.get_random_question()
-        return {"question": fallback_question}
+    # 调用 LLM（最多重试2次以避免重复）
+    last_fallback = None
+    for attempt in range(2):
+        try:
+            # 调用 chat 方法，指定功能类型为问题生成
+            response = chat(
+                messages=messages,
+                function="question_generation"
+            )
+            
+            # 解析结果
+            question = parse_question_response(response)
+            
+            if question:
+                # 重复检测：与全部历史问题比较相似度
+                if _is_similar_to_history(question, history):
+                    if attempt == 0:
+                        # 第一次生成重复，重试一次（在 prompt 中追加强调）
+                        messages[-1]["content"] += "\n\n【重要补充】你刚才的回答与之前的问题太相似了，请务必换一个完全不同的场景和角度来提问。"
+                        continue
+                    else:
+                        # 第二次还是重复，放弃 LLM 结果，使用 fallback 避免重复
+                        logger.warning("LLM 重试2次仍生成重复问题，改用 fallback")
+                        fallback_question = dimension.get_random_question()
+                        return {"question": fallback_question, "source": "fallback"}
+                return {"question": question, "source": "ai"}
+            
+            # 解析失败，尝试 fallback
+            fallback_question = dimension.get_random_question()
+            return {"question": fallback_question, "source": "fallback"}
+            
+        except Exception as e:
+            # LLM 调用失败，保存 fallback 以便重试
+            last_fallback = dimension.get_random_question()
+            if attempt == 0:
+                continue  # 重试一次
+            # 第二次仍失败，使用 fallback
+            break
+    
+    # 两次都失败，使用 fallback
+    fallback_question = last_fallback or dimension.get_random_question()
+    return {"question": fallback_question, "source": "fallback"}
+
+
+def _strip_empathy_prefix(question: str) -> str:
+    """
+    剥离问题中的共情前缀，返回纯问题正文
+
+    共情前缀通常是前30字内的简短情感回应（句号结尾），
+    如"能感受到你的倾向。"或"原来是这样，"。剥离后才能准确比较问题内容是否重复。
+    """
+    # 共情前缀识别词
+    empathy_words = [
+        "能感受", "能理解", "原来", "明白了", "确实", "看得出来",
+        "听得出来", "是这样", "了解", "说明你", "这表明",
+        "听起来", "这说明", "能看出", "懂", "这确实",
+        "看得出", "听得", "发现你", "感觉你",
+    ]
+    
+    # 取前50字，检查是否有共情开头
+    prefix_text = question[:50]
+    
+    # 尝试按句号/逗号分割，看第一个分句是否为共情
+    for sep in ["。", "！", "，", ","]:
+        idx = prefix_text.find(sep)
+        if 0 < idx < 40:
+            first_clause = prefix_text[:idx+1]
+            if any(w in first_clause for w in empathy_words):
+                # 去掉这个共情前缀，返回剩余内容
+                remaining = question[idx+1:].lstrip("，, ")
+                return remaining if remaining else question
+    
+    # 没检测到共情前缀，返回原文
+    return question
+
+
+def _is_similar_to_history(new_question: str, history: List[Dict]) -> bool:
+    """
+    检查新问题是否与历史中所有已问过的问题高度相似
+
+    先剥离共情前缀，再对问题正文进行全文相似度比较。
+    使用最长公共子序列(LCS)比例作为相似度指标，比关键词重叠更准确。
+
+    参数:
+        new_question: 新生成的问题文本
+        history: 对话历史
+
+    返回:
+        True 表示高度相似（应重试），False 表示可以使用
+    """
+    if not history:
+        return False
+
+    # 提取全部历史问题的正文（剥离共情前缀）
+    all_questions = []
+    for h in history:
+        if h.get("question"):
+            stripped = _strip_empathy_prefix(h["question"])
+            all_questions.append(stripped)
+
+    if not all_questions:
+        return False
+
+    # 剥离新问题的共情前缀
+    new_stripped = _strip_empathy_prefix(new_question)
+    
+    # 如果剥离后太短（可能是纯共情），直接判定为重复
+    if len(new_stripped) < 5:
+        return True
+
+    # 使用字符级编辑距离比例比较全文相似度
+    for old_q in all_questions:
+        similarity = _compute_text_similarity(new_stripped, old_q)
+        if similarity >= 0.6:  # 60% 以上文本相似视为重复
+            return True
+    
+    return False
+
+
+def _compute_text_similarity(text1: str, text2: str) -> float:
+    """
+    计算两段文本的相似度（基于字符级最长公共子序列比例）
+
+    比关键词重叠更准确，能检测到换说法但意思相同的重复问题。
+    时间复杂度 O(n*m)，但问题文本很短（<100字），完全可接受。
+
+    参数:
+        text1: 第一段文本
+        text2: 第二段文本
+
+    返回:
+        相似度 0-1
+    """
+    if not text1 or not text2:
+        return 0.0
+    
+    len1, len2 = len(text1), len(text2)
+    if len1 == 0 or len2 == 0:
+        return 0.0
+    
+    # 计算最长公共子序列
+    # 优化：只用一维数组，空间 O(min(len1, len2))
+    if len1 > len2:
+        text1, text2 = text2, text1
+        len1, len2 = len2, len1
+    
+    # dp[j] = LCS长度，按行更新
+    prev = [0] * (len2 + 1)
+    for i in range(1, len1 + 1):
+        curr = [0] * (len2 + 1)
+        for j in range(1, len2 + 1):
+            if text1[i-1] == text2[j-1]:
+                curr[j] = prev[j-1] + 1
+            else:
+                curr[j] = max(prev[j], curr[j-1])
+        prev = curr
+    
+    lcs_len = prev[len2]
+    # 相似度 = LCS长度 / 较短文本长度
+    return lcs_len / min(len1, len2)
+
+
+def _extract_keywords(text: str) -> set:
+    """
+    简单提取中文关键词（基于字符 n-gram 和停用词过滤）
+
+    参数:
+        text: 文本
+
+    返回:
+        关键词集合
+    """
+    if not text:
+        return set()
+    
+    # 常见停用词
+    stop_words = {
+        "的", "了", "是", "在", "我", "你", "他", "她", "它",
+        "有", "和", "就", "不", "人", "都", "一", "一个", "上",
+        "也", "很", "到", "说", "要", "去", "你是", "什么",
+        "怎么", "为什么", "哪", "哪个", "多少", "几", "吧",
+        "呢", "啊", "吗", "？", "?", "，", "。", "、",
+    }
+    
+    # 提取 2-gram 作为关键词
+    keywords = set()
+    clean_text = re.sub(r'[^\u4e00-\u9fff\w]', '', text)
+    for i in range(len(clean_text) - 1):
+        bigram = clean_text[i:i+2]
+        if bigram not in stop_words and len(bigram) >= 1:
+            keywords.add(bigram)
+    
+    return keywords
 
 
 # ============================================================================

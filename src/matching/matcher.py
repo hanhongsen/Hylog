@@ -408,8 +408,17 @@ def create_match_result(
     返回:
         MatchResult 对象
     """
-    # 计算相似度百分比
-    similarity_percent = int(similarity * 100)
+    # 计算相似度百分比（重映射）
+    # 5维正向量的余弦相似度天然集中在0.91-1.0窄区间，
+    # 直接×100会导致几乎所有人都显示90%+，没有区分度。
+    # 将 [0.91, 1.0] 线性映射到 [82, 95]，让不同用户有真正的区分度。
+    SIM_FLOOR = 0.91
+    SIM_CEIL = 1.00
+    PERCENT_FLOOR = 82
+    PERCENT_CEIL = 95
+    ratio = (similarity - SIM_FLOOR) / (SIM_CEIL - SIM_FLOOR)
+    ratio = max(0.0, min(1.0, ratio))
+    similarity_percent = int(PERCENT_FLOOR + ratio * (PERCENT_CEIL - PERCENT_FLOOR))
     
     # 计算热度等级
     heat_level, heat_percent = calculate_heat_level(

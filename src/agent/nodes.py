@@ -406,7 +406,7 @@ def generate_question_node(state: AgentState) -> str:
     生成问题节点
 
     基于当前维度、对话历史、人格状态生成下一个问题。
-    LLM 调用失败时自动 fallback 到该维度的备用问题。
+    LLM 调用失败时自动 fallback 到该维度的备用问题，并加入共情回应。
 
     参数:
         state: 当前会话状态
@@ -442,14 +442,296 @@ def generate_question_node(state: AgentState) -> str:
             gentle_retry=gentle_retry,
         )
         question = result["question"]
-        logger.info(f"[{state.session_id}] 问题生成成功(维度:{dimension_id}{'，柔和化重试' if gentle_retry else ''})")
+        source = result.get("source", "ai")
+
+        # 是否是「首问题」：还没有任何用户的回答，不应该出现共情回应（否则就变成瞎编用户情绪了）
+        has_any_user_answer = any(h.get("role") == "user" and h.get("content") for h in state.history)
+
+        # Fallback 问题（LLM 失败或解析失败）→ 只有存在用户回答时才加共情前缀
+        if source == "fallback":
+            if has_any_user_answer:
+                recent_emp = _get_recent_empathies(state.history)
+                empathy_prefix = _build_fallback_empathy(state.history, exclude=recent_emp)
+                if empathy_prefix:
+                    question = f"{empathy_prefix}{question}"
+                logger.warning(f"[{state.session_id}] 使用fallback问题(维度:{dimension_id})，已加共情前缀")
+            else:
+                logger.warning(f"[{state.session_id}] 使用fallback问题(维度:{dimension_id})，首轮无用户回答，跳过共情前缀")
+        else:
+            # AI 生成的问题：仅当存在用户回答时才检测/补共情前缀
+            # 首问题（没有任何历史回答）让 LLM 直接输出纯问题，不写共情
+            if has_any_user_answer:
+                question = _ensure_empathy_prefix(question, state.history)
+            else:
+                # 首问题兜底：如果 LLM 还是写了共情开头（「能感受到/原来…」），把它剥离掉
+                stripped = _strip_empathy_prefix(question)
+                if stripped != question:
+                    logger.info(f"[{state.session_id}] 首问题检测到冗余共情前缀，已剥离")
+                question = stripped
+
+        logger.info(f"[{state.session_id}] 问题生成成功(维度:{dimension_id}{'，柔和化重试' if gentle_retry else ''}, source={source})")
     except Exception as e:
-        # 生成失败，使用该维度的备用问题
-        logger.warning(f"[{state.session_id}] 问题生成失败({e})，使用备用问题")
+        # _generate_question 内部已 try-except，不会抛到这里
+        # 但做防御性处理
+        logger.error(f"[{state.session_id}] 问题生成异常({e})，使用备用问题+共情")
         dim = get_dimension_by_id(dimension_id)
-        question = dim.get_random_question()
+        fallback = dim.get_random_question()
+        # 异常兜底：首问题（没有任何历史回答）不加共情前缀
+        has_any_user_answer = any(h.get("role") == "user" and h.get("content") for h in state.history)
+        if has_any_user_answer:
+            recent_emp = _get_recent_empathies(state.history)
+            empathy_prefix = _build_fallback_empathy(state.history, exclude=recent_emp)
+            question = f"{empathy_prefix}{fallback}" if empathy_prefix else fallback
+        else:
+            question = fallback
 
     return question
+
+
+def _get_recent_empathies(history: List[Dict], max_rounds: int = 5) -> List[str]:
+    """
+    从对话历史中提取最近N轮已使用的共情前缀，用于避免重复
+
+    参数:
+        history: 对话历史
+        max_rounds: 检查最近几轮
+
+    返回:
+        最近使用的共情前缀列表（按时间倒序）
+    """
+    recent_empathies = []
+    ai_messages = [h for h in history if h.get("role") == "assistant"]
+    for msg in reversed(ai_messages[-max_rounds:]):
+        content = msg.get("content", "")
+        if not content:
+            continue
+        # 提取前40字中的共情前缀
+        for sep in ["。", "！", "，", ","]:
+            idx = content.find(sep)
+            if 0 < idx < 40:
+                first_clause = content[:idx+1]
+                if len(first_clause) >= 4:
+                    recent_empathies.append(first_clause)
+                    break
+    return recent_empathies
+
+
+def _ensure_empathy_prefix(question: str, history: List[Dict]) -> str:
+    """
+    检测 AI 生成的问题是否已包含共情回应，没有则自动补上。
+
+    同时检查共情前缀是否与最近5轮重复，若重复则更换。
+
+    参数:
+        question: AI 生成的问题文本
+        history: 对话历史
+
+    返回:
+        确保有共情前缀的问题文本
+    """
+    if not history:
+        return question
+
+    # 找最后一条用户消息
+    last_user_answer = ""
+    for h in reversed(history):
+        if h.get("role") == "user":
+            last_user_answer = h.get("content", "")
+            break
+
+    if not last_user_answer:
+        return question
+
+    # 扩展的共情识别词表
+    empathy_indicators = [
+        "能感受", "能理解", "原来", "明白了", "确实", "看得出来",
+        "听得出来", "是这样", "了解", "说明你", "这表明",
+        "听起来", "这说明", "能看出", "懂", "这确实",
+        "看得出", "听得", "发现你", "感觉你",
+        "想不到", "没想到", "能体会", "能感觉到",
+        "看出来你", "感觉得到", "值得注意",
+        "有意思", "有趣", "特别", "原来如此",
+        "你习惯", "你在那", "愿意", "想不到",
+    ]
+    prefix = question[:40]
+    has_empathy = any(w in prefix for w in empathy_indicators)
+
+    # 获取最近5轮已用共情前缀
+    recent = _get_recent_empathies(history)
+
+    if has_empathy:
+        # 检查当前共情前缀是否与最近重复
+        already_used = False
+        for old_emp in recent:
+            if old_emp and old_emp in question[:40]:
+                already_used = True
+                break
+        
+        if not already_used:
+            return question  # 有共情且不重复
+
+        # 重复了，剥离原前缀，用新的替换
+        for sep in ["。", "！", "，", ","]:
+            idx = question.find(sep)
+            if 0 < idx < 40:
+                question = question[idx+1:].lstrip("，, ")
+                break
+
+    # 生成不重复的共情前缀
+    empathy = _build_fallback_empathy(history, exclude=recent)
+    if empathy:
+        return f"{empathy}{question}"
+    return question
+
+
+def _build_fallback_empathy(history: List[Dict], exclude: List[str] = None) -> str:
+    """
+    从对话历史中提取最后一条用户回答，生成共情前缀
+
+    根据回答内容的关键词匹配不同类别，每类有多个模板随机选择，
+    避免每次都用同一种说法。支持排除已使用的模板。
+
+    参数:
+        history: AgentState 中的对话历史
+        exclude: 需要排除的已用共情前缀列表
+
+    返回:
+        共情前缀文本，如 "看得出你是个很重过程的人。" 或空字符串
+    """
+    import random
+
+    if exclude is None:
+        exclude = []
+
+    # 找最后一条用户消息
+    last_user_answer = ""
+    for h in reversed(history):
+        if h.get("role") == "user":
+            last_user_answer = h.get("content", "")
+            break
+
+    if not last_user_answer:
+        return ""
+
+    # 按回答内容的情感/行为特征分类，每类多个模板随机选
+    # 模板设计原则：口语化、不重复、像真人朋友在聊天、不用"嗯"
+    if any(kw in last_user_answer for kw in ["不想", "不愿", "不喜欢", "讨厌", "拒绝", "排斥", "逃避"]):
+        # 回避/拒绝类
+        templates = [
+            "看得出来你对这个有点抵触。",
+            "这确实不是你爱碰的事。",
+            "能理解，有些事确实让人想绕开。",
+            "这种事确实挺让人头疼的。",
+            "懂，能感觉到你不太想碰这块。",
+        ]
+    elif any(kw in last_user_answer for kw in ["喜欢", "享受", "偏爱", "热爱", "感兴趣", "好奇"]):
+        # 喜好/热爱类
+        templates = [
+            "看得出你在这方面挺有热情的。",
+            "能感觉说到这个你眼睛都亮了。",
+            "这确实是你喜欢的方向。",
+            "听得出来你挺享受这种状态的。",
+            "看得出来，这是你会投入精力的事。",
+        ]
+    elif any(kw in last_user_answer for kw in ["纠结", "犹豫", "矛盾", "两难", "不知道怎么", "拿不定"]):
+        # 纠结/犹豫类
+        templates = [
+            "能感觉到你当时确实有点拿不准。",
+            "这种事确实让人左右为难。",
+            "能想象你当时在脑子里反复权衡的样子。",
+            "听得出来，这个选择对你来说不太轻松。",
+            "确实是那种怎么选都觉得差点意思的情况。",
+        ]
+    elif any(kw in last_user_answer for kw in ["紧张", "焦虑", "担心", "害怕", "慌", "忐忑", "不安"]):
+        # 焦虑/紧张类
+        templates = [
+            "能感觉到那件事让你挺有压力的。",
+            "那种忐忑的感觉确实不好受。",
+            "看得出来你在那件事上背负了不少。",
+            "能理解，那种不确定感确实挺磨人的。",
+            "听得出来你当时心里不太踏实。",
+        ]
+    elif any(kw in last_user_answer for kw in ["努力", "坚持", "硬着", "咬牙", "扛", "拼", "奋斗"]):
+        # 努力/坚持类
+        templates = [
+            "看得出来你是个能扛事的人。",
+            "你在那件事上确实下了不少功夫。",
+            "能感觉到你骨子里有股不服输的劲儿。",
+            "听得出来，你是那种会逼自己一把的人。",
+            "看得出来，就算难你也不会轻易放弃。",
+        ]
+    elif any(kw in last_user_answer for kw in ["一个人", "独自", "自己", "独处", "安静", "一个人待"]):
+        # 独处/内向类
+        templates = [
+            "看得出你挺享受自己一个人待着的时光。",
+            "独处对你来说更像是充电。",
+            "能理解，人在安静的时候反而想得更清楚。",
+            "看得出来你是那种能从独处中获得能量的人。",
+            "懂，有些事确实更适合一个人慢慢消化。",
+        ]
+    elif any(kw in last_user_answer for kw in ["朋友", "一起", "团队", "合作", "商量", "找人"]):
+        # 社交/合作类
+        templates = [
+            "看得出来你挺重视身边人的。",
+            "能感觉到你在关系里是会考虑对方的。",
+            "能理解，有些事确实需要有人一起分担。",
+            "听得出来你蛮在意和别人的互动方式的。",
+            "看得出，你在人际交往上有自己的节奏。",
+        ]
+    elif any(kw in last_user_answer for kw in ["计划", "目标", "规划", "安排", "清单", "条理"]):
+        # 计划/条理类
+        templates = [
+            "看得出你是个做事有条理的人。",
+            "你习惯把事情理清楚了再动手。",
+            "能感觉到你对自己要做什么心里有数。",
+            "听得出来你是那种先想好再走的人。",
+            "看得出，比起随机应变你更擅长提前布局。",
+        ]
+    elif any(kw in last_user_answer for kw in ["乐观", "相信", "希望", "总会好的", "往好处想"]):
+        # 乐观/积极类
+        templates = [
+            "看得出来你是个骨子里偏乐观的人。",
+            "能感觉到你习惯往好的方向看。",
+            "能理解，有些时候心态确实比结果重要。",
+            "听得出你是那种相信事情会有转机的人。",
+            "看得出，你不会轻易被困难打垮。",
+        ]
+    elif any(kw in last_user_answer for kw in ["细节", "认真", "仔细", "精益求精", "完美", "讲究"]):
+        # 细节/认真类
+        templates = [
+            "看得出你做事蛮讲究的。",
+            "能感觉到你对细节有自己的标准。",
+            "听得出来你不是那种差不多就行的人。",
+            "看得出来，你会把事情做到自己满意为止。",
+            "能理解，有些东西确实值得多花点心思。",
+        ]
+    elif any(kw in last_user_answer for kw in ["怀疑", "不够好", "自我怀疑", "反思", "改进", "不足"]):
+        # 自我反思类
+        templates = [
+            "能感觉到你对自己有挺高的要求。",
+            "愿意这样审视自己的人不多。",
+            "看得出来你在一直想办法变得更好。",
+            "听得出来你是那种会反复琢磨自己的人。",
+            "能理解，有些时候确实不太容易对自己满意。",
+        ]
+    else:
+        # 通用兜底
+        templates = [
+            "原来是这样。",
+            "了解了。",
+            "听得出来你有自己的想法。",
+            "看得出来你是个有自己节奏的人。",
+            "懂了，你的想法挺清楚的。",
+            "能感觉到你思考过这件事。",
+            "了解，每个人确实都有自己的方式。",
+        ]
+
+    # 过滤掉已使用的模板
+    available = [t for t in templates if t not in exclude]
+    if not available:
+        available = templates  # 如果全被排除了，就用所有模板（避免空）
+
+    return random.choice(available)
 
 
 def _build_history_for_question(history: List[Dict]) -> List[Dict]:
